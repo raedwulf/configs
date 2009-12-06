@@ -1,0 +1,63 @@
+*customization: -color
+XTerm*termName: xterm-256color
+XTerm*foreground: dodgerblue
+XTerm*background: black
+XTerm*internalBorder: 1
+XTerm*scrollBar: false
+XTerm*saveLines: 1000
+XTerm*scrollKey: true
+xterm*faceName: terminus:pixelsize=10
+
+xft*dpi: 96
+xft*antialias: true
+xft*rgba: rgb
+
+urxvt.termName: rxvt-256color
+urxvt.scrollBar: false
+urxvt.scrollTtyOutput: false
+urxvt.scrollWithBuffer: true
+urxvt.scrollTtyKeypress: true
+urxvt.secondaryScroll: true
+urxvt.jumpScroll: true
+urxvt.skipScroll: true
+
+urxvt.perl-ext-common: default,matcher,readline,selection-autotransform
+
+urxvt.matcher.button: 1
+urxvt.selection-autotransform.0: s/^([^:[:space:]]+):(\\d+):?$/vi +$2 \\Q$1\\E\\x0d/
+
+! FONTS
+urxvt.font: xft:fixed:pixelsize=14:antialias=true:hinting=false
+urxvt.boldFont: xft:fixed:style=Bold:pixelsize=14:antialias=false:hinting=true
+!urxvt.font: xft:sans:size=6:antialias=true:hinting=true
+!urxvt.boldFont: xft:sans:style=Bold:size=6:antialias=true:hinting=true
+!urxvt.font: xft:fixed:size=9:antialias=false:hinting=false
+!urxvt.boldFont: xft:fixed:style=Underline:size=9:antialias=false:hinting=false
+urxvt.depth: 32
+urxvt.background: rgba:0000/0000/0000/cccc
+urxvt.foreground: dodgerblue
+urxvt.cursorColor: blue
+urxvt.cursorBlink: true
+!urxvt.tintColor: black
+!urxvt.inheritPixmap: true 
+!urxvt.backgroundPixmap: /home/archlucas/pictures/bg.png;:root
+urxvt.saveLines: 500
+urxvt.visualBell: false
+urxvt.dynamicColors:  on
+urxvt.highlightSelection:  true
+urxvt.borderWidth: 0 
+urxvt.urlLauncher: firefox
+urxvt.pointerBlank: true
+urxvt.internalBorder: 3 
+!urxvt.urgentOnBell: true
+!urxvt.visualBell: true
+
+xpdf.reverseVideo: true
+xpdf.initialZoom: width
+xpdf.matteColor: black
+xpdf.paperColor: black
+xpdf*enableFreetype: yes
+xpdf*foreground:dodgerblue
+xpdf*background:black
+xpdf.fontList: ter-d24n
+xpdf.urlCommand: browser %s
