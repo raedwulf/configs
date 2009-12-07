@@ -8,7 +8,7 @@ xbacklight -set 50
 
 DEFAULTSESSION=awesome
 case "$1" in
-        "gnome" | "kde" | "xfce4" | "icewm" | "fluxbox" | "xmonad" | "awesome" ) SESSION=$1 ;;
+        "gnome" | "xfce4" | "awesome" ) SESSION=$1 ;;
         *) SESSION="awesome" ;;
 esac
 
@@ -16,20 +16,8 @@ case "$SESSION" in
         "gnome")
                 exec gnome-session
                 ;;
-        "kde")
-                exec startkde
-                ;;
         "xfce4")
                 exec startxfce4
-                ;;
-        "icewm")
-                exec icewm-session
-                ;;
-        "fluxbox")
-                exec startfluxbox
-                ;;
-        "xmonad")
-                exec xmonad
                 ;;
         *)
 		# Startup programs
