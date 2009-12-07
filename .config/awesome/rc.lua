@@ -224,7 +224,7 @@ globalkeys = awful.util.table.join(
 
     -- Standard program
     awful.key({ modkey,           }, "#24", function () awful.util.spawn(terminal) end), -- q
-    awful.key({ modkey,           }, "#45", function () awful.util.spawn(terminal.." -e irc") end), -- k
+    awful.key({ modkey,           }, "#45", function () awful.util.spawn(terminal.." -e "..os.getenv("HOME").."/bin/irc") end), -- k
     awful.key({ modkey,           }, "#56", function () awful.util.spawn(browser) end), -- b
     awful.key({ modkey,           }, "#43", function () awful.util.spawn(mail) end), -- h
     awful.key({ modkey, "Control" }, "#27", awesome.restart), -- r
