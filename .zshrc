@@ -161,7 +161,7 @@ zstyle ':completion:*:*:killall:*:processes' command 'ps --forest -A -o pid,user
 # Completion Styles
 
 # list of completers to use
-#zstyle ':completion:*::::' completer _expand _complete _ignored _approximate
+zstyle ':completion:*::::' completer _expand _complete _ignored _approximate
     
 # insert all expansions for expand completer
 zstyle ':completion:*:expand:*' tag-order all-expansions
