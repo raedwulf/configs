@@ -86,7 +86,7 @@ mysystray = widget({ type = "systray" })
 -- Keyboard map indicator and changer
 kbdcfg = {}
 kbdcfg.cmd = "setxkbmap"
-kbdcfg.layout = { "us", "uk", "dvorak" }
+kbdcfg.layout = { "us", "gb", "gb dvorak" }
 kbdcfg.current = 1  -- us is our default layout
 kbdcfg.widget = widget({ type = "textbox", align = "right" })
 kbdcfg.widget.text = " " .. kbdcfg.layout[kbdcfg.current] .. " "
@@ -357,7 +357,7 @@ awful.rules.rules = {
     { rule = { class = "MPlayer" },
       properties = { floating = true } },
 	{ rule = { class = "Evince" },
-      properties = { floating = true } },
+      properties = { floating = false } },
     { rule = { class = "pinentry" },
       properties = { floating = true } },
     { rule = { class = "Gimp" },
