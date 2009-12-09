@@ -8,7 +8,7 @@ XTerm*saveLines: 1000
 XTerm*scrollKey: true
 xterm*faceName: terminus:pixelsize=10
 
-xft*dpi: 96
+xft*dpi:96 
 xft*antialias: true
 xft*rgba: rgb
 
@@ -27,12 +27,8 @@ urxvt.matcher.button: 1
 urxvt.selection-autotransform.0: s/^([^:[:space:]]+):(\\d+):?$/vi +$2 \\Q$1\\E\\x0d/
 
 ! FONTS
-urxvt.font: xft:fixed:pixelsize=14:antialias=true:hinting=false
-urxvt.boldFont: xft:fixed:style=Bold:pixelsize=14:antialias=false:hinting=true
-!urxvt.font: xft:sans:size=6:antialias=true:hinting=true
-!urxvt.boldFont: xft:sans:style=Bold:size=6:antialias=true:hinting=true
-!urxvt.font: xft:fixed:size=9:antialias=false:hinting=false
-!urxvt.boldFont: xft:fixed:style=Underline:size=9:antialias=false:hinting=false
+urxvt.font: xft:Monospace:pixelsize=9:antialias=true:hinting=true
+urxvt.boldFont: xft:Monospace:style=Bold:pixelsize=9:antialias=true:hinting=true
 urxvt.depth: 32
 urxvt.background: rgba:0000/0000/0000/cccc
 urxvt.foreground: dodgerblue
