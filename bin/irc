@@ -1,2 +1,2 @@
 #!/bin/sh
-ssh router -t weescreen
+ssh router -t /home/raedwulf/bin/weescreen
