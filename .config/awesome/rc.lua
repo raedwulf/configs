@@ -3,10 +3,12 @@
 require("awful")
 require("awful.autofocus")
 require("awful.rules")
--- Theme handling library
+-- Beautiful: Theme handling library
 require("beautiful")
--- Notification library
+-- Naughty: Notification library
 require("naughty")
+-- Teardrop: Dropdown terminal
+require("teardrop")
 -- }}}
 
 -- {{{ Variable definitions
@@ -362,6 +364,8 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "Gimp" },
       properties = { floating = true } },
+    { rule = { class = "Skype" },
+      properties = { floating = true } },
     -- Set Firefox to always map on tags number 2 of screen 1.
     { rule = { class = "Firefox" },
       properties = { tag = tags[1][9] } },
@@ -402,6 +406,53 @@ end)
  
 client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+-- }}}
+
+-- Set geometry
+mailnotify:geometry({ x = 0, y = 0, height = 20, width = 220 })
+mailnotify.ontop = true
+mailnotify.screen = nil
+
+-- Create textbox
+mailnotify_text = widget({ type = "textbox" })
+
+-- Add textbox to wibox
+mailnotify.widgets = {mailnotify_text, 
+    layout = awful.widget.layout.horizontal.leftright}
+
+function mailnotify_set(num)
+    if num ~= 0 then
+        mailnotify_text.text = "-*- Unread Mail: -["..num.."]- -*-"
+        mailnotify.screen = client.focus.screen
+    else
+        mailnotify.screen = nil
+    end
+end
+
+-- {{{ Listen to remote code over tempfile
+remotefile = timer { timeout = 1 }
+remotefile:add_signal("timeout", function()
+    local file = io.open('/tmp/awesome-remote')
+    local exe = {}
+
+    if file then
+        -- Read all code
+        for line in file:lines() do
+            table.insert(exe, line)
+        end
+
+        -- Close and delete file
+        file:close()
+        os.remove('/tmp/awesome-remote')
+
+        -- Execute code
+        for i, code in ipairs(exe) do
+            loadstring(code)()
+        end
+    end
+end)
+
+remotefile:start()
 -- }}}
 
 -- vim: set filetype=lua fdm=marker tabstop=4 shiftwidth=4 expandtab smarttab autoindent smartindent nu:
