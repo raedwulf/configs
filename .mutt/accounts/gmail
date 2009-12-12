@@ -1,0 +1,23 @@
+# Raedwulf's gmail account settings
+
+macro index \e1 'c?c<kill-line>imaps://imap.gmail.com/<enter>/INBOX<enter><enter>'
+
+account-hook imaps://imap.gmail.com/ \
+	'set imap_user=tcmreastwood@gmail.com \
+	ssl_force_tls=yes \
+	smtp_url=smtps://$imap_user:$imap_pass@smtp.gmail.com'
+	
+folder-hook imaps://imap.gmail.com/ \
+	'set folder=imaps://imap.gmail.com \
+	from="Tai Chi Minh Ralph Eastwood <tcmreastwood@gmail.com>" \
+	spoolfile=+INBOX \
+	postponed="+[Gmail]Drafts" \
+	record="+[Gmail]/Sent Mail" \
+	mbox="+[Gmail]/All Mail" \
+	signature=~/.signature-csyork \
+	status_format="-%r-gmail: %f \
+	[Msgs:%?M?%M/?%m%?n? New:%n?%?o? Old:%o?%?d? Del:%d?%?F? \
+	Flag:%F?%?t? Tag:%t?%?p? Post:%p?%?b? \
+	Inc:%b?%?l? %l?]---(%s/%S)-%>-(%P)---"'
+
+# vim: set syntax=muttrc

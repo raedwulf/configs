@@ -1,0 +1,22 @@
+# Raedwulf's csyork account settings
+
+macro index \e2 'c?c<kill-line>imap://imap-student.cs.york.ac.uk/<enter>/INBOX<enter><enter>'
+              
+account-hook imap://imap-student.cs.york.ac.uk/ \
+	'set imap_user=tcme500 \
+	smtp_url=smtps://$imap_user:$imap_pass@smtpauth.student.cs.york.ac.uk \
+	ssl_force_tls=yes'
+	
+folder-hook imap://imap-student.cs.york.ac.uk/ \
+	'set folder=imap://imap-student.cs.york.ac.uk \
+	from="Tai Chi Minh Ralph Eastwood <tcme500@cs.york.ac.uk>" \
+	spoolfile=+INBOX \
+	postponed=+drafts \
+	record=+sent \
+	signature=~/.signature \
+	status_format="-%r-csyork: %f \
+	[Msgs:%?M?%M/?%m%?n? New:%n?%?o? Old:%o?%?d? Del:%d?%?F? \
+	Flag:%F?%?t? Tag:%t?%?p? Post:%p?%?b? \
+	Inc:%b?%?l? %l?]---(%s/%S)-%>-(%P)---"'
+
+# vim: set syntax=muttrc
