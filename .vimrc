@@ -23,11 +23,11 @@ noremap <Leader>e e
 noremap <silent> e :w<CR>
 
 " Meta-o for inserting a blank line
-"noremap <Esc>o o<Esc>
+noremap <Esc>o o<Esc>
 
 " O mappings for not inserting the comment leader
-"noremap go o<Esc>S
-"noremap gO O<Esc>S
+noremap go o<Esc>S
+noremap gO O<Esc>S
 
 " To prevent annoying mispresses
 vmap K k
@@ -68,7 +68,7 @@ nnoremap <silent> <Esc>c :A<CR>
 nnoremap <silent> <Esc>g :IncBufSwitch<CR>
 nnoremap <silent> <Esc>b :e .<CR>
 
-nnoremap <silent> <Esc>w :bnext<CR>
+nnoremap <silent> <Esc>x :bnext<CR>
 nnoremap <silent> <Esc>v :bprev<CR>
 " }}}
 
