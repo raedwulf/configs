@@ -1,0 +1,8 @@
+[ui]
+username = Ralph Eastwood <tcmreastwood@gmail.com>
+merge = vimdiff
+
+[extensions]
+hgext.convert=
+mq=
+record=
