@@ -4,16 +4,17 @@ macro index \e1 'c?c<kill-line>imaps://imap.gmail.com/<enter>/INBOX<enter><enter
 
 account-hook imaps://imap.gmail.com/ \
 	'set imap_user=tcmreastwood@gmail.com \
+	imap_authenticators="login:cram-md5" \
 	ssl_force_tls=yes \
-	smtp_url=smtps://$imap_user:$imap_pass@smtp.gmail.com'
+	smtp_url=smtp://$imap_user:$imap_pass@smtp.gmail.com:587'
 	
 folder-hook imaps://imap.gmail.com/ \
 	'set folder=imaps://imap.gmail.com \
-	from="Tai Chi Minh Ralph Eastwood <tcmreastwood@gmail.com>" \
+	from="tcmreastwood@gmail.com" \
 	spoolfile=+INBOX \
-	postponed="+[Gmail]Drafts" \
-	record="+[Gmail]/Sent Mail" \
-	mbox="+[Gmail]/All Mail" \
+	postponed="+[Google Mail]/Drafts" \
+	record="+[Google Mail]/Sent Mail" \
+	mbox="+[Google Mail]/All Mail" \
 	signature=~/.signature-csyork \
 	status_format="-%r-gmail: %f \
 	[Msgs:%?M?%M/?%m%?n? New:%n?%?o? Old:%o?%?d? Del:%d?%?F? \

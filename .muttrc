@@ -8,11 +8,11 @@ set realname = "Tai Chi Minh Ralph Eastwood"
 #set spoolfile = "+INBOX"
 #set record="+sent"
 #set postponed="+drafts"
-set from = "tcmreastwood@gmail.com"
+set from="tcmreastwood@gmail.com"
 set folder=imaps://imap.gmail.com
 set spoolfile=+INBOX
-set postponed=+[Gmail]/Drafts
-set record="+[Gmail]/Sent Mail"
+set postponed="+[Google Mail]/Drafts"
+set record="+[Google Mail]/Sent Mail"
 mailboxes =INBOX
 
 # Accounts
@@ -96,7 +96,6 @@ set sort = 'threads'
 set sort_aux = 'last-date-received'
 
 # Batch headers
-my_hdr From: tcmreastwood@gmail.com (Tai Chi Minh Ralph Eastwood)
 set edit_headers
 
 # Editor
