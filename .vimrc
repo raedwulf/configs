@@ -150,6 +150,15 @@ let html_use_css = 1
 " }}}
 
 " {{{ Vim Settings
+
+" Don't be vi compatible
+set nocompatible
+
+" Setup mouse for xclip and scrolling
+if has('mouse')
+    set mouse=av
+endif
+
 " Color Schemes
 if $TERM == 'linux'
     " Virtual Console
