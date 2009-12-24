@@ -235,6 +235,9 @@ set scrolloff=3
 " Shortmess
 set shortmess=atI
 
+" Allow backup
+set backup
+
 " Swap files
 set backupdir=~/tmp,/var/tmp,/tmp
 set directory=~/tmp,/var/tmp,/tmp
