@@ -48,6 +48,9 @@ nnoremap <C-y> 3<C-y>
 noremap <Leader># #*
 noremap <Leader>* *#
 
+" C++ //-comment to C /*-comment-*/
+noremap <Leader>c :%s://\(.*\):/*\1 */:<CR>
+
 " Quickly send keys to a screen session through slime.vim
 " Allows for test-execution of scripts and whatnot without leaving vim.
 nmap <C-c>m :call Send_to_Screen("<C-v>")<CR>
@@ -155,9 +158,7 @@ let html_use_css = 1
 set nocompatible
 
 " Setup mouse for xclip and scrolling
-if has('mouse')
-    set mouse=av
-endif
+set mouse=av
 
 " Color Schemes
 if $TERM == 'linux'
@@ -202,6 +203,9 @@ set shiftwidth=8
 
 " Copy indent from current line when starting a new line
 set autoindent
+
+" Smart indent
+set smartindent
 
 " Load cindent
 set cindent
