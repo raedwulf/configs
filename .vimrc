@@ -323,9 +323,9 @@ autocmd BufReadPost *
     \ endif
 
 " Detect the indentation of current file
-autocmd BufReadPost * :DetectIndent
-autocmd BufReadPost * :let g:detectindent_preferred_expandtab = 0
-autocmd BufReadPost * :let g:detectindent_preferred_indent = 8
+"autocmd BufReadPost * :DetectIndent
+"autocmd BufReadPost * :let g:detectindent_preferred_expandtab = 8
+"autocmd BufReadPost * :let g:detectindent_preferred_indent = 8
 " }}}
 
 " {{{ Functions
