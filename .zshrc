@@ -17,7 +17,7 @@ else
    export TERM='rxvt-256color'
 fi
 
-export PATH=$HOME/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Options
 setopt appendhistory allexport autolist automenu menu_complete
