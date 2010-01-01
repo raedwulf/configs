@@ -117,6 +117,15 @@ imap <F9> <C-O><F9>
 " F10: Rebuild ctags
 map <F10> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q -f .tags .<CR>
 
+" F11: Show Spaces
+command -bar -nargs=? ShowSpaces call ShowSpaces(<args>)
+nnoremap <F11>     :ShowSpaces 1<CR>
+
+" F12: Trim Spaces
+command -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
+nnoremap <F12>   m`:TrimSpaces<CR>``
+vnoremap <F12>   :TrimSpaces<CR>
+
 " }}}
 " }}}
 
@@ -358,6 +367,24 @@ function! HighlightLongToggle()
         let w:toolongmatch = matchadd('IncSearch', '\%>80v.\+', -1)
         echo "  highlight long"
     endif
+endfunction
+" }}}
+" {{{ Whitespace
+function ShowSpaces(...)
+	let @/="\\v(\\s+$)|( +\\ze\\t)"
+	let oldhlsearch=&hlsearch
+	if !a:0
+		let &hlsearch=!&hlsearch
+	else
+		let &hlsearch=a:1
+	end
+	return oldhlsearch
+endfunction
+
+function TrimSpaces() range
+	let oldhlsearch=ShowSpaces(1)
+	execute a:firstline.",".a:lastline."substitute ///gec"
+	let &hlsearch=oldhlsearch
 endfunction
 " }}}
 " }}}
