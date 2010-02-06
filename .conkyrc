@@ -77,7 +77,7 @@ ${color grey}File systems:
  / $color${fs_used /}/${fs_size /} ${fs_bar 6 /}
  /home $color${fs_used /home}/${fs_size /home} ${fs_bar 6 /home}
  /var $color${fs_used /var}/${fs_size /var} ${fs_bar 6 /var}
- /var/tmp $color${fs_used /tmp}/${fs_size /tmp} ${fs_bar 6 /tmp}
+ /data $color${fs_used /data}/${fs_size /data} ${fs_bar 6 /data}
  /tmp $color${fs_used /tmp}/${fs_size /tmp} ${fs_bar 6 /tmp}
 ${color grey}Networking:
 Up:$color ${upspeed eth0} ${color grey} - Down:$color ${downspeed eth0}
