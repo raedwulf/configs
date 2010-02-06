@@ -335,6 +335,9 @@ autocmd BufReadPost *
     \   exe "normal! g`\"" |
     \ endif
 
+" Support syntax highlighting of glsl shaders
+autocmd BufEnter *.frag,*.vert,*.fp,*.vp,*.glsl,*.vs,*.fs setf glsl
+
 " Detect the indentation of current file
 "autocmd BufReadPost * :DetectIndent
 "autocmd BufReadPost * :let g:detectindent_preferred_expandtab = 8
