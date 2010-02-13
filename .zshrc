@@ -72,7 +72,6 @@ bindkey "\e[5D" backward-word
 bindkey "\eOd" emacs-backward-word
 bindkey "\e\e[C" forward-word
 bindkey "\e\e[D" backward-word
-bindkey "^H" backward-delete-word
 # for rxvt
 bindkey "\e[8~" end-of-line
 bindkey "\e[7~" beginning-of-line
@@ -129,6 +128,7 @@ if [ ${PLATFORM} = "FreeBSD" ]; then
    alias firefox='firefox3'
 fi
 alias get_iplayer='get_iplayer --nopurge '
+alias biew='TERM=vt100 biew'
 
 # Completion
 zstyle ':completion:*' menu select=2
