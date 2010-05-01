@@ -86,7 +86,7 @@ bindkey '^i' expand-or-complete-prefix
 
 # Editors
 export EDITOR="vim"
-export BROWSER="seamonkey -url"
+export BROWSER="firefox"
 
 # Set up auto extension stuff
 alias -s html=$BROWSER
