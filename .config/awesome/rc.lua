@@ -3,9 +3,9 @@
 require("awful")
 require("awful.autofocus")
 require("awful.rules")
--- Beautiful: Theme handling library
+-- Theme handling library
 require("beautiful")
--- Naughty: Notification library
+-- Notification library
 require("naughty")
 -- Teardrop: Dropdown terminal
 require("teardrop")
