@@ -1,2 +1,2 @@
 #!/bin/sh
-ssh router -t /home/raedwulf/bin/weescreen
+ssh router -t dtach -A /tmp/irssi-dtach irssi
