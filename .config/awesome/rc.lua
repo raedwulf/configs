@@ -19,7 +19,7 @@ beautiful.init(os.getenv("HOME").."/.config/awesome/themes/arch/theme.lua")
 terminal = "urxvtc"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
-browser = "uzbl"
+browser = "uzbl-browser"
 mail = terminal .. " -e " .. "mutt"
 -- }}}
 
