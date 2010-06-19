@@ -88,8 +88,8 @@ mysystray = widget({ type = "systray" })
 -- Keyboard map indicator and changer
 kbdcfg = {}
 kbdcfg.cmd = "setxkbmap"
-kbdcfg.layout = { "us", "gb", "gb dvorak" }
-kbdcfg.current = 1  -- us is our default layout
+kbdcfg.layout = { "gb", "us", "gb dvorak" }
+kbdcfg.current = 1  -- gb is our default layout
 kbdcfg.widget = widget({ type = "textbox", align = "right" })
 kbdcfg.widget.text = " " .. kbdcfg.layout[kbdcfg.current] .. " "
 kbdcfg.switch = function ()
@@ -287,7 +287,8 @@ clientkeys = awful.util.table.join(
             c.maximized_horizontal = not c.maximized_horizontal
             c.maximized_vertical   = not c.maximized_vertical
         end),
-    awful.key({ modkey }, "Scroll_Lock", kbdcfg.switch)
+    awful.key({ modkey }, "Scroll_Lock", kbdcfg.switch),
+    awful.key({        }, "#110", awful.util.spawn("scrot '%Y-%m-%d_%H.%M.%S_$wx$h_scrot.png' -e 'mv $f ~/pictures/screenshots/'"))
 )
 
 -- Compute the maximum number of digit we need, limited to 9
