@@ -1,16 +1,16 @@
 # Raedwulf's csyork account settings
 
-macro index \e2 'c?c<kill-line>imap://imap-student.cs.york.ac.uk/<enter>/INBOX<enter><enter>'
+macro index \e2 'c?c<kill-line>imaps://imap.student.cs.york.ac.uk/INBOX<enter><enter>'
               
-account-hook imap://imap-student.cs.york.ac.uk/ \
+account-hook imaps://imap.student.cs.york.ac.uk/ \
 	'set imap_user=tcme500 \
 	smtp_url=smtps://$imap_user:$imap_pass@smtpauth.student.cs.york.ac.uk \
 	ssl_force_tls=yes'
 	
-folder-hook imap://imap-student.cs.york.ac.uk/ \
-	'set folder=imap://imap-student.cs.york.ac.uk \
+folder-hook imaps://imap.student.cs.york.ac.uk/ \
+	'set folder=imaps://imap.student.cs.york.ac.uk \
 	from="tcme500@cs.york.ac.uk" \
-	spoolfile=+INBOX \
+	spoolfile=INBOX \
 	postponed=+drafts \
 	record=+sent \
 	signature=~/.signature-csyork \

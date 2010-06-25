@@ -4,10 +4,6 @@
 set realname = "Tai Chi Minh Ralph Eastwood"
 
 # Settings for IMAP
-#set mbox=+mbox
-#set spoolfile = "+INBOX"
-#set record="+sent"
-#set postponed="+drafts"
 set from="tcmreastwood@gmail.com"
 set folder=imaps://imap.gmail.com
 set spoolfile=+INBOX
@@ -42,6 +38,9 @@ set fast_reply = yes
 # Mail check interval
 set mail_check = 30
 set timeout = 30
+
+# Don't complain about host names at csyork
+unset ssl_verify_host
 
 # Cache Files
 set header_cache=~/.mutt/cache/headers
