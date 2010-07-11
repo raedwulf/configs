@@ -9,6 +9,10 @@ require("beautiful")
 require("naughty")
 -- Teardrop: Dropdown terminal
 require("teardrop")
+-- Rodentbane: Rapid cursor control using the keyboard
+require("rodentbane")
+-- Vicious library
+require("vicious")
 -- }}}
 
 -- {{{ Variable definitions
@@ -143,6 +147,215 @@ mytasklist.buttons = awful.util.table.join(
                                               if client.focus then client.focus:raise() end
                                           end))
 
+-- {{{ Vicious widgets
+mpdwidget = widget({ type = "textbox" })
+mpdscroll = 0
+mpdwidth = 16
+vicious.register(mpdwidget, vicious.widgets.mpd,
+    function (widget, args)
+        local width = mpdwidth
+        local head = '<span color="white">MPD </span>'..
+                     '<span color="gray">['..
+                     args["{songid}"].."/"..
+                     args["{playlistlength}"]..']</span>'..
+                     '<span color="white">:</span> '
+        local str = string.rep(" ", width)..
+                    '{'..args["{Artist}"]..'} '..
+                    args["{Album}"]..' - '..
+                    '['..string.format("%.2d", args["{Track}"])..'] '..
+                    args["{Title}"]..
+                    string.rep(" ", width)
+        local colour = "red"
+        if args["{state}"] == "Pause" then
+            colour = "yellow"
+        elseif args["{state}"] == "Play" then
+            colour = "green"
+        end
+            
+        result = head..
+               '<span color="'..colour..'" font="Monospace">'..
+               string.sub(str, mpdscroll + 1, mpdscroll + width)..
+               '</span>'
+        mpdscroll = (mpdscroll + 1) % (string.len(str) - width)
+        tplayed, tleft = string.match(args["{time}"], "([0-9]+):([0-9]+)");
+        if tplayed == nil then
+            tplayed = 0
+            tleft = 1
+        end
+        tpc = string.format("%.2d%%", (tplayed / tleft) * 100);
+        return result..'<span color="white"> ['..tpc..']</span>'
+    end, 1, { "", "router", "6600" })
+    
+-- CPU widget
+cpuwidget = awful.widget.graph()
+cpuwidget:set_width(20)
+cpuwidget:set_background_color("#494B4F")
+cpuwidget:set_color("#FF5656")
+cpuwidget:set_gradient_colors({ "#FF5656", "#88A175", "#AECF96" })
+
+cpudata=''
+vicious.register(cpuwidget, vicious.widgets.cpu, 
+    function(widget, args)
+        local names = { "Average:" }
+        for i = 2,#args do
+            table.insert(names, "Core "..(i-2)..":")
+        end
+        cpudata = '<span weight="bold" font="Monospace" underline="single">'..
+                  'CPU Usage</span>\n'
+        for i = 1,#args do
+            cpudata = cpudata..
+                      '<span weight="bold" font="Monospace">'..
+                      string.format("%-8s", names[i])..'</span>'..
+                      '<span color="green" font="Monospace">'..
+                      string.format("%5d", args[i])..
+                      ' %</span>'
+            if i ~= #args then
+                cpudata = cpudata.."\n"
+            end
+        end
+        return args[1]
+    end)
+
+cpudata = ''
+cputooltip = awful.tooltip({ objects = { cpuwidget.widget }, 
+    timer_function = function()
+        return cpudata
+    end })
+    
+-- MEM widget
+memwidget = awful.widget.progressbar()
+memwidget:set_width(4)
+memwidget:set_vertical(true)
+memwidget:set_background_color("#494B4F")
+memwidget:set_color("#AECF96")
+memwidget:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
+
+memdata = ''
+vicious.register(memwidget, vicious.widgets.mem, 
+    function(widget, args)
+        local names = { "Used %:", "In Use:", "Total:", "Free:" }
+        local units = { " % ", " MB", " MB", " MB" }
+        memdata = '<span weight="bold" font="Monospace" underline="single">'..
+                  'RAM Usage</span>\n'
+        for i = 1,4 do
+            memdata = memdata..
+                      '<span weight="bold" font="Monospace">'..
+                      string.format("%-7s", names[i])..'</span>'..
+                      '<span color="green" font="Monospace">'..
+                      string.format("%8s", args[i]..units[i])..'</span>'
+            if i ~= 4 then
+                memdata = memdata.."\n"
+            end
+        end
+    end, 13)
+vicious.cache(vicious.widgets.mem)
+    
+memtooltip = awful.tooltip({ objects = { memwidget.widget }, 
+    timer_function = function()
+        return memdata
+    end })
+
+-- Swap widget
+swapwidget = awful.widget.progressbar()
+swapwidget:set_width(4)
+swapwidget:set_vertical(true)
+swapwidget:set_background_color("#494B4F")
+swapwidget:set_color("#AECF96")
+swapwidget:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
+
+swapdata = ''
+vicious.register(swapwidget, vicious.widgets.mem, 
+    function(widget, args)
+        local names = { "Used %:", "In Use:", "Total:", "Free:" }
+        local units = { " % ", " MB", " MB", " MB" }
+        swapdata = '<span weight="bold" font="Monospace" underline="single">'..
+                  'Swap Usage</span>\n'
+        for i = 1,4 do
+            swapdata = swapdata..
+                      '<span weight="bold" font="Monospace">'..
+                      string.format("%-7s", names[i])..'</span>'..
+                      '<span color="green" font="Monospace">'..
+                      string.format("%8s", args[4+i]..units[i])..'</span>'
+            if i ~= 4 then
+                swapdata = swapdata.."\n"
+            end
+        end
+    end, 13)
+
+swaptooltip = awful.tooltip({ objects = { swapwidget.widget }, 
+    timer_function = function()
+        return swapdata
+    end })
+    
+-- Battery widget
+batwidget = awful.widget.progressbar()
+batwidget:set_width(4)
+batwidget:set_vertical(true)
+batwidget:set_background_color("#494B4F")
+batwidget:set_border_color(nil)
+batwidget:set_color("#AECF96")
+batwidget:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
+vicious.register(batwidget, vicious.widgets.bat, "$2", 61, "BAT0")
+vicious.cache(vicious.widgets.bat)
+
+batdata = ''
+batsymwidget = widget({ type = "textbox" })
+vicious.register(batsymwidget, vicious.widgets.bat, 
+    function (widget, args)
+        local charge = args[2]
+        if charge == 0 then 
+            charge = 1 
+        elseif charge < 10 then
+            naughty.notify({ text = "Battery low, only ".. charge .. "% left!" })
+        end
+        batdata = '<span weight="bold" font="Monospace">Charge: </span>'..
+                  '<span color="green" font="Monospace">'..charge.." %</span>"
+        local colour = "#"..string.format("%02X", (1 - charge/100) * 255)..
+            string.format("%02X", (charge / 100) * 255).."00"
+        return '<span color="'..colour..'">'..args[1]..'</span>'
+    end, 61, "BAT0")
+
+battooltip = awful.tooltip({ objects = { batwidget.widget, batsymwidget }, 
+    timer_function = function()
+        return batdata
+    end })
+
+-- Volume widget
+volwidget = awful.widget.progressbar()
+volwidget:set_width(4)
+volwidget:set_vertical(true)
+volwidget:set_background_color("#494B4F")
+volwidget:set_border_color(nil)
+volwidget:set_color("#AECF96")
+volwidget:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
+vicious.register(volwidget, vicious.widgets.volume, "$1", 2, "Master")
+vicious.cache(vicious.widgets.volume)
+
+voldata = ''
+volsymwidget = widget({ type = "textbox" })
+vicious.register(volsymwidget, vicious.widgets.volume,
+    function (widget, args)
+        local colour = "red"
+        if args[2] == "♫" then
+            colour = "green"
+        end
+        voldata = '<span weight="bold" font="Monospace">Volume: </span>'..
+                  '<span color="green" font="Monospace">'..args[1].." %</span>"
+        return '<span color="'..colour..'"> ☊</span>'
+    end, 2, "Master")
+
+voltooltip = awful.tooltip({ objects = { volwidget.widget, volsymwidget }, 
+    timer_function = function()
+        return voldata
+    end })
+-- }}}
+
+-- Separator widgets
+separator = widget({ type = "textbox" })
+separator.text = '<span color="white" weight="heavy"> · </span>'
+spacer = widget({ type = "textbox" })
+spacer.text = ' '
+
 for s = 1, screen.count() do
     -- Create a promptbox for each screen
     mypromptbox[s] = awful.widget.prompt({ layout = awful.widget.layout.horizontal.leftright })
@@ -155,32 +368,52 @@ for s = 1, screen.count() do
                            awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)))
     -- Create a taglist widget
-    mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.label.all, mytaglist.buttons)
+    mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
 
     -- Create a tasklist widget
-    mytasklist[s] = awful.widget.tasklist(function(c)
-                                              return awful.widget.tasklist.label.currenttags(c, s)
-                                          end, mytasklist.buttons)
+    mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top", screen = s })
-    -- Add widgets to the wibox - order matters
-    mywibox[s].widgets = {
-        {
-            mylauncher,
-            mytaglist[s],
-            mypromptbox[s],
-            tempwidget,
-            layout = awful.widget.layout.horizontal.leftright
-        },
-        mylayoutbox[s],
-        mytextclock,
-        s == 1 and mysystray or nil,
-        kbdcfg.widget,
-        mytasklist[s],
+
+    -- Create a table with widgets that go to the right
+    right_aligned = {
         layout = awful.widget.layout.horizontal.rightleft
     }
+    if s == 1 then table.insert(right_aligned, mysystray) end
+    table.insert(right_aligned, mpdwidget)
+    table.insert(right_aligned, separator)
+    table.insert(right_aligned, cpuwidget)
+    table.insert(right_aligned, spacer)
+    table.insert(right_aligned, memwidget)
+    table.insert(right_aligned, spacer)
+    table.insert(right_aligned, swapwidget)
+    table.insert(right_aligned, spacer)
+    table.insert(right_aligned, batwidget)
+    table.insert(right_aligned, spacer)
+    table.insert(right_aligned, batsymwidget)
+    table.insert(right_aligned, spacer)
+    table.insert(right_aligned, volwidget)
+    table.insert(right_aligned, volsymwidget)
+    table.insert(right_aligned, separator)
+    table.insert(right_aligned, kbdcfg.widget)
+    table.insert(right_aligned, separator)
+    table.insert(right_aligned, mytextclock)
+    table.insert(right_aligned, mylayoutbox[s])
+    if s == 1 then
+        table.insert(right_aligned, mysystray)
+    end
 
+    -- Add widgets to the wibox - order matters
+    mywibox[s].widgets = {
+        mylauncher,
+        mytaglist[s],
+        mypromptbox[s],
+        right_aligned,
+        mytasklist[s],
+        layout = awful.widget.layout.horizontal.leftright,
+        height = mywibox[s].height
+    }
 end
 -- }}}
 
@@ -247,8 +480,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "#55",     function () awful.tag.incnmaster(-1)      end), -- v
     awful.key({ modkey, "Control" }, "#54",     function () awful.tag.incncol( 1)         end), -- c
     awful.key({ modkey, "Control" }, "#55",     function () awful.tag.incncol(-1)         end), -- v
-    awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
-    awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
+    awful.key({ modkey,           }, "space",   function () awful.layout.inc(layouts,  1) end),
+    awful.key({ modkey, "Shift"   }, "space",   function () awful.layout.inc(layouts, -1) end),
 
     -- Prompt
     awful.key({ modkey,           }, "#25",     function () mypromptbox[mouse.screen]:run() end), -- w
@@ -259,7 +492,11 @@ globalkeys = awful.util.table.join(
             mypromptbox[mouse.screen].widget,
             awful.util.eval, nil,
             awful.util.getdir("cache") .. "/history_eval")
-        end)
+        end),
+        
+    -- Rodentbane 
+    awful.key({ modkey,           }, "#27",     rodentbane.start),
+    awful.key({ modkey, "Alt"     }, "#27",     rodentbane.start)
 )
 
 -- Client awful tagging: this is useful to tag some clients and then do stuff like move to tag on them
@@ -278,7 +515,7 @@ clientkeys = awful.util.table.join(
             awful.client.floating.toggle(c)     
             naughty.notify({text="Class: "..c.class.."\nInstance: "..c.instance, timeout=3})
         end),
-    awful.key({ modkey,           }, "#51",     function (c) c:swap(awful.client.getmaster()) end), -- \
+    awful.key({ modkey,           }, "#51",      function (c) c:swap(awful.client.getmaster()) end), -- \
     awful.key({ modkey,           }, "#32",      awful.client.movetoscreen                        ), -- o
     awful.key({ modkey, "Shift"   }, "#27",      function (c) c:redraw()                       end), -- r
     awful.key({ modkey }, "#28", awful.client.floating.toggle), -- t
@@ -288,7 +525,9 @@ clientkeys = awful.util.table.join(
             c.maximized_vertical   = not c.maximized_vertical
         end),
     awful.key({ modkey }, "Scroll_Lock", kbdcfg.switch),
-    awful.key({        }, "#110", awful.util.spawn("scrot '%Y-%m-%d_%H.%M.%S_$wx$h_scrot.png' -e 'mv $f ~/pictures/screenshots/'"))
+    awful.key({        }, "#111",                function (c) 
+        awful.util.spawn("scrot '%Y-%m-%d_%H.%M.%S_$wx$h_scrot.png' -e 'mv $f ~/pictures/screenshots/'") 
+    end)
 )
 
 -- Compute the maximum number of digit we need, limited to 9
@@ -367,11 +606,6 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "Skype" },
       properties = { floating = true } },
-    -- Set Firefox to always map on tags number 2 of screen 1.
-    { rule = { class = "Firefox" },
-      properties = { tag = tags[1][9] } },
-    { rule = { name = "weescreen" },
-      properties = { tag = tags[1][8] } },
 }
 -- }}}
 
@@ -383,15 +617,15 @@ client.add_signal("manage", function (c, startup)
 
     -- Enable sloppy focus
     c:add_signal("mouse::enter", function(c)
-    if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
-        and awful.client.focus.filter(c) then
-        client.focus = c
-    end
-end)
+        if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
+            and awful.client.focus.filter(c) then
+            client.focus = c
+        end
+    end)
 
     if not startup then
-    -- Set the windows at the slave,
-    -- i.e. put it at the end of others instead of setting it master.
+        -- Set the windows at the slave,
+        -- i.e. put it at the end of others instead of setting it master.
         -- awful.client.setslave(c)
 
         -- Put windows in a smart way, only if they does not set an initial position.
@@ -408,27 +642,6 @@ end)
 client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
-
--- Set geometry
-mailnotify:geometry({ x = 0, y = 0, height = 20, width = 220 })
-mailnotify.ontop = true
-mailnotify.screen = nil
-
--- Create textbox
-mailnotify_text = widget({ type = "textbox" })
-
--- Add textbox to wibox
-mailnotify.widgets = {mailnotify_text, 
-    layout = awful.widget.layout.horizontal.leftright}
-
-function mailnotify_set(num)
-    if num ~= 0 then
-        mailnotify_text.text = "-*- Unread Mail: -["..num.."]- -*-"
-        mailnotify.screen = client.focus.screen
-    else
-        mailnotify.screen = nil
-    end
-end
 
 -- {{{ Listen to remote code over tempfile
 remotefile = timer { timeout = 1 }
