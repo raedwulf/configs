@@ -19,6 +19,9 @@ fi
 
 export PATH=$HOME/bin:/usr/local/bin:/usr/share/java/apache-ant/bin:/opt/java/bin:/opt/java/jre/bin:$PATH
 
+# Haxe
+export HAXE_LIBRARY_PATH=/opt/haxe/std:.
+
 # Options
 setopt appendhistory allexport autolist automenu menu_complete
 setopt notify globdots correct pushdtohome cdablevars
@@ -208,4 +211,3 @@ else
 fi
 
 export color=
-
