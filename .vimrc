@@ -18,10 +18,6 @@ nmap <Esc>t <C-w>w
 " }}}
 
 " {{{ Basic shortcuts
-" Handy shortcut for save
-noremap <Leader>e e
-noremap <silent> e :w<CR>
-
 " Meta-o for inserting a blank line
 noremap <Esc>o o<Esc>
 
@@ -63,7 +59,6 @@ nmap <C-c>g :call Send_to_Screen(input("send to screen: "))<CR>
 " {{{ Spellcheck
 nmap <Leader>ss :set nospell<CR>
 nmap <Leader>se :set spell spelllang=en<CR>
-nmap <Leader>sn :set spell spelllang=nl<CR>
 " }}}
 
 " {{{ Buffer Navigation
@@ -325,9 +320,9 @@ autocmd BufEnter *.sass silent setlocal ai
 " Don't show space errors
 autocmd BufEnter *.py hi pythonSpaceError ctermbg=black
 
-" Highlight long lines
-autocmd BufRead * let w:longmatch = matchadd('StatusLine', '\%<81v.\%>77v', -1)
-autocmd BufRead * let w:toolongmatch = matchadd('IncSearch', '\%>80v.\+', -1)
+" Highlight long lines in C files only
+autocmd BufRead *.c let w:longmatch = matchadd('StatusLine', '\%<81v.\%>77v', -1)
+autocmd BufRead *.c let w:toolongmatch = matchadd('IncSearch', '\%>80v.\+', -1)
 
 " Jump to last known cursor position
 autocmd BufReadPost *
@@ -371,6 +366,7 @@ function! HighlightLongToggle()
         echo "  highlight long"
     endif
 endfunction
+
 " }}}
 " {{{ Whitespace
 function ShowSpaces(...)
