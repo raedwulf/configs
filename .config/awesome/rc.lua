@@ -25,6 +25,22 @@ editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 browser = "uzbl-browser"
 mail = terminal .. " -e " .. "mutt"
+
+-- Test whether we're on a laptop
+laptop = false
+f = io.open(os.getenv("HOME")..")laptop")
+if f ~= nil then
+    laptop = true
+    io.close(f)
+end
+    
+-- Set the mpd host based one whether we're on laptop (local)
+if laptop then
+    mpd_host = "localhost"
+else
+    mpd_host = "router"
+end
+        
 -- }}}
 
 ---- {{{ Settings
@@ -184,7 +200,7 @@ vicious.register(mpdwidget, vicious.widgets.mpd,
         end
         tpc = string.format("%.2d%%", (tplayed / tleft) * 100);
         return result..'<span color="white"> ['..tpc..']</span>'
-    end, 1, { "", "router", "6600" })
+    end, 1, { "", mpd_host, "6600" })
     
 -- CPU widget
 cpuwidget = awful.widget.graph()
@@ -390,10 +406,10 @@ for s = 1, screen.count() do
     table.insert(right_aligned, spacer)
     table.insert(right_aligned, batwidget.widget)
     table.insert(right_aligned, spacer)
-    table.insert(right_aligned, batsymwidget.widget)
+    table.insert(right_aligned, batsymwidget)
     table.insert(right_aligned, spacer)
     table.insert(right_aligned, volwidget.widget)
-    table.insert(right_aligned, volsymwidget.widget)
+    table.insert(right_aligned, volsymwidget)
     table.insert(right_aligned, separator)
     table.insert(right_aligned, kbdcfg.widget)
     table.insert(right_aligned, separator)
@@ -521,7 +537,7 @@ clientkeys = awful.util.table.join(
             c.maximized_vertical   = not c.maximized_vertical
         end),
     awful.key({ modkey }, "Scroll_Lock", kbdcfg.switch),
-    awful.key({        }, "#111",                function (c) 
+    awful.key({        }, "Print",                function (c) 
         awful.util.spawn("scrot '%Y-%m-%d_%H.%M.%S_$wx$h_scrot.png' -e 'mv $f ~/pictures/screenshots/'") 
     end)
 )
