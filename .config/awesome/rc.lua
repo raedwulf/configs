@@ -7,8 +7,8 @@ require("awful.rules")
 require("beautiful")
 -- Notification library
 require("naughty")
--- Teardrop: Dropdown terminal
-require("teardrop")
+-- Scratch
+require("scratch")
 -- Rodentbane: Rapid cursor control using the keyboard
 require("rodentbane")
 -- Vicious library
@@ -28,7 +28,7 @@ mail = terminal .. " -e " .. "mutt"
 
 -- Test whether we're on a laptop
 laptop = false
-f = io.open(os.getenv("HOME")..")laptop")
+f = io.open(os.getenv("HOME").."/.laptop")
 if f ~= nil then
     laptop = true
     io.close(f)
@@ -498,7 +498,7 @@ globalkeys = awful.util.table.join(
     -- Prompt
     awful.key({ modkey,           }, "#25",     function () mypromptbox[mouse.screen]:run() end), -- w
 
-    awful.key({ modkey,           }, "#26", -- e
+    awful.key({ modkey,           }, "#260", -- e
         function ()
             awful.prompt.run({ prompt = "Run Lua code: " },
             mypromptbox[mouse.screen].widget,
@@ -506,9 +506,17 @@ globalkeys = awful.util.table.join(
             awful.util.getdir("cache") .. "/history_eval")
         end),
         
+    awful.key({ modkey,           }, "#26", -- e
+        function ()
+            scratch.drop(terminal)
+        end),
+
     -- Rodentbane 
     awful.key({ modkey,           }, "#27",     rodentbane.start),
-    awful.key({ modkey, "Alt"     }, "#27",     rodentbane.start)
+    awful.key({ modkey, "Alt"     }, "#27",     rodentbane.start),
+    
+    -- Scratchpad
+    awful.key({ modkey, "Shift"   }, "#40",     scratch.pad.toggle)
 )
 
 -- Client awful tagging: this is useful to tag some clients and then do stuff like move to tag on them
@@ -522,11 +530,7 @@ clientkeys = awful.util.table.join(
         end),
     awful.key({ modkey,           }, "#41",      function (c) c.fullscreen = not c.fullscreen  end), -- f
     awful.key({ modkey,           }, "#49",      function (c) c:kill()                         end), -- `
-    awful.key({ modkey,           }, "#40", -- d
-        function (c)
-            awful.client.floating.toggle(c)     
-            naughty.notify({text="Class: "..c.class.."\nInstance: "..c.instance, timeout=3})
-        end),
+    awful.key({ modkey,           }, "#40",      function (c) scratch.pad.set(c)               end), -- d
     awful.key({ modkey,           }, "#51",      function (c) c:swap(awful.client.getmaster()) end), -- \
     awful.key({ modkey,           }, "#32",      awful.client.movetoscreen                        ), -- o
     awful.key({ modkey, "Shift"   }, "#27",      function (c) c:redraw()                       end), -- r
