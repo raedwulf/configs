@@ -13,6 +13,7 @@ require("scratch")
 require("rodentbane")
 -- Vicious library
 require("vicious")
+helpers = require("vicious.helpers")
 -- }}}
 
 -- {{{ Variable definitions
@@ -164,23 +165,38 @@ mytasklist.buttons = awful.util.table.join(
                                           end))
 
 -- {{{ Vicious widgets
+
+-- Unescape strings passed by the mpd widget
+function unescape(text)
+    local xml_entities = {
+        ["&quot;"] = "\"",
+        ["&amp;"] = "&",
+        ["&apos;"] = "'",
+        ["&lt;"] = "<",
+        ["gt;"] = ">"
+    }
+    return text and text:gsub("[\"&'<>]", xml_entities)
+end
+
 mpdwidget = widget({ type = "textbox" })
 mpdscroll = 0
 mpdwidth = 16
 vicious.register(mpdwidget, vicious.widgets.mpd,
     function (widget, args)
         local width = mpdwidth
+        local artist = unescape(args["{Artist}"])
+        local album = unescape(args["{Album}"])
+        local title = unescape(args["{Title}"])
+
         local head = '<span color="white">MPD </span>'..
                      '<span color="gray">['..
                      args["{songid}"].."/"..
                      args["{playlistlength}"]..']</span>'..
                      '<span color="white">:</span> '
         local str = string.rep(" ", width)..
-                    '{'..args["{Artist}"]..'} '..
-                    args["{Album}"]..' - '..
+                    '{'..artist..'} '..album..' - '..
                     '['..string.format("%.2d", args["{Track}"])..'] '..
-                    args["{Title}"]..
-                    string.rep(" ", width)
+                    title..string.rep(" ", width)
         local colour = "red"
         if args["{state}"] == "Pause" then
             colour = "yellow"
@@ -190,7 +206,7 @@ vicious.register(mpdwidget, vicious.widgets.mpd,
             
         result = head..
                '<span color="'..colour..'" font="Monospace">'..
-               string.sub(str, mpdscroll + 1, mpdscroll + width)..
+               helpers.escape(string.sub(str, mpdscroll + 1, mpdscroll + width))..
                '</span>'
         mpdscroll = (mpdscroll + 1) % (string.len(str) - width)
         tplayed, tleft = string.match(args["{time}"], "([0-9]+):([0-9]+)");
