@@ -303,37 +303,37 @@ swaptooltip = awful.tooltip({ objects = { swapwidget.widget },
     end })
     
 -- Battery widget
-batwidget = awful.widget.progressbar()
-batwidget:set_width(4)
-batwidget:set_vertical(true)
-batwidget:set_background_color("#494B4F")
-batwidget:set_border_color(nil)
-batwidget:set_color("#AECF96")
-batwidget:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
-vicious.register(batwidget, vicious.widgets.bat, "$2", 61, "BAT0")
-vicious.cache(vicious.widgets.bat)
+if laptop then
+    batwidget = awful.widget.progressbar()
+    batwidget:set_width(4)
+    batwidget:set_vertical(true)
+    batwidget:set_background_color("#494B4F")
+    batwidget:set_border_color(nil)
+    batwidget:set_color("#AECF96")
+    batwidget:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
+    vicious.register(batwidget, vicious.widgets.bat, "$2", 61, "BAT0")
+    vicious.cache(vicious.widgets.bat)
 
-batdata = ''
-batsymwidget = widget({ type = "textbox" })
-vicious.register(batsymwidget, vicious.widgets.bat, 
-    function (widget, args)
-        local charge = args[2]
-        if charge == 0 then 
-            charge = 1 
-        elseif charge < 10 then
-            naughty.notify({ text = "Battery low, only ".. charge .. "% left!" })
-        end
-        batdata = '<span weight="bold" font="Monospace">Charge: </span>'..
-                  '<span color="green" font="Monospace">'..charge.." %</span>"
-        local colour = "#"..string.format("%02X", (1 - charge/100) * 255)..
-            string.format("%02X", (charge / 100) * 255).."00"
-        return '<span color="'..colour..'">'..args[1]..'</span>'
-    end, 61, "BAT0")
+    batdata = ''
+    batsymwidget = widget({ type = "textbox" })
+    vicious.register(batsymwidget, vicious.widgets.bat, 
+        function (widget, args)
+            local charge = args[2]
+            if charge < 10 then
+                naughty.notify({ text = "Battery low, only ".. charge .. "% left!" })
+            end
+            batdata = '<span weight="bold" font="Monospace">Charge: </span>'..
+                      '<span color="green" font="Monospace">'..charge.." %</span>"
+            local colour = "#"..string.format("%02X", (1 - charge/100) * 255)..
+                string.format("%02X", (charge / 100) * 255).."00"
+            return '<span color="'..colour..'">'..args[1]..'</span>'
+        end, 61, "BAT0")
 
-battooltip = awful.tooltip({ objects = { batwidget.widget, batsymwidget }, 
-    timer_function = function()
-        return batdata
-    end })
+    battooltip = awful.tooltip({ objects = { batwidget.widget, batsymwidget }, 
+        timer_function = function()
+            return batdata
+        end })
+end
 
 -- Volume widget
 volwidget = awful.widget.progressbar()
@@ -404,10 +404,12 @@ for s = 1, screen.count() do
     table.insert(right_aligned, spacer)
     table.insert(right_aligned, swapwidget.widget)
     table.insert(right_aligned, spacer)
-    table.insert(right_aligned, batwidget.widget)
-    table.insert(right_aligned, spacer)
-    table.insert(right_aligned, batsymwidget)
-    table.insert(right_aligned, spacer)
+    if laptop then
+        table.insert(right_aligned, batwidget.widget)
+        table.insert(right_aligned, spacer)
+        table.insert(right_aligned, batsymwidget)
+        table.insert(right_aligned, spacer)
+    end
     table.insert(right_aligned, volwidget.widget)
     table.insert(right_aligned, volsymwidget)
     table.insert(right_aligned, separator)
