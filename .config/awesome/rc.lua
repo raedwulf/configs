@@ -216,7 +216,6 @@ vicious.register(cpuwidget, vicious.widgets.cpu,
         return args[1]
     end)
 
-cpudata = ''
 cputooltip = awful.tooltip({ objects = { cpuwidget.widget }, 
     timer_function = function()
         return cpudata
@@ -383,26 +382,23 @@ for s = 1, screen.count() do
     if s == 1 then table.insert(right_aligned, mysystray) end
     table.insert(right_aligned, mpdwidget)
     table.insert(right_aligned, separator)
-    table.insert(right_aligned, cpuwidget)
+    table.insert(right_aligned, cpuwidget.widget)
     table.insert(right_aligned, spacer)
-    table.insert(right_aligned, memwidget)
+    table.insert(right_aligned, memwidget.widget)
     table.insert(right_aligned, spacer)
-    table.insert(right_aligned, swapwidget)
+    table.insert(right_aligned, swapwidget.widget)
     table.insert(right_aligned, spacer)
-    table.insert(right_aligned, batwidget)
+    table.insert(right_aligned, batwidget.widget)
     table.insert(right_aligned, spacer)
-    table.insert(right_aligned, batsymwidget)
+    table.insert(right_aligned, batsymwidget.widget)
     table.insert(right_aligned, spacer)
-    table.insert(right_aligned, volwidget)
-    table.insert(right_aligned, volsymwidget)
+    table.insert(right_aligned, volwidget.widget)
+    table.insert(right_aligned, volsymwidget.widget)
     table.insert(right_aligned, separator)
     table.insert(right_aligned, kbdcfg.widget)
     table.insert(right_aligned, separator)
     table.insert(right_aligned, mytextclock)
     table.insert(right_aligned, mylayoutbox[s])
-    if s == 1 then
-        table.insert(right_aligned, mysystray)
-    end
 
     -- Add widgets to the wibox - order matters
     mywibox[s].widgets = {
