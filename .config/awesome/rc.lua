@@ -195,7 +195,7 @@ vicious.register(mpdwidget, vicious.widgets.mpd,
                      '<span color="white">:</span> '
         local str = string.rep(" ", width)..
                     '{'..artist..'} '..album..' - '..
-                    '['..string.format("%.2d", args["{Track}"])..'] '..
+                    '['..string.format("%.2s", args["{Track}"])..'] '..
                     title..string.rep(" ", width)
         local colour = "red"
         if args["{state}"] == "Pause" then

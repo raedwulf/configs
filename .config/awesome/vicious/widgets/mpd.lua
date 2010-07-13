@@ -23,11 +23,11 @@ local function worker(format, warg)
         ["{state}"]  = "N/A",
         ["{playlistlength}"]  = 0,
         ["{songid}"]  = 0,
-        ["{time}"]  = 0,
+        ["{time}"]  = "N/A",
         ["{Artist}"] = "N/A",
         ["{Title}"]  = "N/A",
         ["{Album}"]  = "N/A",
-        ["{Track}"]  = 0,
+        ["{Track}"]  = "N/A",
         ["{Genre}"]  = "N/A"
     }
 
@@ -46,7 +46,7 @@ local function worker(format, warg)
     for line in f:lines() do
         for k, v in string.gmatch(line, "([%w]+):[%s](.*)$") do
             num = tonumber(v)
-            if num == nil then
+            if tonumber(mpd_state["{"..k.."}"]) == nil then
                 if k == "state" then 
                     mpd_state["{"..k.."}"] = helpers.capitalize(v)
                 else 
