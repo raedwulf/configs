@@ -26,8 +26,10 @@ theme.border_marked = "#91231c"
 -- defined, the sets are:
 -- [taglist|tasklist]_[bg|fg]_[focus|urgent]
 -- titlebar_[bg|fg]_[normal|focus]
+-- tooltip_[font|opacity|fg_color|bg_color|border_width|border_color]
+-- mouse_finder_[color|timeout|animate_timeout|radius|factor]
 -- Example:
---taglist_bg_focus = #ff0000
+--theme.taglist_bg_focus = "#ff0000"
 
 -- Display the taglist squares
 theme.taglist_squares_sel = os.getenv("HOME").."/.config/awesome/themes/arch/taglist/squarefw.png"
@@ -45,7 +47,7 @@ theme.menu_width    = "100"
 -- You can add as many variables as
 -- you wish and access them by using
 -- beautiful.variable in your rc.lua
---bg_widget    = #cc0000
+--theme.bg_widget = "#cc0000"
 
 -- Define the image to load
 theme.titlebar_close_button_normal = os.getenv("HOME").."/.config/awesome/themes/arch/titlebar/close_normal.png"
@@ -85,8 +87,8 @@ theme.layout_tilebottom = os.getenv("HOME").."/.config/awesome/themes/arch/layou
 theme.layout_tileleft = os.getenv("HOME").."/.config/awesome/themes/arch/layouts/tileleftw.png"
 theme.layout_tile = os.getenv("HOME").."/.config/awesome/themes/arch/layouts/tilew.png"
 theme.layout_tiletop = os.getenv("HOME").."/.config/awesome/themes/arch/layouts/tiletopw.png"
-theme.layout_spiral  = os.getenv("HOME").."/.config/awesome/themes/default/layouts/spiralw.png"
-theme.layout_dwindle = os.getenv("HOME").."/.config/awesome/themes/default/layouts/dwindlew.png"
+theme.layout_spiral  = os.getenv("HOME").."/.config/awesome/themes/arch/layouts/spiralw.png"
+theme.layout_dwindle = os.getenv("HOME").."/.config/awesome/themes/arch/layouts/dwindlew.png"
 
 theme.awesome_icon = os.getenv("HOME").."/.config/awesome/icons/arch16.png"
 
