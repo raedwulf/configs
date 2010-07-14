@@ -318,6 +318,27 @@ swaptooltip = awful.tooltip({ objects = { swapwidget.widget },
         return swapdata
     end })
     
+-- Thermal widget
+thrmwidget = awful.widget.progressbar()
+thrmwidget:set_width(4)
+thrmwidget:set_vertical(true)
+thrmwidget:set_background_color("#494B4F")
+thrmwidget:set_border_color(nil)
+thrmwidget:set_color("#AECF96")
+thrmwidget:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
+vicious.register(thrmwidget, vicious.widgets.thermal, 
+    function(widget, args)
+        thrmdata = args[1]
+        return args[1]
+    end
+, 5, {"THRM", "proc"})
+
+thrmtooltip = awful.tooltip({ objects = { thrmwidget.widget }, 
+    timer_function = function()
+        return '<span weight="bold" font="Monospace">Temperature: </span>'..
+               '<span color="green" font="Monospace">'..thrmdata.." C</span>"
+    end })
+    
 -- Battery widget
 if laptop then
     batwidget = awful.widget.progressbar()
@@ -419,6 +440,8 @@ for s = 1, screen.count() do
     table.insert(right_aligned, memwidget.widget)
     table.insert(right_aligned, spacer)
     table.insert(right_aligned, swapwidget.widget)
+    table.insert(right_aligned, spacer)
+    table.insert(right_aligned, thrmwidget.widget)
     table.insert(right_aligned, spacer)
     if laptop then
         table.insert(right_aligned, batwidget.widget)
