@@ -1,0 +1,14 @@
+# zathurarc
+
+# colors
+set recolor_darkcolor white
+set recolor_lightcolor black
+
+# key bindings
+map <PageUp> navigate previous
+map <PageDown> navigate next
+
+map + zoom in
+map - zoom out
+
+map <C-q> quit

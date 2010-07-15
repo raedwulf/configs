@@ -1,0 +1,21 @@
+# jumanji configuration
+
+# search engines
+searchengine google http://www.google.com/search?q=%s
+searchengine wikipedia https://secure.wikimedia.org/wikipedia/en/w/index.php?search=%s
+
+# browser settings
+set homepage http://pwmt.org
+set auto_save 60
+
+# look
+set font monospace normal 9
+
+# key bindings
+map <C-q> quit
+
+# follow hint
+script ~/.config/jumanji/scripts/input_hinting_mode.js
+
+# custom css
+set stylesheet ~/.config/jumanji/style.css
