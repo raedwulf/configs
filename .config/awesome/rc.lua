@@ -278,6 +278,7 @@ vicious.register(memwidget, vicious.widgets.mem,
                 memdata = memdata.."\n"
             end
         end
+        return args[1]
     end, 13)
 vicious.cache(vicious.widgets.mem)
     
@@ -310,6 +311,7 @@ vicious.register(swapwidget, vicious.widgets.mem,
             if i ~= 4 then
                 swapdata = swapdata.."\n"
             end
+            return args[1]
         end
     end, 13)
 
