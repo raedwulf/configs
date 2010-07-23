@@ -1,8 +1,7 @@
 "
-" Lucas de Vries' .vimrc
-" Nick: GGLucas
-" Mail: lucas@glacicle.org
-"∩ Website: lucas.glacicle.org
+" Tai Chi Minh Ralph Eastwood's .vimrc
+" Nick: Raedwulf
+" Mail: tcmreastwood@gmail.com
 "
 
 " {{{ Key mappings
@@ -280,12 +279,12 @@ set smartcase
 " Enter spaces when tab is pressed:
 set expandtab
 
-" Use 4 spaces to represent a tab
-set tabstop=4
-set softtabstop=4
+" Use 8 spaces to represent a tab
+set tabstop=8
+set softtabstop=8
 
 " Number of spaces to use for auto indent
-set shiftwidth=4
+set shiftwidth=8
 
 " Copy indent from current line when starting a new line
 set autoindent
