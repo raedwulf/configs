@@ -148,7 +148,7 @@ function fire(n)
                     el.dispatchEvent(evObj);
                 } else {
                     /* send signal to open link */
-                    return "open;" + el.href;
+                    return el.href;
                 }
             } else {
                 var evObj = document.createEvent('MouseEvents');
@@ -182,7 +182,7 @@ function update_hints(n)
         h.className = h.className.replace("_focus","");
     if (j - 1 < n * 10 && typeof(a[n - 1]) != "undefined") {
         /* return signal to follow the link */
-        return "fire;" + n;
+        return fire(n);
     } else
         if (typeof(a[n - 1]) != "undefined")
             (h = a[n - 1]).className = a[n - 1].className.replace("hinting_mode_hint", "hinting_mode_hint_focus");
