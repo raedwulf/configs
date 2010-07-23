@@ -11,6 +11,7 @@ xterm*faceName: terminus:pixelsize=10
 xft*dpi:96 
 xft*antialias: true
 xft*rgba: rgb
+xft*lcdfilter: lcddefault
 
 urxvt.termName: rxvt-256color
 urxvt.scrollBar: false
@@ -32,6 +33,7 @@ urxvt.boldFont: xft:Monospace:style=Bold:pixelsize=9:antialias=true:hinting=true
 urxvt.depth: 32
 urxvt.background: rgba:0000/0000/0000/cccc
 urxvt.foreground: dodgerblue
+urxvt.borderColor: rgba:0000/0000/0000/0000
 urxvt.cursorColor: blue
 urxvt.cursorBlink: true
 !urxvt.tintColor: black
@@ -41,10 +43,10 @@ urxvt.saveLines: 500
 urxvt.visualBell: false
 urxvt.dynamicColors:  on
 urxvt.highlightSelection:  true
-urxvt.borderWidth: 0 
-urxvt.urlLauncher: jumanji 
+urxvt.borderWidth: 0
+urxvt.urlLauncher: jumanji
 urxvt.pointerBlank: true
-urxvt.internalBorder: 3 
+urxvt.internalBorder: 1 
 !urxvt.urgentOnBell: true
 !urxvt.visualBell: true
 
