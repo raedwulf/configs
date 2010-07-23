@@ -1,7 +1,7 @@
 # jumanji configuration
 
 # search engines
-searchengine google http://www.google.com/search?q=%s
+searchengine google http://www.google.co.uk/search?q=%s
 searchengine wikipedia https://secure.wikimedia.org/wikipedia/en/w/index.php?search=%s
 
 # browser settings
