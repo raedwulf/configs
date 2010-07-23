@@ -311,8 +311,8 @@ vicious.register(swapwidget, vicious.widgets.mem,
             if i ~= 4 then
                 swapdata = swapdata.."\n"
             end
-            return args[1]
         end
+        return args[1]
     end, 13)
 
 swaptooltip = awful.tooltip({ objects = { swapwidget.widget }, 
