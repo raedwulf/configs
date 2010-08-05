@@ -382,7 +382,7 @@ volwidget:set_background_color("#494B4F")
 volwidget:set_border_color(nil)
 volwidget:set_color("#AECF96")
 volwidget:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
-vicious.register(volwidget, vicious.widgets.volume, "$1", 2, "Master")
+vicious.register(volwidget, vicious.widgets.volume, "$1", 2, 0)
 vicious.cache(vicious.widgets.volume)
 
 voldata = ''
@@ -396,7 +396,7 @@ vicious.register(volsymwidget, vicious.widgets.volume,
         voldata = '<span weight="bold" font="Monospace">Volume: </span>'..
                   '<span color="green" font="Monospace">'..args[1].." %</span>"
         return '<span color="'..colour..'"> ☊</span>'
-    end, 2, "Master")
+    end, 2, 0)
 
 voltooltip = awful.tooltip({ objects = { volwidget.widget, volsymwidget }, 
     timer_function = function()
@@ -525,8 +525,8 @@ globalkeys = awful.util.table.join(
 
     -- Mixer
     awful.key({ "",               }, "#121", function () awful.util.spawn("toggle-mute") end),
-    awful.key({ "",               }, "#122", function () awful.util.spawn("amixer sset Master 1+") end),
-    awful.key({ "",               }, "#123", function () awful.util.spawn("amixer sset Master 1-") end),
+    awful.key({ "",               }, "#122", function () awful.util.spawn("pavol up") end),
+    awful.key({ "",               }, "#123", function () awful.util.spawn("pavol down") end),
 
     -- Tag adjustment
     awful.key({ modkey,           }, "#55",     function () awful.tag.incmwfact( 0.05)    end), -- v
