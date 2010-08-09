@@ -277,7 +277,7 @@ set smartcase
 """ }}}
 """ {{{ Formatting
 " Enter spaces when tab is pressed:
-set expandtab
+" set expandtab
 
 " Use 8 spaces to represent a tab
 set tabstop=8
