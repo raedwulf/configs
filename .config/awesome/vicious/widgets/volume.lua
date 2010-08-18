@@ -5,7 +5,7 @@
 
 -- {{{ Grab environment
 local tonumber = tonumber
-local io = { popen = io.popen }
+local io = { popen = io.popen, write = io.write }
 local setmetatable = setmetatable
 local string = { match = string.match, find = string.find }
 -- }}}
@@ -23,18 +23,19 @@ local function worker(format, warg)
     local f = io.popen("pacmd list-sinks")
     local volu = "0"
     local mute = "-"
+    local index = 0
     local mixer_state = {
         ["no"]  = "♫", -- "",
         ["yes"] = "♩"  -- "M"
     }
     for line in f:lines() do
         if string.find(line, "index:") ~= nil then
-            local index = string.match(line, "index: ([%d]+)")
-            if tonumber(index) == warg then
+            if index == warg then
                 insink = true
-            elseif tonumber(index) == nil then
+            else
                 insink = false
             end
+            index = index + 1
         end
         if insink then
             if string.find(line, "volume: 0:") ~= nil then
