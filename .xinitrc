@@ -21,7 +21,7 @@ case "$SESSION" in
 		;;
 	*)
 		# Startup programs
-		xcompmgr -c -C -t-5 -l-5 -r4.2 -o.55 -f -F -S &
+		# xcompmgr -c -C -t-5 -l-5 -r4.2 -o.55 -f -F -S &
 		urxvtd -q -f -o &
 		xscreensaver -no-splash &
                 start-pulseaudio-x11
