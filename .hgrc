@@ -6,3 +6,6 @@ merge = vimdiff
 hgext.convert=
 mq=
 record=
+rebase=
+shelve=~/.hgshelve.py
+histedit=~/code/watch/histedit
