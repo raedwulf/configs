@@ -7,5 +7,7 @@ hgext.convert=
 mq=
 record=
 rebase=
+transplant=
+fetch=
 shelve=~/.hgshelve.py
 histedit=~/code/watch/histedit
