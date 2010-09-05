@@ -1,2 +1,2 @@
 #!/bin/sh
-ssh router -t dtach -A /tmp/irssi-dtach irssi
+ssh router -t dtach -A /tmp/irc-dtach weechat-curses
