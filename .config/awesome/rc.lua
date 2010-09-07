@@ -296,7 +296,7 @@ swapwidget:set_color("#AECF96")
 swapwidget:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
 
 swapdata = ''
-vicious.register(swapwidget, vicious.widgets.mem, 
+vicious.register(swapwidget, vicious.widgets.swap, 
     function(widget, args)
         local names = { "Used %:", "In Use:", "Total:", "Free:" }
         local units = { " % ", " MB", " MB", " MB" }
