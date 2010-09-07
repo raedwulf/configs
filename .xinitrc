@@ -25,6 +25,9 @@ case "$SESSION" in
 		urxvtd -q -f -o &
 		xscreensaver -no-splash &
                 start-pulseaudio-x11
+		if [ -f ~/.laptop ]; then
+			mpd ~/.mpd/config
+		fi
 		exec awesome
 		;;
 esac

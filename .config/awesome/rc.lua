@@ -357,8 +357,9 @@ if laptop then
     batsymwidget = widget({ type = "textbox" })
     vicious.register(batsymwidget, vicious.widgets.bat, 
         function (widget, args)
+            local state = args[1]
             local charge = args[2]
-            if charge < 10 then
+            if state ~= "⌁" and charge < 10 then
                 naughty.notify({ text = "Battery low, only ".. charge .. "% left!" })
             end
             batdata = '<span weight="bold" font="Monospace">Charge: </span>'..
