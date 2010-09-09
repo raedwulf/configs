@@ -56,6 +56,7 @@ modkey = "Mod4"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 layouts =
 {
+    awful.layout.suit.floating,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
@@ -66,8 +67,7 @@ layouts =
     awful.layout.suit.spiral.dwindle,
     awful.layout.suit.max,
     awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier,
-    awful.layout.suit.floating
+    awful.layout.suit.magnifier
 }
 -- }}}
 
@@ -76,7 +76,7 @@ layouts =
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }, s)
+    tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }, s, layouts[1])
 end
 -- }}}
 
@@ -98,8 +98,8 @@ mymainmenu = awful.menu.new({ items = { { "awesome", myawesomemenu, beautiful.aw
 mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
                                      menu = mymainmenu })
 -- }}}
- 
--- {{{ Wibox 
+
+-- {{{ Wibox
 -- Create a textclock widget
 mytextclock = awful.widget.textclock({ align = "right" }, " %a %b %d, %H:%M:%S ", 1)
 
@@ -390,12 +390,16 @@ voldata = ''
 volsymwidget = widget({ type = "textbox" })
 vicious.register(volsymwidget, vicious.widgets.volume,
     function (widget, args)
+        local volume = 0
         local colour = "red"
+	if args[1] ~= nil then
+            volume = args[1]
+        end
         if args[2] == "♫" then
             colour = "green"
         end
         voldata = '<span weight="bold" font="Monospace">Volume: </span>'..
-                  '<span color="green" font="Monospace">'..args[1].." %</span>"
+                  '<span color="green" font="Monospace">'..volume.." %</span>"
         return '<span color="'..colour..'"> ☊</span>'
     end, 2, 0)
 
@@ -671,12 +675,12 @@ awful.rules.rules = {
 
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
-client.add_signal("manage", function (c, startup)
+client.connect_signal("manage", function (c, startup)
     -- Add a titlebar
     -- awful.titlebar.add(c, { modkey = modkey })
 
     -- Enable sloppy focus
-    c:add_signal("mouse::enter", function(c)
+    c:connect_signal("mouse::enter", function(c)
         if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
             and awful.client.focus.filter(c) then
             client.focus = c
@@ -699,13 +703,13 @@ client.add_signal("manage", function (c, startup)
     c.size_hints_honor = false
 end)
  
-client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)
-client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
+client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 
 -- {{{ Listen to remote code over tempfile
 remotefile = timer { timeout = 1 }
-remotefile:add_signal("timeout", function()
+remotefile:connect_signal("timeout", function()
     local file = io.open('/tmp/awesome-remote')
     local exe = {}
 
