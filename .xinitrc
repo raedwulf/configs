@@ -3,6 +3,11 @@
 # Load resources
 xrdb -merge ~/.Xresources
 
+# Reload laptop key settings
+if [ -f ~/.laptop ]; then
+	xmodmap ~/.Xmodmap
+fi
+
 # Set the brightness of the screen
 xbacklight -set 50
 
@@ -26,7 +31,7 @@ case "$SESSION" in
 		xscreensaver -no-splash &
                 start-pulseaudio-x11
 		if [ -f ~/.laptop ]; then
-			mpd ~/.mpd/config
+			mpd
 		fi
 		exec awesome
 		;;
