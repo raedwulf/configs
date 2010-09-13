@@ -201,9 +201,13 @@ set encoding=utf-8
 " Allow hidden buffers with changes
 set hidden
 
+" Allow backup of files
+set backup
+set writebackup
+
 " Put swapfiles in central directory
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set backupdir=~/tmp,/var/tmp
+set directory=~/tmp,/var/tmp
 
 " Data to store in the viminfo file
 set viminfo='100,f1,<50,:50,/50,h,!
