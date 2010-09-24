@@ -192,9 +192,15 @@ if !has('ruby')
     let g:loaded_lustyexplorer = 1
 endif
 """ }}}
+""" {{{ ctab settings
+let g:ctab_filetype_maps = 1
+""" }}}
 "" }}}
 "" {{{ Vim settings
 """ {{{ General
+" Memory settings
+set maxmempattern=2000000
+
 " Use UTF-8 encoding
 set encoding=utf-8
 

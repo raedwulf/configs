@@ -50,6 +50,8 @@ urxvt.internalBorder: 0
 !urxvt.urgentOnBell: true
 !urxvt.visualBell: true
 
+urxvt.inputMethod: fcitx
+
 xpdf.reverseVideo: true
 xpdf.initialZoom: width
 xpdf.matteColor: black
