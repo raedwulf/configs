@@ -1,0 +1,2 @@
+#!/bin/sh
+uncrustify -c ~/share/uncrustify/linux.cfg -l C --replace $*
