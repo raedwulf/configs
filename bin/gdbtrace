@@ -23,10 +23,10 @@
 # Questions and contributions, please email me at tcmreastwood@gmail.com
 
 tmp=`mktemp`
-proc=$1
+
 tracecmd='
 { 
-	if($4 == "FUNC") { 
+	if($4 == ".text" && $NF != ".text") { 
 		gsub(/@.*/, "")
 		print "b " $NF; 
 		print "commands"; 
@@ -38,25 +38,46 @@ tracecmd='
 	} 
 }'
 
+
+# add additional library symbols in case they are dynamic
+while getopts 'l:' OPTION
+do
+	case $OPTION in
+	l) libs="lib$OPTARG.so $libs" ;;
+	?) printf "Usage: %s: [-l library] executable [params]\n" `basename $0` >&2
+	   exit 1 ;;
+	esac
+done
+shift `expr $OPTIND - 1`
+
+proc=$1
+
+if [ "$proc" = "" ]
+then
+	printf "Usage: %s: [-l library] executable [params]\n" `basename $0` >&2
+	exit 1
+fi
+
+# shift away the executable name
 shift
 
 echo "set breakpoint pending on" > $tmp
-readelf -s $proc | awk "$tracecmd" >> $tmp;
+objdump -t $proc | awk "$tracecmd" >> $tmp;
 echo "run $@" >> $tmp
 echo "quit" >> $tmp
 
-#dependencies=`readelf -d $proc | grep "Shared library" | sed 's|[^[]*\[\([^]]*\)\]|\1|'`
-#echo "dependencies: $dependencies"
-#for i in $dependencies
-#do
-#	libs=`find /lib /usr/lib -name "$i"`
-#	for j in $libs
-#	do
-#		echo "dependency found: $j"
-#		readelf -s "$j" | awk "$tracecmd" >> $tmp
-#	done
-#done
+# find the additional libraries here
+for i in $libs
+do
+	libs2=`find /lib /usr/lib -name "$i"`
+	for j in $libs2
+	do
+		echo "library found: $j"
+		objdump -t "$j" | awk "$tracecmd" >> $tmp
+	done
+done
 
+# Launch gdb with our script and format it using awk
 gdb --command=$tmp $proc | awk '
 /^Breakpoint/ { bp = 1 }
 /^#/     {
@@ -75,4 +96,6 @@ gdb --command=$tmp $proc | awk '
 		print $0
 	}
 }'
+
+# Remove the temporary file
 rm -f $tmp
