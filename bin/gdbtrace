@@ -1,0 +1,78 @@
+#!/bin/sh
+# gdbtrace - a gdb tracing script
+# Copyright (c) 2010 Tai Chi Minh Ralph Eastwood
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+#
+# Questions and contributions, please email me at tcmreastwood@gmail.com
+
+tmp=`mktemp`
+proc=$1
+tracecmd='
+{ 
+	if($4 == "FUNC") { 
+		gsub(/@.*/, "")
+		print "b " $NF; 
+		print "commands"; 
+		print "silent"; 
+		print "bt 1"; 
+		print "c"; 
+		print "end"; 
+		print ""; 
+	} 
+}'
+
+shift
+
+echo "set breakpoint pending on" > $tmp
+readelf -s $proc | awk "$tracecmd" >> $tmp;
+echo "run $@" >> $tmp
+echo "quit" >> $tmp
+
+#dependencies=`readelf -d $proc | grep "Shared library" | sed 's|[^[]*\[\([^]]*\)\]|\1|'`
+#echo "dependencies: $dependencies"
+#for i in $dependencies
+#do
+#	libs=`find /lib /usr/lib -name "$i"`
+#	for j in $libs
+#	do
+#		echo "dependency found: $j"
+#		readelf -s "$j" | awk "$tracecmd" >> $tmp
+#	done
+#done
+
+gdb --command=$tmp $proc | awk '
+/^Breakpoint/ { bp = 1 }
+/^#/     {
+	h = 1 
+	if ($(NF-1) == "at") {
+		printf "%-3s ", $1
+		printf "%-15s => ", $NF
+		for (i=2; i<NF-1; i++) printf "%s ", $i
+		printf "\n"
+	} else {
+		print $0
+	}
+}
+{
+	if (bp && h && substr($1,1,1) != "#") {
+		print $0
+	}
+}'
+rm -f $tmp
