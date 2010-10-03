@@ -11,3 +11,5 @@ transplant=
 fetch=
 shelve=~/.hgshelve.py
 histedit=~/code/watch/histedit
+hgext.bookmarks=
+hggit=
