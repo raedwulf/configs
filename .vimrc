@@ -303,13 +303,13 @@ set shiftwidth=8
 set autoindent
 
 " Don't go mad reindenting
-set cinkeys="0{,0},0)"
+"set cinkeys="0{,0},0)"
 
 " Allow backspacing over more items
 set backspace=indent,eol,start
 
 " Options for formatting blocks (gq)
-set formatoptions=tcn12
+"set formatoptions=tcn12
 """ }}}
 """ {{{ Colors
 " Color Schemes
