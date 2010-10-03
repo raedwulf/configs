@@ -8,6 +8,9 @@ binds = {}
 local key, buf, but, cmd = lousy.bind.key, lousy.bind.buf, lousy.bind.but, lousy.bind.cmd
 local match, join = string.match, lousy.util.table.join
 
+-- String aliases
+local strip, split = lousy.util.string.strip, lousy.util.string.split
+
 -- Globals or defaults that are used in binds
 local scroll_step = globals.scroll_step or 20
 local more, less = "+"..scroll_step.."px", "-"..scroll_step.."px"
@@ -26,6 +29,7 @@ binds.mode_binds = {
         but({},          8,             function (w) w:back()    end),
         but({},          9,             function (w) w:forward() end),
     },
+
     normal = {
         -- Autoparse the "[count]" before a buffer binding and re-call the
         -- hit function with the count removed and added to the metatable.
@@ -96,6 +100,8 @@ binds.mode_binds = {
         buf("^yt$",                     function (w) w:set_selection(w.win.title) end),
 
         -- Commands
+        key({"Control"}, "a",           function (w)    w:navigate(w:inc_uri(1)) end),
+        key({"Control"}, "x",           function (w)    w:navigate(w:inc_uri(-1)) end),
         buf("^o$",                      function (w, c) w:enter_cmd(":open ")    end),
         buf("^t$",                      function (w, c) w:enter_cmd(":tabopen ") end),
         buf("^w$",                      function (w, c) w:enter_cmd(":winopen ") end),
@@ -116,6 +122,8 @@ binds.mode_binds = {
         key({},          "b",           function (w, m) w:back(m.count)    end, {count=1}),
         key({},          "XF86Back",    function (w, m) w:back(m.count)    end, {count=1}),
         key({},          "XF86Forward", function (w, m) w:forward(m.count) end, {count=1}),
+        key({"Control"}, "o",           function (w)    w:back()           end),
+        key({"Control"}, "i",           function (w)    w:forward()        end),
 
         -- Tab
         key({"Control"}, "Page_Up",     function (w)       w:prev_tab() end),
@@ -147,12 +155,33 @@ binds.mode_binds = {
 
         -- Window
         buf("^ZZ$",                     function (w) w:save_session() w:close_win() end),
+        buf("^ZQ$",                     function (w) w:close_win() end),
         buf("^D$",                      function (w) w:close_win() end),
 
         -- Bookmarking
         key({},          "B",           function (w)       w:enter_cmd(":bookmark " .. ((w:get_current() or {}).uri or "http://") .. " ") end),
         buf("^gb$",                     function (w)       w:navigate(bookmarks.dump_html()) end),
         buf("^gB$",                     function (w, b, m) local u = bookmarks.dump_html() for i=1,m.count do w:new_tab(u) end end, {count=1}),
+
+        -- Quickmark open (`[count]go{a-zA-Z0-9}` or `[count]gn{a-zA-Z0-9}`)
+        buf("^g[on]%w$",                function (w, b, m)
+                                            local mode, token = string.match(b, "^g(.)(.)$")
+                                            local uris = quickmarks.get(token)
+                                            for c=1,m.count do
+                                                for i, uri in ipairs(uris or {}) do
+                                                    uri = w:search_open(uri)
+                                                    if mode == "o" and c == 1 and i == 1 then w:navigate(uri) else w:new_tab(uri) end
+                                                end
+                                            end
+                                        end, {count=1}),
+
+        -- Quickmark current uri (`M{a-zA-Z0-9}`)
+        buf("^M%w$",                    function (w, b)
+                                            local token = string.match(b, "^M(.)$")
+                                            local uri = w:get_current().uri
+                                            quickmarks.set(token, {uri})
+                                            w:notify(string.format("Quickmarked %q: %s", token, uri))
+                                        end),
 
         -- Mouse bindings
         but({},          2,             function (w)
@@ -166,6 +195,7 @@ binds.mode_binds = {
                                             end
                                         end),
     },
+
     command = {
         key({"Shift"},   "Insert",      function (w) w:insert_cmd(luakit.get_selection()) end),
         key({},          "Tab",         function (w) w:cmd_completion() end),
@@ -178,10 +208,65 @@ binds.mode_binds = {
         key({"Mod1"},    "f",           function (w) w:forward_word() end),
         key({"Mod1"},    "b",           function (w) w:backward_word() end),
     },
+
     search = {
         key({"Control"}, "j",           function (w) w:search(nil, true) end),
         key({"Control"}, "k",           function (w) w:search(nil, false) end),
     },
+
+    qmarks = {
+        -- Close menu widget
+        key({},          "q",           function (w) w:set_mode() end),
+        -- Navigate items
+        key({},          "j",           function (w) w.menu:move_cursor(1) end),
+        key({},          "k",           function (w) w.menu:move_cursor(-1) end),
+        key({},          "Down",        function (w) w.menu:move_cursor(1) end),
+        key({},          "Up",          function (w) w.menu:move_cursor(-1) end),
+        -- Delete quickmark
+        key({},          "d",           function (w)
+                                            local row = w.menu:get_current()
+                                            if row and row.qmark then
+                                                quickmarks.del(row.qmark)
+                                                w.menu:del_current()
+                                            end
+                                        end),
+        -- Edit quickmark
+        key({},          "e",           function (w)
+                                            local row = w.menu:get_current()
+                                            if row and row.qmark then
+                                                local uris = quickmarks.get(row.qmark)
+                                                w:enter_cmd(string.format(":qmark %s %s", row.qmark, table.concat(uris or {}, ", ")))
+                                            end
+                                        end),
+        -- Open quickmark
+        key({},          "Return",      function (w)
+                                            local row = w.menu:get_current()
+                                            if row and row.qmark then
+                                                for i, uri in ipairs(quickmarks.get(row.qmark) or {}) do
+                                                    uri = w:search_open(uri)
+                                                    if i == 1 then w:navigate(uri) else w:new_tab(uri, false) end
+                                                end
+                                            end
+                                        end),
+        -- Open quickmark in new tab
+        key({},          "t",           function (w)
+                                            local row = w.menu:get_current()
+                                            if row and row.qmark then
+                                                for _, uri in ipairs(quickmarks.get(row.qmark) or {}) do
+                                                    w:new_tab(w:search_open(uri), false)
+                                                end
+                                            end
+                                        end),
+        -- Open quickmark in new window
+        key({},          "w",           function (w)
+                                            local row = w.menu:get_current()
+                                            w:set_mode()
+                                            if row and row.qmark then
+                                                window.new(quickmarks.get(row.qmark) or {})
+                                            end
+                                        end),
+    },
+
     insert = { },
 }
 
@@ -210,10 +295,59 @@ binds.commands = {
     cmd("print",                        function (w)    w:eval_js("print()", "rc.lua") end),
     cmd({"viewsource",  "vs" },         function (w)    w:toggle_source(true) end),
     cmd({"viewsource!", "vs!"},         function (w)    w:toggle_source() end),
+    cmd("inc[rease]",                   function (w, a) w:navigate(w:inc_uri(tonumber(a) or 1)) end),
     cmd({"bookmark",    "bm" },         function (w, a)
-                                            local args = lousy.util.string.split(a)
+                                            local args = split(a)
                                             local uri = table.remove(args, 1)
                                             bookmarks.add(uri, args)
+                                        end),
+    cmd("bookdel",                      function (w, a) bookmarks.del(tonumber(a)) end),
+
+    -- Quickmark add (`:qmark f http://forum1.com, forum2.com, imdb some artist`)
+    cmd("qma[rk]",                      function (w, a)
+                                            local token, uris = string.match(strip(a), "^(%w)%s+(.+)$")
+                                            assert(token, "invalid token")
+                                            uris = split(uris, ",%s+")
+                                            quickmarks.set(token, uris)
+                                            w:notify(string.format("Quickmarked %q: %s", token, table.concat(uris, ", ")))
+                                        end),
+
+    -- Quickmark edit (`:qmarkedit f` -> `:qmark f furi1, furi2, ..`)
+    cmd({"qme", "qmarkedit"},           function (w, a)
+                                            token = strip(a)
+                                            assert(#token == 1, "invalid token length: " .. token)
+                                            local uris = quickmarks.get(token)
+                                            w:enter_cmd(string.format(":qmark %s %s", token, table.concat(uris or {}, ", ")))
+                                        end),
+
+    -- Quickmark del (`:delqmarks b-p Aa z 4-9`)
+    cmd("delqm[arks]",                  function (w, a)
+                                            -- Find and del all range specifiers
+                                            string.gsub(a, "(%w%-%w)", function (range)
+                                                range = "["..range.."]"
+                                                for _, token in ipairs(quickmarks.get_tokens()) do
+                                                    if string.match(token, range) then quickmarks.del(token, false) end
+                                                end
+                                            end)
+                                            -- Delete lone tokens
+                                            string.gsub(a, "(%w)", function (token) quickmarks.del(token, false) end)
+                                            quickmarks.save()
+                                        end),
+
+    -- Delete all quickmarks
+    cmd({"delqm!", "delqmarks!"},       function (w) quickmarks.delall() end),
+
+    -- View all quickmarks in an interactive menu
+    cmd("qmarks",                      function (w, a)
+                                            w:set_mode("qmarks")
+                                            local rows = {{"<span foreground='#f00'>Quickmarks</span>",
+                                                "<span foreground='#666'>URI(s)</span>", selectable = false},}
+                                            for _, qmark in ipairs(quickmarks.get_tokens()) do
+                                                local uris = lousy.util.escape(table.concat(quickmarks.get(qmark, false), ", "))
+                                                table.insert(rows, { "  " .. qmark, uris, qmark = qmark})
+                                            end
+                                            w.menu:build(rows)
+                                            w:notify("Use j/k to move, d delete, e edit, w winopen, t tabopen.", false)
                                         end),
 }
 
@@ -260,7 +394,7 @@ binds.helper_methods = {
     -- Intelligent open command which can detect a uri or search argument.
     search_open = function (w, arg)
         if not arg then return "about:blank" end
-        args = lousy.util.string.split(lousy.util.string.strip(arg))
+        args = split(strip(arg))
         -- Detect scheme:// or "." in string
         if #args == 1 and (string.match(args[1], "%.") or string.match(args[1], "^%w+://")) then
             return args[1]
@@ -276,6 +410,14 @@ binds.helper_methods = {
         local terms = w:eval_js(string.format("encodeURIComponent(%q)", table.concat(args, " ")))
         -- Return search terms sub'd into search string
         return ({string.gsub(search_engines[engine], "{%d}", ({string.gsub(terms, "%%", "%%%%")})[1])})[1]
+    end,
+
+    -- Increase (or decrease) the last found number in the current uri
+    inc_uri = function (w, arg)
+        local uri = string.gsub(w:get_current().uri, "(%d+)([^0-9]*)$", function (num, rest)
+            return string.format("%0"..#num.."d", tonumber(num) + (arg or 1)) .. rest
+        end)
+        return uri
     end,
 
     -- Tab traversing functions

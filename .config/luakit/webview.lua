@@ -29,7 +29,7 @@ webview.init_funcs = {
     -- Update window and tab titles
     title_update = function (view, w)
         view:add_signal("property::title", function (v)
-            w:update_tab_labels()
+            w:update_tablist()
             if w:is_current(v) then
                 w:update_win_title()
             end
@@ -39,7 +39,7 @@ webview.init_funcs = {
     -- Update uri label in statusbar
     uri_update = function (view, w)
         view:add_signal("property::uri", function (v)
-            w:update_tab_labels()
+            w:update_tablist()
             if w:is_current(v) then
                 w:update_uri(v)
             end
@@ -298,9 +298,9 @@ webview.methods = {
         view:search(text, false, forward, true);
     end,
 
-    clear_search = function (view, w)
+    clear_search = function (view, w, clear_state)
         view:clear_search()
-        w.search_state = {}
+        if clear_state ~= false then w.search_state = {} end
     end,
 
     -- Webview scroll functions

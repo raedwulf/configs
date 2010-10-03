@@ -1,9 +1,5 @@
 -- Luakit configuration file, more information at http://luakit.org/
 
--- Set standard C locale, otherwise `string.format("%f", 0.5)` could
--- return "0,5" (which was breaking link following for those locales).
-os.setlocale("C")
-
 -- Load library of useful functions for luakit
 require "lousy"
 
@@ -43,6 +39,7 @@ require "follow_selected"
 require "go_next_prev"
 require "go_up"
 require "session"
+require "quickmarks"
 
 -- Init bookmarks lib
 require "bookmarks"
