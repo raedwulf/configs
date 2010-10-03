@@ -22,6 +22,9 @@ nmap <Leader>? :call PromptFT(1)<CR>
 
 " Close everything
 nmap ZN :wqa<CR>
+
+" Open a shell
+nmap <Leader>sh :source ~/.vim/vimsh/vimsh.vim<CR>
 """ }}}
 """ {{{ Window navigation
 nmap <Left> <C-w>h
