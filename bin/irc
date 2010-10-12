@@ -1,2 +1,2 @@
 #!/bin/sh
-ssh router -t dtach -A /tmp/irc-dtach weechat-curses
+ssh router -t screen -raAD
