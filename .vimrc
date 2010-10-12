@@ -307,6 +307,7 @@ set autoindent
 
 " Don't go mad reindenting
 "set cinkeys="0{,0},0)"
+"set cinoptions=(0,u0,U0
 
 " Allow backspacing over more items
 set backspace=indent,eol,start
