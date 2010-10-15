@@ -1,2 +1,2 @@
 #!/bin/sh
-ssh router -t screen -raAD
+ssh -YC -c arcfour router -t screen -raAD
