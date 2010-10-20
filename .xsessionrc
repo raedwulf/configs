@@ -1,0 +1,2 @@
+# Enable middle mouse button
+xinput set-int-prop "ImPS/2 Generic Wheel Mouse" "Evdev Middle Button Emulation" 8 1
