@@ -217,6 +217,15 @@ window.init_funcs = {
             [i.input]    = theme.input_ibar_font,
         }) do wi.font = v end
     end,
+
+    set_default_size = function (w)
+        local size = globals.default_window_size or "800x600"
+        if string.match(size, "^%d+x%d+$") then
+            w.win:set_default_size(string.match(size, "^(%d+)x(%d+)$"))
+        else
+            print(string.format("E: window.lua: invalid window size: %q", size))
+        end
+    end,
 }
 
 -- Helper functions which operate on the window widgets or structure.
@@ -544,11 +553,27 @@ window.methods = {
     update_tablist = function (w, current)
         local current = current or w.tabs:current()
         local fg, bg = theme.tab_fg, theme.tab_bg
-        local tabs = {}
+        local lfg, bfg, gfg = theme.tab_loading_fg, theme.tab_notrust_fg, theme.tab_trust_fg
+        local escape, get_title = lousy.util.escape, w.get_tab_title
+        local tabs, tfmt = {}, ' <span foreground="%s">%s</span> %s'
 
         for i, view in ipairs(w.tabs:get_children()) do
+            -- Get tab number theme
+            local ntheme
+            if current == i then -- Show ssl trusted/untrusted on current tab
+                local trusted = view:ssl_trusted()
+                if trusted == false or (trusted ~= nil and not w.checking_ssl) then
+                    ntheme = bfg
+                elseif trusted then
+                    ntheme = gfg
+                end
+            end
+            if not ntheme and view:loading() then -- Show loading on all tabs
+                ntheme = lfg
+            end
+
             tabs[i] = {
-                title = string.format(" %d %s", i, w:get_tab_title(view)),
+                title = string.format(tfmt, ntheme or fg, i, escape(get_title(w, view))),
                 fg = (current == i and theme.tab_selected_fg) or fg,
                 bg = (current == i and theme.tab_selected_bg) or bg,
             }
@@ -580,9 +605,13 @@ window.methods = {
         return view
     end,
 
-    undo_close_tab = function (w)
-        if #(w.closed_tabs) == 0 then return end
-        local tab = table.remove(w.closed_tabs)
+    undo_close_tab = function (w, index)
+        -- Convert negative indexes
+        if index and index < 0 then
+            index = #(w.closed_tabs) + index + 1
+        end
+        local tab = table.remove(w.closed_tabs, index)
+        if not tab then return end
         local view = w:new_tab(tab.hist)
         if tab.after then
             local i = w.tabs:indexof(tab.after)
@@ -688,6 +717,9 @@ function window.new(uris)
 
     -- Set initial mode
     w:set_mode()
+
+    -- Show window
+    w.win:show()
 
     return w
 end
