@@ -50,7 +50,7 @@ local function worker(format, warg)
                 if k == "state" then 
                     mpd_state["{"..k.."}"] = helpers.capitalize(v)
                 else 
-                    mpd_state["{"..k.."}"] = helpers.escape(v)
+                    mpd_state["{"..k.."}"] = v
                 end
             else
                 mpd_state["{"..k.."}"] = num

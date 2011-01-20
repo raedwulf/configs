@@ -24,7 +24,7 @@ beautiful.init(os.getenv("HOME").."/.config/awesome/themes/arch/theme.lua")
 terminal = "urxvtc"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
-browser = "jumanji"
+browser = "luakit"
 mail = terminal .. " -e " .. "mutt"
 
 -- Test whether we're on a laptop
@@ -95,24 +95,21 @@ mymainmenu = awful.menu.new({ items = { { "awesome", myawesomemenu, beautiful.aw
                                       }
                             })
 
-mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
+mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = mymainmenu })
 -- }}}
 
 -- {{{ Wibox
 -- Create a textclock widget
-mytextclock = awful.widget.textclock({ align = "right" }, " %a %b %d, %H:%M:%S ", 1)
-
--- Create a systray
-mysystray = widget({ type = "systray" })
+mytextclock = awful.widget.textclock(" %a %b %d, %H:%M:%S", 1)
 
 -- Keyboard map indicator and changer
 kbdcfg = {}
 kbdcfg.cmd = "setxkbmap"
 kbdcfg.layout = { "gb", "us", "gb dvorak" }
 kbdcfg.current = 1  -- gb is our default layout
-kbdcfg.widget = widget({ type = "textbox", align = "right" })
-kbdcfg.widget.text = " " .. kbdcfg.layout[kbdcfg.current] .. " "
+kbdcfg.widget = wibox.widget.textbox()
+kbdcfg.widget:set_text(" " .. kbdcfg.layout[kbdcfg.current] .. " ")
 kbdcfg.switch = function ()
     kbdcfg.current = kbdcfg.current % #(kbdcfg.layout) + 1
     local t = " " .. kbdcfg.layout[kbdcfg.current] .. " "
@@ -178,7 +175,7 @@ function unescape(text)
     return text and text:gsub("[\"&'<>]", xml_entities)
 end
 
-mpdwidget = widget({ type = "textbox" })
+mpdwidget = wibox.widget.textbox()
 mpdscroll = 0
 mpdwidth = 16
 vicious.register(mpdwidget, vicious.widgets.mpd,
@@ -223,7 +220,7 @@ cpuwidget = awful.widget.graph()
 cpuwidget:set_width(20)
 cpuwidget:set_background_color("#494B4F")
 cpuwidget:set_color("#FF5656")
-cpuwidget:set_gradient_colors({ "#FF5656", "#88A175", "#AECF96" })
+--cpuwidget:set_gradient_colors({ "#FF5656", "#88A175", "#AECF96" })
 
 cpudata=''
 vicious.register(cpuwidget, vicious.widgets.cpu, 
@@ -246,9 +243,9 @@ vicious.register(cpuwidget, vicious.widgets.cpu,
             end
         end
         return args[1]
-    end)
+    end, 1)
 
-cputooltip = awful.tooltip({ objects = { cpuwidget.widget }, 
+cputooltip = awful.tooltip({ objects = { cpuwidget },
     timer_function = function()
         return cpudata
     end })
@@ -259,7 +256,7 @@ memwidget:set_width(4)
 memwidget:set_vertical(true)
 memwidget:set_background_color("#494B4F")
 memwidget:set_color("#AECF96")
-memwidget:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
+--memwidget:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
 
 memdata = ''
 vicious.register(memwidget, vicious.widgets.mem, 
@@ -281,45 +278,12 @@ vicious.register(memwidget, vicious.widgets.mem,
         return args[1]
     end, 13)
 vicious.cache(vicious.widgets.mem)
-    
-memtooltip = awful.tooltip({ objects = { memwidget.widget }, 
+
+memtooltip = awful.tooltip({ objects = { memwidget },
     timer_function = function()
         return memdata
     end })
 
--- Swap widget
-swapwidget = awful.widget.progressbar()
-swapwidget:set_width(4)
-swapwidget:set_vertical(true)
-swapwidget:set_background_color("#494B4F")
-swapwidget:set_color("#AECF96")
-swapwidget:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
-
-swapdata = ''
-vicious.register(swapwidget, vicious.widgets.swap, 
-    function(widget, args)
-        local names = { "Used %:", "In Use:", "Total:", "Free:" }
-        local units = { " % ", " MB", " MB", " MB" }
-        swapdata = '<span weight="bold" font="Monospace" underline="single">'..
-                  'Swap Usage</span>\n'
-        for i = 1,4 do
-            swapdata = swapdata..
-                      '<span weight="bold" font="Monospace">'..
-                      string.format("%-7s", names[i])..'</span>'..
-                      '<span color="green" font="Monospace">'..
-                      string.format("%8s", args[4+i]..units[i])..'</span>'
-            if i ~= 4 then
-                swapdata = swapdata.."\n"
-            end
-        end
-        return args[1]
-    end, 13)
-
-swaptooltip = awful.tooltip({ objects = { swapwidget.widget }, 
-    timer_function = function()
-        return swapdata
-    end })
-    
 -- Thermal widget
 thrmwidget = awful.widget.progressbar()
 thrmwidget:set_width(4)
@@ -327,15 +291,15 @@ thrmwidget:set_vertical(true)
 thrmwidget:set_background_color("#494B4F")
 thrmwidget:set_border_color(nil)
 thrmwidget:set_color("#AECF96")
-thrmwidget:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
+--thrmwidget:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
 vicious.register(thrmwidget, vicious.widgets.thermal, 
     function(widget, args)
         thrmdata = args[1]
         return args[1]
     end
-, 5, {"THRM", "proc"})
+, 5, {"thermal_zone0", "sys"})
 
-thrmtooltip = awful.tooltip({ objects = { thrmwidget.widget }, 
+thrmtooltip = awful.tooltip({ objects = { thrmwidget },
     timer_function = function()
         return '<span weight="bold" font="Monospace">Temperature: </span>'..
                '<span color="green" font="Monospace">'..thrmdata.." C</span>"
@@ -349,12 +313,12 @@ if laptop then
     batwidget:set_background_color("#494B4F")
     batwidget:set_border_color(nil)
     batwidget:set_color("#AECF96")
-    batwidget:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
+    --batwidget:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
     vicious.register(batwidget, vicious.widgets.bat, "$2", 61, "BAT0")
     vicious.cache(vicious.widgets.bat)
 
     batdata = ''
-    batsymwidget = widget({ type = "textbox" })
+    batsymwidget = wibox.widget.textbox()
     vicious.register(batsymwidget, vicious.widgets.bat, 
         function (widget, args)
             local state = args[1]
@@ -369,7 +333,7 @@ if laptop then
             return '<span color="'..colour..'">'..args[1]..'</span>'
         end, 61, "BAT0")
 
-    battooltip = awful.tooltip({ objects = { batwidget.widget, batsymwidget }, 
+    battooltip = awful.tooltip({ objects = { batwidget, batsymwidget },
         timer_function = function()
             return batdata
         end })
@@ -382,17 +346,17 @@ volwidget:set_vertical(true)
 volwidget:set_background_color("#494B4F")
 volwidget:set_border_color(nil)
 volwidget:set_color("#AECF96")
-volwidget:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
+--volwidget:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
 vicious.register(volwidget, vicious.widgets.volume, "$1", 2, 0)
 vicious.cache(vicious.widgets.volume)
 
 voldata = ''
-volsymwidget = widget({ type = "textbox" })
+volsymwidget = wibox.widget.textbox()
 vicious.register(volsymwidget, vicious.widgets.volume,
     function (widget, args)
         local volume = 0
         local colour = "red"
-	if args[1] ~= nil then
+        if args[1] ~= nil then
             volume = args[1]
         end
         if args[2] == "♫" then
@@ -403,21 +367,22 @@ vicious.register(volsymwidget, vicious.widgets.volume,
         return '<span color="'..colour..'"> ☊</span>'
     end, 2, 0)
 
-voltooltip = awful.tooltip({ objects = { volwidget.widget, volsymwidget }, 
+voltooltip = awful.tooltip({ objects = { volwidget, volsymwidget },
     timer_function = function()
         return voldata
     end })
 -- }}}
 
 -- Separator widgets
-separator = widget({ type = "textbox" })
-separator.text = '<span color="white" weight="heavy"> · </span>'
-spacer = widget({ type = "textbox" })
-spacer.text = ' '
+separator = wibox.widget.textbox()
+--separator:set_markup('<span color="white" weight="heavy"> · </span>')
+separator:set_text(' · ')
+spacer = wibox.widget.textbox()
+spacer:set_text(' ')
 
 for s = 1, screen.count() do
     -- Create a promptbox for each screen
-    mypromptbox[s] = awful.widget.prompt({ layout = awful.widget.layout.horizontal.leftright })
+    mypromptbox[s] = awful.widget.prompt()
     -- Create an imagebox widget which will contains an icon indicating which layout we're using.
     -- We need one layoutbox per screen.
     mylayoutbox[s] = awful.widget.layoutbox(s)
@@ -435,45 +400,44 @@ for s = 1, screen.count() do
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top", screen = s })
 
-    -- Create a table with widgets that go to the right
-    right_aligned = {
-        layout = awful.widget.layout.horizontal.rightleft
-    }
-    if s == 1 then table.insert(right_aligned, mysystray) end
-    table.insert(right_aligned, mpdwidget)
-    table.insert(right_aligned, separator)
-    table.insert(right_aligned, cpuwidget.widget)
-    table.insert(right_aligned, spacer)
-    table.insert(right_aligned, memwidget.widget)
-    table.insert(right_aligned, spacer)
-    table.insert(right_aligned, swapwidget.widget)
-    table.insert(right_aligned, spacer)
-    table.insert(right_aligned, thrmwidget.widget)
-    table.insert(right_aligned, spacer)
-    if laptop then
-        table.insert(right_aligned, batwidget.widget)
-        table.insert(right_aligned, spacer)
-        table.insert(right_aligned, batsymwidget)
-        table.insert(right_aligned, spacer)
-    end
-    table.insert(right_aligned, volwidget.widget)
-    table.insert(right_aligned, volsymwidget)
-    table.insert(right_aligned, separator)
-    table.insert(right_aligned, kbdcfg.widget)
-    table.insert(right_aligned, separator)
-    table.insert(right_aligned, mytextclock)
-    table.insert(right_aligned, mylayoutbox[s])
+    -- Widgets that are aligned to the left
+    local left_layout = wibox.layout.fixed.horizontal()
+    left_layout:add(mylauncher)
+    left_layout:add(mytaglist[s])
+    left_layout:add(mypromptbox[s])
 
-    -- Add widgets to the wibox - order matters
-    mywibox[s].widgets = {
-        mylauncher,
-        mytaglist[s],
-        mypromptbox[s],
-        right_aligned,
-        mytasklist[s],
-        layout = awful.widget.layout.horizontal.leftright,
-        height = mywibox[s].height
-    }
+    -- Widgets that are aligned to the right
+    local right_layout = wibox.layout.fixed.horizontal()
+    if s == 1 then right_layout:add(wibox.widget.systray()) end
+    right_layout:add(mpdwidget)
+    right_layout:add(separator)
+    right_layout:add(cpuwidget)
+    right_layout:add(spacer)
+    right_layout:add(memwidget)
+    right_layout:add(spacer)
+    right_layout:add(thrmwidget)
+    right_layout:add(spacer)
+    if laptop then
+        right_layout:add(batwidget)
+        right_layout:add(spacer)
+        right_layout:add(batsymwidget)
+        right_layout:add(spacer)
+    end
+    right_layout:add(volwidget)
+    right_layout:add(volsymwidget)
+    right_layout:add(separator)
+    right_layout:add(kbdcfg.widget)
+    right_layout:add(separator)
+    right_layout:add(mytextclock)
+    right_layout:add(mylayoutbox[s])
+
+    -- Now bring it all together (with the tasklist in the middle)
+    local layout = wibox.layout.align.horizontal()
+    layout:set_left(left_layout)
+    layout:set_middle(mytasklist[s])
+    layout:set_right(right_layout)
+
+    mywibox[s]:set_widget(layout)
 end
 -- }}}
 
@@ -501,7 +465,7 @@ globalkeys = awful.util.table.join(
             awful.client.focus.byidx(-1)
             if client.focus then client.focus:raise() end
         end),
-    awful.key({ modkey,           }, "#27", function () mymainmenu:show(true)        end), -- r
+    awful.key({ modkey,           }, "#27", function () mymainmenu:show({keygrabber=true})        end), -- r
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "#52", function () awful.client.swap.byidx(  1) end), -- z
@@ -662,7 +626,7 @@ awful.rules.rules = {
                      buttons = clientbuttons } },
     { rule = { class = "MPlayer" },
       properties = { floating = true } },
-	{ rule = { class = "Evince" },
+    { rule = { class = "Evince" },
       properties = { floating = false } },
     { rule = { class = "pinentry" },
       properties = { floating = true } },
