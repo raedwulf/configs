@@ -4,6 +4,7 @@ macro index \e2 'c?c<kill-line>imaps://imap.student.cs.york.ac.uk/INBOX<enter><e
               
 account-hook imaps://imap.student.cs.york.ac.uk/ \
 	'set imap_user=tcme500 \
+	imap_authenticators="login:cram-md5" \
 	ssl_force_tls=yes'
 	
 folder-hook imaps://imap.student.cs.york.ac.uk/ \
