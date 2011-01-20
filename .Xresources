@@ -29,7 +29,7 @@ urxvt.matcher.button: 1
 
 ! FONTS
 urxvt.font: xft:Monospace:pixelsize=9:antialias=true:hinting=true
-urxvt.boldFont: xft:Monospace:style=Bold:pixelsize=9:antialias=true:hinting=true
+!urxvt.boldFont: xft:Monospace:style=Bold:pixelsize=9:antialias=true:hinting=true
 !urxvt.depth: 32
 urxvt.background: rgba:0000/0000/0000/cccc
 urxvt.foreground: dodgerblue
@@ -44,11 +44,13 @@ urxvt.visualBell: false
 urxvt.dynamicColors:  on
 urxvt.highlightSelection:  true
 urxvt.borderWidth: 1
-urxvt.urlLauncher: firefox
+urxvt.urlLauncher: luakit 
 urxvt.pointerBlank: true
 urxvt.internalBorder: 0
 !urxvt.urgentOnBell: true
 !urxvt.visualBell: true
+urxvt.keysym.C-minus: command:\033]50;xft:Monospace:pixelsize=9:antialias=true:hinting=true\007
+urxvt.keysym.C-equal: command:\033]50;xft:Monospace:pixelsize=12:antialias=true:hinting=true\007
 
 urxvt.inputMethod: fcitx
 

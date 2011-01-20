@@ -4,7 +4,6 @@ macro index \e2 'c?c<kill-line>imaps://imap.student.cs.york.ac.uk/INBOX<enter><e
               
 account-hook imaps://imap.student.cs.york.ac.uk/ \
 	'set imap_user=tcme500 \
-	smtp_url=smtps://$imap_user:$imap_pass@smtpauth.student.cs.york.ac.uk \
 	ssl_force_tls=yes'
 	
 folder-hook imaps://imap.student.cs.york.ac.uk/ \
@@ -13,6 +12,9 @@ folder-hook imaps://imap.student.cs.york.ac.uk/ \
 	spoolfile=INBOX \
 	postponed=+Drafts \
 	record=+Sent \
+	imap_user=tcme500 \
+	smtp_url=smtps://$imap_user:$imap_pass@smtpauth.student.cs.york.ac.uk \
+	ssl_force_tls=yes \
 	signature=~/.signature-csyork \
 	status_format="-%r-csyork: %f \
 	[Msgs:%?M?%M/?%m%?n? New:%n?%?o? Old:%o?%?d? Del:%d?%?F? \
