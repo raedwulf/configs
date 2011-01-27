@@ -275,6 +275,7 @@ set foldminlines=2
 
 " Highlight syntax
 syntax on
+set synmaxcol=128
 """ }}}
 """ {{{ Editing
 " Text width
