@@ -9,11 +9,7 @@ webview = {}
 webview.init_funcs = {
     -- Set global properties
     set_global_props = function (view, w)
-        -- Set proxy options
-        local proxy = globals.http_proxy or os.getenv("http_proxy")
-        if proxy then view:set_prop('proxy-uri', proxy) end
         view:set_prop('user-agent', globals.useragent)
-
         -- Set ssl options
         if globals.ssl_strict ~= nil then
             view:set_prop('ssl-strict', globals.ssl_strict)
@@ -90,32 +86,49 @@ webview.init_funcs = {
         end)
     end,
 
-    -- Clicking a form field automatically enters insert mode
+    -- Clicking a form field automatically enters insert mode.
     form_insert_mode = function (view, w)
-        view:add_signal("form-active", function ()
+        view:add_signal("button-press", function (v, mods, button, context)
+            -- Clear start search marker
             (w.search_state or {}).marker = nil
-            w:set_mode("insert")
+
+            if button == 1 then
+                if context.editable then
+                    view:emit_signal("form-active")
+                else
+                    view:emit_signal("root-active")
+                end
+            end
+        end)
+
+        view:add_signal("form-active", function ()
+            if w:get_mode() ~= "passthrough" then
+                w:set_mode("insert")
+            end
         end)
         view:add_signal("root-active", function ()
-            (w.search_state or {}).marker = nil
-            w:set_mode()
+            if w:get_mode() ~= "passthrough" then
+                w:set_mode()
+            end
         end)
     end,
 
     -- Stop key events hitting the webview if the user isn't in insert mode
     mode_key_filter = function (view, w)
         view:add_signal("key-press", function ()
-            if not w:is_mode("insert") then return true end
+            local mode = w:get_mode()
+            if mode ~= "insert" and mode ~= "passthrough" then return true end
         end)
     end,
 
     -- Try to match a button event to a users button binding else let the
     -- press hit the webview.
     button_bind_match = function (view, w)
-        -- Match button press
-        view:add_signal("button-release", function (v, mods, button)
+        view:add_signal("button-release", function (v, mods, button, context)
             (w.search_state or {}).marker = nil
-            if w:hit(mods, button) then return true end
+            if w:hit(mods, button, { context = context }) then
+                return true
+            end
         end)
     end,
 
@@ -162,10 +175,10 @@ webview.init_funcs = {
         -- with default behaviour
         view:add_signal("new-window-decision", function (v, link, reason)
             info("New window decision: %s (%s)", link, reason)
-            --if reason == "link-clicked" then
-            --    window.new({ link })
-            --    return true
-            --end
+            if reason == "link-clicked" then
+                window.new({ link })
+                return true
+            end
             w:new_tab(link)
         end)
     end,
@@ -181,7 +194,9 @@ webview.init_funcs = {
     download_request = function (view, w)
         -- 'link' contains the download link
         -- 'filename' contains the suggested filename (from server or webkit)
-        view:add_signal("download-request", function (v, link, filename) w:download(link, filename) end)
+        view:add_signal("download-request", function (v, link, filename)
+            downloads.add(link)
+        end)
     end,
 
     -- Creates context menu popup from table (and nested tables).
@@ -273,52 +288,6 @@ webview.methods = {
         view:set_prop("zoom-level", level or 1.0)
     end,
 
-    -- Searching functions
-    start_search = function (view, w, text)
-        if string.match(text, "^[?/]") then
-            w:set_mode("search")
-            w:set_input(text)
-        else
-            return error("invalid search term, must start with '?' or '/'")
-        end
-    end,
-
-    search = function (view, w, text, forward)
-        if forward == nil then forward = true end
-
-        -- Get search state (or new state)
-        if not w.search_state then w.search_state = {} end
-        local s = w.search_state
-
-        -- Get search term
-        text = text or s.last_search
-        if not text or #text == 0 then
-            return w:clear_search()
-        end
-        s.last_search = text
-
-        if s.forward == nil then
-            -- Haven't searched before, save some state.
-            s.forward = forward
-            s.marker = view:get_scroll_vert()
-        else
-            -- Invert direction if originally searching in reverse
-            forward = (s.forward == forward)
-        end
-
-        s.searched = true
-        s.ret = view:search(text, text ~= string.lower(text), forward, true);
-    end,
-
-    clear_search = function (view, w, clear_state)
-        view:clear_search()
-        if clear_state ~= false then
-            w.search_state = {}
-        else
-            w.search_state.searched = false
-        end
-    end,
-
     -- Webview scroll functions
     scroll_vert = function (view, w, value)
         local cur, max = view:get_scroll_vert()
@@ -355,12 +324,12 @@ webview.methods = {
 function webview.new(w)
     local view = widget{type = "webview"}
 
+    view.show_scrollbars = false
+
     -- Call webview init functions
     for k, func in pairs(webview.init_funcs) do
         func(view, w)
     end
-
-    view.show_scrollbars = false
     return view
 end
 

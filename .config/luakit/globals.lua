@@ -44,32 +44,33 @@ search_engines = {
 
 -- Set google as fallback search engine
 search_engines.default = search_engines.google
+-- Use this instead to disable auto-searching
+--search_engines.default = "{0}"
 
 -- Fake the cookie policy enum here
 cookie_policy = { always = 0, never = 1, no_third_party = 2 }
 
 -- Per-domain webview properties
-domain_props = {
-    --[[
+-- See http://webkitgtk.org/reference/webkitgtk-WebKitWebSettings.html
+domain_props = { --[[
     ["all"] = {
         ["enable-scripts"]          = false,
         ["enable-plugins"]          = false,
         ["enable-private-browsing"] = false,
         ["user-stylesheet-uri"]     = "",
         ["accept-policy"]           = cookie_policy.never,
-    }, ]]
+    },
     ["youtube.com"] = {
         ["enable-scripts"] = true,
         ["enable-plugins"] = true,
-        ["accept-policy"]  = cookie_policy.never,
     },
     ["lwn.net"] = {
        ["accept-policy"] = cookie_policy.no_third_party,
     },
-    ["forums.archlinux.org"] = {
-        ["user-stylesheet-uri"]     = luakit.data_dir .. "/styles/dark.css",
+    ["bbs.archlinux.org"] = {
+        ["user-stylesheet-uri"]     = "file://" .. luakit.data_dir .. "/styles/dark.css",
         ["enable-private-browsing"] = true,
-    },
+    }, ]]
 }
 
 -- vim: et:sw=4:ts=8:sts=4:tw=80

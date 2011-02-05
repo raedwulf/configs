@@ -24,7 +24,7 @@ beautiful.init(os.getenv("HOME").."/.config/awesome/themes/arch/theme.lua")
 terminal = "urxvtc"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
-browser = "luakit"
+browser = os.getenv("HOME").."/bin/lk"
 mail = terminal .. " -e " .. "mutt"
 
 -- Test whether we're on a laptop
@@ -205,7 +205,7 @@ vicious.register(mpdwidget, vicious.widgets.mpd,
                '<span color="'..colour..'" font="Monospace">'..
                helpers.escape(string.sub(str, mpdscroll + 1, mpdscroll + width))..
                '</span>'
-        mpdscroll = (mpdscroll + 1) % (string.len(str) - width)
+        mpdscroll = (mpdscroll + 4) % (string.len(str) - width)
         tplayed, tleft = string.match(args["{time}"], "([0-9]+):([0-9]+)");
         if tplayed == nil then
             tplayed = 0
@@ -237,11 +237,9 @@ vicious.register(cpuwidget, vicious.widgets.cpu,
                       string.format("%-8s", names[i])..'</span>'..
                       '<span color="green" font="Monospace">'..
                       string.format("%5d", args[i])..
-                      ' %</span>'
-            if i ~= #args then
-                cpudata = cpudata.."\n"
-            end
+                      ' %</span>\n'
         end
+        cpudata = cpudata:sub(1,-2)
         return args[1]
     end, 1)
 
@@ -270,10 +268,8 @@ vicious.register(memwidget, vicious.widgets.mem,
                       '<span weight="bold" font="Monospace">'..
                       string.format("%-7s", names[i])..'</span>'..
                       '<span color="green" font="Monospace">'..
-                      string.format("%8s", args[i]..units[i])..'</span>'
-            if i ~= 4 then
-                memdata = memdata.."\n"
-            end
+                      string.format("%8s", args[i]..units[i])..'</span>\n'
+            memdata = memdata:sub(1,-2)
         end
         return args[1]
     end, 13)
@@ -337,6 +333,57 @@ if laptop then
         timer_function = function()
             return batdata
         end })
+
+    wifiwidget = awful.widget.progressbar()
+    wifiwidget:set_width(4)
+    wifiwidget:set_vertical(true)
+    wifiwidget:set_background_color("#494B4F")
+    wifiwidget:set_border_color(nil)
+    wifiwidget:set_color("#AECF96")
+    vicious.register(wifiwidget, vicious.widgets.wifi, "${link}", 10, "wlan0")
+    vicious.cache(vicious.widgets.wifi)
+
+    wifidata = ''
+    wifisymwidget = wibox.widget.textbox()
+    vicious.register(wifisymwidget, vicious.widgets.wifi, 
+        function (widget, args)
+            local names = {
+                ["{ssid}"] = "SSID:", 
+                ["{mode}"] = "Mode:", 
+                --["{chan}"] = "Channel:",
+                ["{rate}"] = "Rate:", 
+                --["{link}"] = "Link:",
+                ["{linp}"] = "Quality:",
+                --["{sign}"] = "Signal:"
+            }
+            wifidata = '<span weight="bold" font="Monospace" underline="single">'..
+                       'Wifi Status</span>\n'
+            args["{rate}"] = args["{rate}"].." Mbps"
+            args["{linp}"] = args["{linp}"].." %"
+            --args["{sign}"] = args["{sign}"].." dB"
+            for i,v in pairs(names) do
+                wifidata = wifidata..
+                           '<span weight="bold" font="Monospace">'..
+                           string.format("%-9s", v)..' </span>'..
+                           '<span color="green" font="Monospace">'..
+                           string.format("%8s", args[i]).."</span>\n"
+            end
+            wifidata = wifidata:sub(1,-2)
+            if args["{linp}"] == "0 %" then
+                colour = 'red'
+            else
+                colour = 'green'
+            end
+            return '<span color="'..colour..'" font="Monospace">◉</span>'
+        end, 10, "wlan0")
+
+    wifitooltip = awful.tooltip({ objects = { wifiwidget, wifisymwidget },
+        timer_function = function()
+            return wifidata
+        end })
+
+    wifisymwidget:set_markup('<span color="red" font="Monospace">◉</span>')
+
 end
 
 -- Volume widget
@@ -426,6 +473,12 @@ for s = 1, screen.count() do
     right_layout:add(volwidget)
     right_layout:add(volsymwidget)
     right_layout:add(separator)
+    if laptop then
+        right_layout:add(wifiwidget)
+        right_layout:add(spacer)
+        right_layout:add(wifisymwidget)
+        right_layout:add(separator)
+    end
     right_layout:add(kbdcfg.widget)
     right_layout:add(separator)
     right_layout:add(mytextclock)
