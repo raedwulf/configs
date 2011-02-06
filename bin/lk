@@ -1,0 +1,16 @@
+#!/bin/sh
+ACTIVE=`dbus-send --print-reply --dest=org.luakit.dbus.luakit / org.luakit.dbus.luakit.active | grep "boolean true"`
+if [ "$ACTIVE" != "" ]
+then
+	for i in "$*"
+	do
+		URIS="${URIS} string:$i"
+	done
+	if [ "$*" == "" ]
+	then
+		URIS="string:http://luakit.org/projects/luakit/"
+	fi
+	dbus-send --dest=org.luakit.dbus.luakit / org.luakit.dbus.luakit.open_url ${URIS}
+else
+	luakit -b luakit $*
+fi
