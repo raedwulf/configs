@@ -105,15 +105,15 @@ mytextclock = awful.widget.textclock(" %a %b %d, %H:%M:%S", 1)
 
 -- Keyboard map indicator and changer
 kbdcfg = {}
-kbdcfg.cmd = "setxkbmap"
+kbdcfg.cmd = "setxkbmap "
 kbdcfg.layout = { "gb", "us", "gb dvorak" }
 kbdcfg.current = 1  -- gb is our default layout
 kbdcfg.widget = wibox.widget.textbox()
 kbdcfg.widget:set_text(" " .. kbdcfg.layout[kbdcfg.current] .. " ")
 kbdcfg.switch = function ()
-    kbdcfg.current = kbdcfg.current % #(kbdcfg.layout) + 1
-    local t = " " .. kbdcfg.layout[kbdcfg.current] .. " "
-    kbdcfg.widget.text = t
+    kbdcfg.current = (kbdcfg.current + 1) % #(kbdcfg.layout) + 1
+    local t = kbdcfg.layout[kbdcfg.current]
+    kbdcfg.widget:set_text(" " .. t .. " ")
     os.execute( kbdcfg.cmd .. t )
 end
 
@@ -340,7 +340,7 @@ if laptop then
     wifiwidget:set_background_color("#494B4F")
     wifiwidget:set_border_color(nil)
     wifiwidget:set_color("#AECF96")
-    vicious.register(wifiwidget, vicious.widgets.wifi, "${link}", 10, "wlan0")
+    vicious.register(wifiwidget, vicious.widgets.wifi, "${link}", 60, "wlan0")
     vicious.cache(vicious.widgets.wifi)
 
     wifidata = ''
@@ -375,7 +375,7 @@ if laptop then
                 colour = 'green'
             end
             return '<span color="'..colour..'" font="Monospace">◉</span>'
-        end, 10, "wlan0")
+        end, 60, "wlan0")
 
     wifitooltip = awful.tooltip({ objects = { wifiwidget, wifisymwidget },
         timer_function = function()
