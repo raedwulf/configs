@@ -269,8 +269,8 @@ vicious.register(memwidget, vicious.widgets.mem,
                       string.format("%-7s", names[i])..'</span>'..
                       '<span color="green" font="Monospace">'..
                       string.format("%8s", args[i]..units[i])..'</span>\n'
-            memdata = memdata:sub(1,-2)
         end
+        memdata = memdata:sub(1,-2)
         return args[1]
     end, 13)
 vicious.cache(vicious.widgets.mem)
