@@ -7,4 +7,5 @@ keycode 83 = Left
 keycode 85 = Right
 keycode 88 = Down
 keycode 84 = 
+keycode 44 = j J j J oe OE
 pointer = 1 2 3
