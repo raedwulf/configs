@@ -394,7 +394,7 @@ volwidget:set_background_color("#494B4F")
 volwidget:set_border_color(nil)
 volwidget:set_color("#AECF96")
 --volwidget:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
-vicious.register(volwidget, vicious.widgets.volume, "$1", 2, 0)
+vicious.register(volwidget, vicious.widgets.volume, "$1", 2, "Master")
 vicious.cache(vicious.widgets.volume)
 
 voldata = ''
@@ -412,7 +412,7 @@ vicious.register(volsymwidget, vicious.widgets.volume,
         voldata = '<span weight="bold" font="Monospace">Volume: </span>'..
                   '<span color="green" font="Monospace">'..volume.." %</span>"
         return '<span color="'..colour..'"> ☊</span>'
-    end, 2, 0)
+    end, 2, "Master")
 
 voltooltip = awful.tooltip({ objects = { volwidget, volsymwidget },
     timer_function = function()
