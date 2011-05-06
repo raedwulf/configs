@@ -38,8 +38,8 @@ require "binds"
 -- Optional user script loading --
 ----------------------------------
 
--- Add vimperator-like link hinting & following
-require "follow"
+-- Add sqlite3 cookiejar
+require "cookies"
 
 -- Add uzbl-like form filling
 require "formfiller"
@@ -56,6 +56,9 @@ require "session"
 -- Add command to list closed tabs & bind to open closed tabs
 require "undoclose"
 
+-- Add command to list tab history items
+require "tabhistory"
+
 -- Add greasemonkey-like javascript userscript support
 require "userscripts"
 
@@ -65,6 +68,10 @@ require "bookmarks"
 -- Add download support
 require "downloads"
 require "downloads_chrome"
+
+-- Add vimperator-like link hinting & following
+-- (depends on downloads)
+require "follow"
 
 -- Add command completion
 require "completion"
@@ -80,6 +87,7 @@ require "taborder"
 
 -- Save web history
 require "history"
+require "history_chrome"
 
 require "follow_selected"
 require "go_input"
@@ -104,19 +112,13 @@ else
     w = window.new(uris)
 end
 
--- register my dbus callback
-require "dumper"
-function dump(...)
-  print(DataDumper(...), "\n---")
-end
 
+-- register my dbus callback
+--
+-- this should be done somwhere else, but window object is required, so just for
+-- this example, register it here
 dbus.handlers:add_signal("open_url", function (handler, dbus_msg)
-        for i,uri in ipairs(dbus_msg.args) do
-            w:new_tab(uri)
-        end
-    end)
-dbus.handlers:add_signal("active", function (handler, dbus_msg)
-        return true
+        w:new_tab(unpack(dbus_msg.args))
     end)
 
 -- vim: et:sw=4:ts=8:sts=4:tw=80
