@@ -41,6 +41,7 @@ case "$SESSION" in
                 # start-pulseaudio-x11 &
 		urxvtd -q -f -o &
 		xscreensaver -no-splash &
+		cloudsn &
 		if [ -f ~/.laptop ]; then
 			sleep 1
 			mpd ~/.mpdconf &

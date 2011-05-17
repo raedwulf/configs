@@ -126,12 +126,13 @@ alias f='find |grep'
 alias no='ls'
 #alias vi='vim'
 alias spell='aspell -len_GB-ise-w-accents -c '
-alias wget='wpro'
+#alias wget='wpro'
 if [ ${PLATFORM} = "FreeBSD" ]; then
    alias firefox='firefox3'
 fi
 alias get_iplayer='get_iplayer --nopurge '
 alias biew='TERM=vt100 biew'
+alias v='vim -c "syntax off"'
 
 # Completion
 zstyle ':completion:*' menu select=2
