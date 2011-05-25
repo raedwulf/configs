@@ -193,8 +193,8 @@ vicious.register(mpdwidget, vicious.widgets.mpd,
 
         local head = '<span color="white">MPD </span>'..
                      '<span color="gray">['..
-                     args["{songid}"].."/"..
-                     args["{playlistlength}"]..']</span>'..
+                     string.format("%03d", args["{song}"]).."/"..
+                     string.format("%03d", args["{playlistlength}"])..']</span>'..
                      '<span color="white">:</span> '
         local str = string.rep(" ", width)..
                     '{'..artist..'} '..album..' - '..
@@ -613,6 +613,9 @@ clientkeys = awful.util.table.join(
         end),
     awful.key({ modkey }, "Scroll_Lock", kbdcfg.switch),
     awful.key({        }, "Print",                function (c) 
+        awful.util.spawn("scrot '%Y-%m-%d_%H.%M.%S_$wx$h_scrot.png' -e 'mv $f ~/pictures/screenshots/'")
+    end),
+    awful.key({ modkey }, "F12",                  function (c) 
         awful.util.spawn("scrot '%Y-%m-%d_%H.%M.%S_$wx$h_scrot.png' -e 'mv $f ~/pictures/screenshots/'") 
     end)
 )

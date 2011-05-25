@@ -22,7 +22,7 @@ local function worker(format, warg)
         ["{volume}"] = 0,
         ["{state}"]  = "N/A",
         ["{playlistlength}"]  = 0,
-        ["{songid}"]  = 0,
+        ["{song}"]  = 0,
         ["{time}"]  = "N/A",
         ["{Artist}"] = "N/A",
         ["{Title}"]  = "N/A",
@@ -32,9 +32,9 @@ local function worker(format, warg)
     }
 
     -- Fallback to MPD defaults
-    local pass = warg and warg[1] or "\"\""
-    local host = warg and warg[2] or "127.0.0.1"
-    local port = warg and warg[3] or "6600"
+    local pass = warg and (warg.password or warg[1]) or "\"\""
+    local host = warg and (warg.host or warg[2]) or "127.0.0.1"
+    local port = warg and (warg.port or warg[3]) or "6600"
 
     -- Construct MPD client options
     local mpdh = "telnet://"..host..":"..port
