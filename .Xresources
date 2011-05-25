@@ -53,6 +53,7 @@ urxvt.keysym.C-minus: command:\033]50;xft:Monospace:pixelsize=9:antialias=true:h
 urxvt.keysym.C-equal: command:\033]50;xft:Monospace:pixelsize=12:antialias=true:hinting=true\007
 
 urxvt.inputMethod: fcitx
+urxvt*geometry: 90x25
 
 xpdf.reverseVideo: true
 xpdf.initialZoom: width

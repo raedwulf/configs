@@ -45,3 +45,6 @@ alias g='egrep -i'
 
 # search path for cd(1)
 # CDPATH=.:$HOME
+
+# search path
+export PATH=$HOME/bin:/usr/local/bin:/usr/share/java/apache-ant/bin:/opt/java/bin:/opt/java/jre/bin:$PATH

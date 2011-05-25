@@ -11,7 +11,7 @@ export SVN_EDITOR=$EDITOR
 # Force xft on old gnome aps
 export GDK_USE_XFT=1
 
-if [ ${PLATFORM} = "FreeBSD" ]; then
+if [ "${PLATFORM}" = "FreeBSD" ]; then
    export TERM='xterm-256color'
 else
    export TERM='rxvt-256color'
