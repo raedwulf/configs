@@ -220,7 +220,26 @@ vicious.register(mpdwidget, vicious.widgets.mpd,
         tpc = string.format("%.2d%%", (tplayed / tleft) * 100);
         return result..'<span color="white"> ['..tpc..']</span>'
     end, 1, { "", mpd_host, "6600" })
-    
+
+-- Gmail widget
+gmaildata=''
+gmailscroll = 0
+gmailwidth = 8
+gmailwidget = wibox.widget.textbox()
+vicious.register(gmailwidget, vicious.widgets.gmail,
+    function(widget, args)
+        local count = args["{count}"]
+        local subject = string.rep(" ", gmailwidth)..
+                        args["{subject}"]..
+                        string.rep(" ", gmailwidth)
+        local subscroll = helpers.escape(string.sub(subject, gmailscroll + 1, gmailscroll + gmailwidth))
+        gmailscroll = (gmailscroll + 4) % (string.len(subject) - gmailwidth)
+        return '<span color="white">GMAIL </span><span color="gray">['..
+               string.format("%03d", count)..'] </span>'..
+               '<span color="white">: </span><span color="yellow" font="Monospace">'..
+               string.format("%"..gmailwidth.."s", subscroll)..'</span>'
+    end, 1)
+
 -- CPU widget
 cpuwidget = awful.widget.graph()
 cpuwidget:set_width(20)
@@ -463,6 +482,8 @@ for s = 1, screen.count() do
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
     right_layout:add(mpdwidget)
+    right_layout:add(separator)
+    right_layout:add(gmailwidget)
     right_layout:add(separator)
     right_layout:add(cpuwidget)
     right_layout:add(spacer)
