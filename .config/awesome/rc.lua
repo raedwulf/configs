@@ -238,7 +238,7 @@ vicious.register(gmailwidget, vicious.widgets.gmail,
                string.format("%03d", count)..'] </span>'..
                '<span color="white">: </span><span color="yellow" font="Monospace">'..
                string.format("%"..gmailwidth.."s", subscroll)..'</span>'
-    end, 1)
+    end, 10)
 
 -- CPU widget
 cpuwidget = awful.widget.graph()
