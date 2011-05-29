@@ -226,20 +226,31 @@ gmaildata=''
 gmailscroll = 0
 gmailwidth = 8
 gmailwidget = wibox.widget.textbox()
+gmailcount = 0
+gmailsubject = "N/A"
 vicious.register(gmailwidget, vicious.widgets.gmail,
     function(widget, args)
-        local count = args["{count}"]
-        local subject = string.rep(" ", gmailwidth)..
+        gmailcount = args["{count}"]
+        gmailsubject = string.rep(" ", gmailwidth)..
                         args["{subject}"]..
                         string.rep(" ", gmailwidth)
-        local subscroll = helpers.escape(string.sub(subject, gmailscroll + 1, gmailscroll + gmailwidth))
-        gmailscroll = (gmailscroll + 4) % (string.len(subject) - gmailwidth)
+        local subscroll = helpers.escape(string.sub(gmailsubject, gmailscroll + 1, gmailscroll + gmailwidth))
         return '<span color="white">GMAIL </span><span color="gray">['..
-               string.format("%03d", count)..'] </span>'..
+               string.format("%03d", gmailcount)..'] </span>'..
                '<span color="white">: </span><span color="yellow" font="Monospace">'..
                string.format("%"..gmailwidth.."s", subscroll)..'</span>'
     end, 10)
-
+gmailscrolltimer = timer({ timeout = 1 })
+gmailscrolltimer:connect_signal("timeout", 
+    function() 
+        local subscroll = helpers.escape(string.sub(gmailsubject, gmailscroll + 1, gmailscroll + gmailwidth))
+        gmailscroll = (gmailscroll + 1) % (string.len(gmailsubject) - gmailwidth)
+        gmailwidget:set_markup('<span color="white">GMAIL </span><span color="gray">['..
+               string.format("%03d", gmailcount)..'] </span>'..
+               '<span color="white">: </span><span color="yellow" font="Monospace">'..
+               string.format("%"..gmailwidth.."s", subscroll)..'</span>')
+    end)
+gmailscrolltimer:start()
 -- CPU widget
 cpuwidget = awful.widget.graph()
 cpuwidget:set_width(20)
