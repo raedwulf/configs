@@ -1,0 +1,2 @@
+#!/bin/sh
+PATH=`echo "$PATH" | sed "s|$HOME/bin/python2-env:||"`
