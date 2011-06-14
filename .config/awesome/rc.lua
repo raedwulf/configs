@@ -231,9 +231,14 @@ gmailsubject = "N/A"
 vicious.register(gmailwidget, vicious.widgets.gmail,
     function(widget, args)
         gmailcount = args["{count}"]
-        gmailsubject = string.rep(" ", gmailwidth)..
-                        args["{subject}"]..
-                        string.rep(" ", gmailwidth)
+        if not gmailcount then
+            gmailsubject = string.rep(" ", gmailwidth).."N/A"..
+                           string.rep(" ", gmailwidth)
+        else
+            gmailsubject = string.rep(" ", gmailwidth)..
+                           args["{subject}"]..
+                           string.rep(" ", gmailwidth)
+        end
         local subscroll = helpers.escape(string.sub(gmailsubject, gmailscroll + 1, gmailscroll + gmailwidth))
         return '<span color="white">GMAIL </span><span color="gray">['..
                string.format("%03d", gmailcount)..'] </span>'..

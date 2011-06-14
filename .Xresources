@@ -44,7 +44,7 @@ urxvt.visualBell: false
 urxvt.dynamicColors:  on
 urxvt.highlightSelection:  true
 urxvt.borderWidth: 1
-urxvt.urlLauncher: luakit 
+urxvt.urlLauncher: chromium
 urxvt.pointerBlank: true
 urxvt.internalBorder: 0
 !urxvt.urgentOnBell: true
