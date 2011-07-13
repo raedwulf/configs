@@ -1,6 +1,6 @@
 *customization: -color
 XTerm*termName: xterm-256color
-XTerm*foreground: dodgerblue
+XTerm*foreground: white
 XTerm*background: black
 XTerm*internalBorder: 1
 XTerm*scrollBar: false
@@ -32,7 +32,7 @@ urxvt.font: xft:Monospace:pixelsize=9:antialias=true:hinting=true
 !urxvt.boldFont: xft:Monospace:style=Bold:pixelsize=9:antialias=true:hinting=true
 !urxvt.depth: 32
 urxvt.background: rgba:0000/0000/0000/cccc
-urxvt.foreground: dodgerblue
+urxvt.foreground: white
 !urxvt.borderColor: rgba:0000/0000/0000/0000
 urxvt.cursorColor: blue
 urxvt.cursorBlink: true
