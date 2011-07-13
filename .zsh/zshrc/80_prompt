@@ -26,7 +26,7 @@ function precmd {
         p_done=${path_prompt}
         for (( i=1 ; ; ++i )); do
             p_temp=$(print -P %${i}~)
-            if (( ( ${#p_temp} + ${#p_tchars} ) < ${maxlength} )); then
+            if (( ( ${#p_temp} + ${#p_tchars} ) <= ${maxlength} )); then
                 p_done=${p_temp}
             else
                 break
