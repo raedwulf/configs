@@ -1,0 +1,5 @@
+*.sw[op]
+irssi/away.log
+*.zwc
+xmonad/history
+vim/.netrwhist
