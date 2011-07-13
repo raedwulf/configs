@@ -13,7 +13,7 @@ setopt PROMPT_SUBST
 # HJM: replaced with new version of my prompt
 
 function precmd {
-    if [ $USER = 'harry' ]; then
+    if [ $USER = 'raedwulf' ]; then
         hostprompt="%{$fg[blue]%}%m"
     else
         hostprompt="%{$fg[cyan]%}%m"
@@ -42,7 +42,7 @@ function precmd {
     fi
 
     export PROMPT="%{%(!.$fg[red].$fg[green])%}%n%{$fg[default]%}@${hostprompt}%{$fg[default]%}:%{$fg[yellow]%}${path_prompt}${vcs_info_msg_0_}%{$fg[red]%}%(?..[%?])%{$fg[default]%}%# "
-    export RPROMPT="[%{$fg[cyan]%}%t%{$fg[white]%}]"
+    export RPROMPT="[%{$fg[cyan]%}%t%{$fg[default]%}]"
 }
 
 precmd
