@@ -230,6 +230,8 @@ set wildignore=*.o,*.pyc,*.pyo,.git,.svn
 " Enable mouse for convenient laptop scrolling
 set mouse=av
 
+set runtimepath+=/usr/share/lilypond/2.12.3/vim/ 
+
 " Don't use filetype indent
 filetype on
 filetype plugin on
@@ -357,7 +359,7 @@ autocmd BufNewFile,BufRead *.als set ft=alloy4
 "" }}}
 "" {{{ Filetype settings
 " Files to indent with two spaces
-autocmd FileType xhtml,html,xml,sass,tex,plaintex,yaml silent setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
+autocmd FileType xhtml,html,xml,sass,tex,plaintex,yaml,lilypond silent setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
 
 " Set correct folding for C
 autocmd FileType c,h,cpp silent setlocal fdm=syntax fdn=1
