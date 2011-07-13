@@ -1,8 +1,5 @@
 # Created by HJM for global aliases
 
-# Machine names
-alias -g milan='milan@cs.york.ac.uk'
-
 # pipe commands
 alias -g H='| head'
 alias -g T='| tail'
