@@ -42,7 +42,7 @@ function precmd {
     fi
 
     export PROMPT="%{%(!.$fg[red].$fg[green])%}%n%{$fg[default]%}@${hostprompt}%{$fg[default]%}:%{$fg[yellow]%}${path_prompt}${vcs_info_msg_0_}%{$fg[red]%}%(?..[%?])%{$fg[default]%}%# "
-    export RPROMPT="[%{$fg[cyan]%}%t%{$fg[default]%}]"
+    export RPROMPT="[%{$fg[cyan]%}%T%{$fg[default]%}]"
 }
 
 precmd
