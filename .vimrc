@@ -275,6 +275,9 @@ set hls
 " Don't fold less than 2 lines
 set foldminlines=2
 
+" Disable folding...
+set nofoldenable
+
 " Highlight syntax
 syntax on
 set synmaxcol=256
