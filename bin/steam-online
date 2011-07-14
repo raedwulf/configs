@@ -1,0 +1,21 @@
+#!/bin/sh
+HISTORY=/tmp/steam.$USER.txt
+export DISPLAY=:0.0
+if [ -f $HISTORY ]
+then
+	$HOME/bin/steam-friends | sort > $HISTORY.new
+	OLD=`comm -13 $HISTORY.new $HISTORY`
+	NEW=`comm -23 $HISTORY.new $HISTORY`
+	if [ "$OLD$NEW" != "" ]
+	then
+		OLD="<span color='red'>${OLD}</span>"
+		NEW="<span color='green'>${NEW}</span>"
+		NOTIFY=`printf "%s\n%s" "$OLD" "$NEW"`
+		echo "$NOTIFY"
+		notify-send "Steam Friends" "$NOTIFY"
+		mv $HISTORY.new $HISTORY
+	fi
+else
+	$HOME/bin/steam-friends | sort > $HISTORY
+fi
+

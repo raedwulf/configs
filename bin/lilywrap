@@ -1,0 +1,56 @@
+#!/bin/sh
+# lilywrap is a wrapper script for lilypond,
+# that inserts articulations for midi output.
+# It assumes that lilypond is in your PATH.
+# $Id: lilywrap,v 1.2 2010-01-18 00:22:44 peterc Exp $
+#
+#
+# Copyright (C) 2008, 2009 NICTA
+# Author: Peter Chubb <peter.chubb AT nicta.com.au>
+#
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License, version 2,
+#  as published by the Free Software Foundation.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+#  See the GNU General Public License for more details.  It is
+#  available in the Lilypond source tree, or at
+#  http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+#
+#set -x
+
+LILYVERSION=`lilypond --version | sed -n 's/^GNU LilyPond //p'`
+case "$LILYVERSION" in
+    2.10.*)
+       # This doesn't seem to work
+       midionly=--no-print
+       ;;
+    2.1[123].*)
+       # This works, but Lily still seems to do lots of the typesetting.
+       midionly=-dno-print-pages
+       ;;
+    *)
+       midionly=--midi
+       ;;
+    esac
+
+HERE=`dirname $0`
+[ -f $HERE/articulate.ly ] && INC=-I$HERE
+
+awk '
+BEGIN {
+      print "\\include \"articulate.ly\""
+}
+/\\score/ { inscore=1}
+inscore && /{/ { print "\\score {"
+	print "\\unfoldRepeats \\articulate"
+	inscore=0
+	next
+}
+	{print}' $1 > $1-preprocessed.ly
+lilypond $INC  $midionly -o `basename $1 .ly` $1-preprocessed.ly 
+#rm -f $1-preprocessed.ly
+

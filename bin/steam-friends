@@ -1,0 +1,4 @@
+#!/bin/sh
+PROFILE_ID=76561198006338038
+curl -s http://steamcommunity.com/profiles/$PROFILE_ID/friends | grep "\(linkFriend_online\|linkFriend_in-game\)" | grep -v "In-Game" | sed 's|[^>]*>[^>]*">\([^<]*\).*|\1|'
+

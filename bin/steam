@@ -1,0 +1,3 @@
+#!/bin/sh
+cd ~/.PlayOnLinux/wineprefix/Steam/drive_c/Program\ Files/Steam
+wine steam
