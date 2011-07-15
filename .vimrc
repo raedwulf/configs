@@ -379,7 +379,7 @@ autocmd BufNewFile,BufRead *.als set ft=alloy4
 "" }}}
 "" {{{ Filetype settings
 " Files to indent with two spaces
-autocmd FileType xhtml,html,xml,sass,tex,plaintex,yaml,lilypond silent setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
+autocmd FileType python,xhtml,html,xml,sass,tex,plaintex,yaml,lilypond silent setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
 
 " Set correct folding for C
 autocmd FileType c,h,cpp silent setlocal fdm=syntax fdn=1
