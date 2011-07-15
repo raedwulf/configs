@@ -54,8 +54,8 @@ alias vil='vi *(.om[1]^D)'
 alias aoeu='setxkbmap gb'
 alias asdf='setxkbmap gb dvorak && xmodmap ~/.Xmodmap'
 
-alias lscontext=ls
-cd () { __CHPWD_RUN_FIRST=lscontext && builtin cd "$@" && unset __CHPWD_RUN_FIRST }
+#alias lscontext=ls
+#cd () { __CHPWD_RUN_FIRST=lscontext && builtin cd "$@" && unset __CHPWD_RUN_FIRST }
 #_cd_l() { ll }
 #chpwd_functions+=_cd_l
 
