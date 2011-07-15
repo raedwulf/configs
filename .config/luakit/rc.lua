@@ -2,6 +2,21 @@
 -- luakit configuration file, more information at http://luakit.org/ --
 -----------------------------------------------------------------------
 
+if unique then
+    unique.new("org.luakit")
+    -- Check for a running luakit instance
+    if unique.is_running() then
+        if uris[1] then
+            for _, uri in ipairs(uris) do
+                unique.send_message("tabopen " .. uri)
+            end
+        else
+            unique.send_message("winopen")
+        end
+        luakit.quit()
+    end
+end
+
 -- Load library of useful functions for luakit
 require "lousy"
 
@@ -73,9 +88,6 @@ require "downloads_chrome"
 -- (depends on downloads)
 require "follow"
 
--- Add command completion
-require "completion"
-
 -- Add command history
 require "cmdhist"
 
@@ -89,14 +101,16 @@ require "taborder"
 require "history"
 require "history_chrome"
 
+-- Add command completion
+require "completion"
+
+-- Dbus support
+require "dbus"
+
 require "follow_selected"
 require "go_input"
 require "go_next_prev"
 require "go_up"
-require "session"
-require "quickmarks"
-require "proxy"
-require "dbus"
 
 -----------------------------
 -- End user script loading --
@@ -120,5 +134,38 @@ end
 dbus.handlers:add_signal("open_url", function (handler, dbus_msg)
         w:new_tab(unpack(dbus_msg.args))
     end)
+
+if unique then
+    unique.add_signal("message", function (msg, screen)
+        local cmd, arg = string.match(msg, "^(%S+)%s*(.*)")
+        local w = lousy.util.table.values(window.bywidget)[1]
+        if cmd == "tabopen" then
+            w:new_tab(arg)
+        elseif cmd == "winopen" then
+            w = window.new((arg ~= "") and { arg } or {})
+        end
+        w.win:set_screen(screen)
+    end)
+end
+
+-----------------------------------------------------------
+-- Open URIs from other luakit instances (DBUS required) --
+-----------------------------------------------------------
+dbus.method_call({
+    dest='org.freedesktop.Notifications',
+    path='/org/freedesktop/Notifications',
+    interface='org.freedesktop.Notifications',
+    method='Notify',
+    message={
+        "app_name",
+        0,
+        "app_icon",
+        "Greetings from luakit!",
+        "This is test method call, send strait from luakit, using dbus",
+        '',
+        '',
+        5000
+    }
+})
 
 -- vim: et:sw=4:ts=8:sts=4:tw=80

@@ -141,12 +141,10 @@ add_binds("normal", {
     key({},          "+",           function (w, m)    w:zoom_in(zoom_step  * m.count)       end, {count=1}),
     key({},          "-",           function (w, m)    w:zoom_out(zoom_step * m.count)       end, {count=1}),
     key({},          "=",           function (w, m)    w:zoom_set() end),
-    buf("^zz$",                     function (w, b, m) w:zoom_set() end),
     buf("^z[iI]$",                  function (w, b, m) w:zoom_in(zoom_step  * m.count, b == "zI") end, {count=1}),
     buf("^z[oO]$",                  function (w, b, m) w:zoom_out(zoom_step * m.count, b == "zO") end, {count=1}),
-
-    -- Specific zoom
-    buf("^zZ$",                     function (w, b, m) w:zoom_set(m.count/100, true) end, {count=100}),
+    -- Zoom reset or specific zoom ([count]zZ for full content zoom)
+    buf("^z[zZ]$",                  function (w, b, m) w:zoom_set(m.count/100, b == "zZ") end, {count=100}),
 
     -- Clipboard
     key({},          "p",           function (w)
@@ -162,9 +160,14 @@ add_binds("normal", {
     -- Yanking
     buf("^yy$",                     function (w)
                                         local uri = string.gsub(w:get_current().uri or "", " ", "%%20")
-                                        w:set_selection(uri)
+                                        luakit.set_selection(uri)
+                                        w:notify("Yanked uri: " .. uri)
                                     end),
-    buf("^yt$",                     function (w) w:set_selection(w.win.title) end),
+
+    buf("^yt$",                     function (w)
+                                        luakit.set_selection(w.win.title)
+                                        w:notify("Yanked title: " .. w.win.title)
+                                    end),
 
     -- Commands
     key({"Control"}, "a",           function (w)    w:navigate(w:inc_uri(1)) end),
@@ -233,6 +236,8 @@ add_binds({"command", "search"}, {
     key({"Shift"},   "Insert",  function (w) w:insert_cmd(luakit.get_selection()) end),
     key({"Control"}, "w",       function (w) w:del_word() end),
     key({"Control"}, "u",       function (w) w:del_line() end),
+    key({"Control"}, "h",       function (w) w:del_backward_char() end),
+    key({"Control"}, "d",       function (w) w:del_forward_char() end),
     key({"Control"}, "a",       function (w) w:beg_line() end),
     key({"Control"}, "e",       function (w) w:end_line() end),
     key({"Control"}, "f",       function (w) w:forward_char() end),

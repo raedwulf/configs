@@ -315,6 +315,26 @@ window.methods = {
         end
     end,
 
+    del_backward_char = function (w)
+        local i = w.ibar.input
+        local text = i.text
+        local pos = i.position
+
+        if pos > 1 then
+            i.text = string.sub(text, 0, pos - 1) .. string.sub(text, pos + 1)
+            i.position = pos - 1
+        end
+    end,
+
+    del_forward_char = function (w)
+        local i = w.ibar.input
+        local text = i.text
+        local pos = i.position
+
+        i.text = string.sub(text, 0, pos) .. string.sub(text, pos + 2)
+        i.position = pos
+    end,
+
     beg_line = function (w)
         local i = w.ibar.input
         i.position = 1
@@ -362,12 +382,6 @@ window.methods = {
                 i.position = pos - move
             end
         end
-    end,
-
-    -- Wrapper around luakit.set_selection that shows a notification
-    set_selection = function (w, text, selection)
-        luakit.set_selection(text, selection or "primary")
-        w:notify("Yanked: " .. text)
     end,
 
     -- Shows a notification until the next keypress of the user.
