@@ -420,6 +420,10 @@ autocmd BufReadPost *
 \ if line("'\"") > 0 && line("'\"") <= line("$") |
 \   exe "normal! g`\"" |
 \ endif
+
+" Rainbow Parenthesis
+command Rainbow so ~/.vim/plugin/RainbowParenthsis.vim
+autocmd BufReadPost * Rainbow
 "" }}}
 " }}}
 " {{{ Functions

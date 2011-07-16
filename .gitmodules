@@ -46,12 +46,12 @@
 [submodule ".vim/bundle/indenthl"]
 	path = .vim/bundle/indenthl
 	url = git://github.com/vim-scripts/IndentHL.git
-[submodule ".vim/bundle/vim-rainbow"]
-	path = .vim/bundle/vim-rainbow
-	url = git://github.com/chrismetcalf/vim-rainbow.git
 [submodule ".vim/bundle/solarized"]
 	path = .vim/bundle/solarized
 	url = git://github.com/altercation/vim-colors-solarized.git
 [submodule ".vim/bundle/xterm-color-table"]
 	path = .vim/bundle/xterm-color-table
 	url = git://github.com/guns/xterm-color-table.vim
+[submodule ".vim/bundle/rainbow-parenthesis"]
+	path = .vim/bundle/rainbow-parenthesis
+	url = git://github.com/vim-scripts/Rainbow-Parenthesis.git
