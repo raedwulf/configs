@@ -1,0 +1,66 @@
+[submodule ".vim/bundle/fugitive"]
+	path = .vim/bundle/fugitive
+	url = git://github.com/altercation/vim-colors-solarized.git
+[submodule ".vim/bundle/nerdtree"]
+	path = .vim/bundle/nerdtree
+	url = git://github.com/scrooloose/nerdtree.git
+[submodule ".vim/bundle/vim-fugitive"]
+	path = .vim/bundle/vim-fugitive
+	url = git://github.com/tpope/vim-fugitive.git
+[submodule ".vim/bundle/lusty"]
+	path = .vim/bundle/lusty
+	url = git://github.com/sjbach/lusty.git
+[submodule ".vim/bundle/vim-rainbow"]
+	path = .vim/bundle/vim-rainbow
+	url = git://github.com/Soares/vim-rainbow.git
+[submodule ".vim/bundle/bisect"]
+	path = .vim/bundle/bisect
+	url = git://github.com/mikezackles/Bisect.git
+[submodule ".vim/bundle/alternate"]
+	path = .vim/bundle/alternate
+	url = git://github.com/Sep102/a.vim.git
+[submodule "yankring"]
+	path = yankring
+	url = git://github.com/vim-scripts/YankRing.vim.git
+[submodule ".vim/bunldle/yankring"]
+	path = .vim/bunldle/yankring
+	url = git://github.com/vim-scripts/YankRing.vim.git
+[submodule ".vim/bundle/yankring"]
+	path = .vim/bundle/yankring
+	url = git://github.com/vim-scripts/YankRing.vim.git
+[submodule ".vim/bundle/pep8"]
+	path = .vim/bundle/pep8
+	url = git://github.com/jcrocholl/pep8.git
+[submodule ".vim/bundle/csindent"]
+	path = .vim/bundle/csindent
+	url = git://github.com/vim-scripts/csindent.vim.git
+[submodule ".vim/bundle/snipmate"]
+	path = .vim/bundle/snipmate
+	url = git://github.com/msanders/snipmate.vim.git
+[submodule ".vim/bundle/taglist"]
+	path = .vim/bundle/taglist
+	url = git://github.com/vim-scripts/taglist.vim.git
+[submodule "command-t"]
+	path = command-t
+	url = git://github.com/vim-scripts/Command-T.git
+[submodule "camelcasemotion"]
+	path = camelcasemotion
+	url = git://github.com/bkad/CamelCaseMotion.git
+[submodule ".vim/bundle/command-t"]
+	path = .vim/bundle/command-t
+	url = git://github.com/vim-scripts/Command-T.git
+[submodule ".vim/bundle/camelcasemotion"]
+	path = .vim/bundle/camelcasemotion
+	url = git://github.com/bkad/CamelCaseMotion.git
+[submodule ".vim/bundle/bclose"]
+	path = .vim/bundle/bclose
+	url = git://github.com/rbgrouleff/bclose.vim.git
+[submodule ".vim/bundle/vim-indent-object"]
+	path = .vim/bundle/vim-indent-object
+	url = git://github.com/michaeljsmith/vim-indent-object.git
+[submodule "indenthl"]
+	path = indenthl
+	url = git://github.com/vim-scripts/IndentHL.git
+[submodule ".vim/bundle/indenthl"]
+	path = .vim/bundle/indenthl
+	url = git://github.com/vim-scripts/IndentHL.git
