@@ -16,9 +16,6 @@
 [submodule ".vim/bundle/alternate"]
 	path = .vim/bundle/alternate
 	url = git://github.com/Sep102/a.vim.git
-[submodule "yankring"]
-	path = yankring
-	url = git://github.com/vim-scripts/YankRing.vim.git
 [submodule ".vim/bunldle/yankring"]
 	path = .vim/bunldle/yankring
 	url = git://github.com/vim-scripts/YankRing.vim.git
@@ -37,12 +34,6 @@
 [submodule ".vim/bundle/taglist"]
 	path = .vim/bundle/taglist
 	url = git://github.com/vim-scripts/taglist.vim.git
-[submodule "command-t"]
-	path = command-t
-	url = git://github.com/vim-scripts/Command-T.git
-[submodule "camelcasemotion"]
-	path = camelcasemotion
-	url = git://github.com/bkad/CamelCaseMotion.git
 [submodule ".vim/bundle/command-t"]
 	path = .vim/bundle/command-t
 	url = git://github.com/vim-scripts/Command-T.git
@@ -55,9 +46,6 @@
 [submodule ".vim/bundle/vim-indent-object"]
 	path = .vim/bundle/vim-indent-object
 	url = git://github.com/michaeljsmith/vim-indent-object.git
-[submodule "indenthl"]
-	path = indenthl
-	url = git://github.com/vim-scripts/IndentHL.git
 [submodule ".vim/bundle/indenthl"]
 	path = .vim/bundle/indenthl
 	url = git://github.com/vim-scripts/IndentHL.git
