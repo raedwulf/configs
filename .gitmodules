@@ -55,3 +55,12 @@
 [submodule ".vim/bundle/indenthl"]
 	path = .vim/bundle/indenthl
 	url = git://github.com/vim-scripts/IndentHL--Summers.git
+[submodule ".vim/bundle/vim-vala"]
+	path = .vim/bundle/vim-vala
+	url = git://github.com/DasIch/vim-vala.git
+[submodule ".vim/bundle/go"]
+	path = .vim/bundle/go
+	url = git://github.com/anzaika/go.vim.git
+[submodule ".vim/bundle/vim-markdown"]
+	path = .vim/bundle/vim-markdown
+	url = git://github.com/plasticboy/vim-markdown.git
