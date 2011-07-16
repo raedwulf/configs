@@ -10,9 +10,6 @@
 [submodule ".vim/bundle/lusty"]
 	path = .vim/bundle/lusty
 	url = git://github.com/sjbach/lusty.git
-[submodule ".vim/bundle/vim-rainbow"]
-	path = .vim/bundle/vim-rainbow
-	url = git://github.com/Soares/vim-rainbow.git
 [submodule ".vim/bundle/bisect"]
 	path = .vim/bundle/bisect
 	url = git://github.com/mikezackles/Bisect.git
@@ -64,3 +61,6 @@
 [submodule ".vim/bundle/indenthl"]
 	path = .vim/bundle/indenthl
 	url = git://github.com/vim-scripts/IndentHL.git
+[submodule ".vim/bundle/vim-rainbow"]
+	path = .vim/bundle/vim-rainbow
+	url = git://github.com/chrismetcalf/vim-rainbow.git
