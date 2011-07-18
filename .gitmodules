@@ -52,9 +52,6 @@
 [submodule ".vim/bundle/rainbow-parenthesis"]
 	path = .vim/bundle/rainbow-parenthesis
 	url = git://github.com/vim-scripts/Rainbow-Parenthesis.git
-[submodule ".vim/bundle/indenthl"]
-	path = .vim/bundle/indenthl
-	url = git://github.com/vim-scripts/IndentHL--Summers.git
 [submodule ".vim/bundle/vim-vala"]
 	path = .vim/bundle/vim-vala
 	url = git://github.com/DasIch/vim-vala.git

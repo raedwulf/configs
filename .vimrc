@@ -247,8 +247,8 @@ filetype indent off
 """ }}}
 """ {{{ Display
 " Characters to use in list mode
-set listchars=tab:│\ ,trail:·
-set list
+"set listchars=tab:│\ ,trail:·
+"set list
 
 " Always display statusline
 set laststatus=2
@@ -424,6 +424,12 @@ autocmd BufReadPost *
 " Rainbow Parenthesis
 command Rainbow so ~/.vim/plugin/RainbowParenthsis.vim
 autocmd BufReadPost * Rainbow
+
+" Indent Highlighting
+let g:indenthlinfertabmode=1
+let g:indenthlstyle=1
+command IndentHL so ~/.vim/plugin/indenthl.vim
+autocmd BufReadPost * IndentHL
 "" }}}
 " }}}
 " {{{ Functions
