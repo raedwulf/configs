@@ -348,8 +348,7 @@ if has('gui_running')
 else
     set background=dark
 endif
-let g:solarized_termcolors=256
-colorscheme solarized
+colorscheme hotdesert256
 """ }}}
 "" }}}
 " }}}
@@ -381,7 +380,7 @@ autocmd BufNewFile,BufRead *.als set ft=alloy4
 "" }}}
 "" {{{ Filetype settings
 " Files to indent with two spaces
-autocmd FileType python,xhtml,html,xml,sass,tex,plaintex,yaml,lilypond silent setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
+autocmd FileType python,xhtml,html,xml,sass,tex,plaintex,yaml,lilypond,vim silent setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
 
 " Set correct folding for C
 autocmd FileType c,h,cpp silent setlocal fdm=syntax fdn=1
