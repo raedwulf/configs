@@ -50,9 +50,9 @@ if (g:indenthlinfertabmode)
     syn match cTabError /^\t\+/
   else
     syn match cTab1 /^[\t]/
-    syn match cTab2 /\(^\t\)\@<=\t/
+    syn match cTab3 /\(^\t\)\@<=\t/
     for i in range(2,g:indenthlmaxdepth)
-      exec 'syn match cTab'. i .' /\(^ \{'. i .'}\)\@<=\t/'
+      exec 'syn match cTab'. i .' /\(^\t\{'. (i-1) .'}\)\@<=\t/'
     endfor
     syn match cTabError /^ \+/
   endif
