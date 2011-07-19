@@ -6,9 +6,9 @@ XTerm*internalBorder: 1
 XTerm*scrollBar: false
 XTerm*saveLines: 1000
 XTerm*scrollKey: true
-xterm*faceName: terminus:pixelsize=10
+xterm*faceName: ProggySmall:pixelsize=10
 
-xft*dpi:96 
+xft*dpi:96
 xft*antialias: true
 xft*rgba: rgb
 xft*lcdfilter: lcddefault
@@ -28,16 +28,16 @@ urxvt.matcher.button: 1
 !urxvt.selection-autotransform.0: s/^([^:[:space:]]+):(\\d+):?$/vi +$2 \\Q$1\\E\\x0d/
 
 ! FONTS
-urxvt.font: xft:Monospace:pixelsize=9:antialias=true:hinting=true
+urxvt.font: -*-proggyoptis-*-*-*-*-*-*-*-96-*-*-*-*
+!urxvt.Font: xft:Monospace:pixelsize=9:antialias=true:hinting=true
 !urxvt.boldFont: xft:Monospace:style=Bold:pixelsize=9:antialias=true:hinting=true
 !urxvt.depth: 32
 urxvt.background: rgba:0000/0000/0000/cccc
 urxvt.foreground: white
-!urxvt.borderColor: rgba:0000/0000/0000/0000
 urxvt.cursorColor: blue
 urxvt.cursorBlink: true
 !urxvt.tintColor: black
-!urxvt.inheritPixmap: true 
+!urxvt.inheritPixmap: true
 !urxvt.backgroundPixmap: /home/archlucas/pictures/bg.png;:root
 urxvt.saveLines: 500
 urxvt.visualBell: false
