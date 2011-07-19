@@ -421,8 +421,11 @@ autocmd BufReadPost *
 \ endif
 
 " Rainbow Parenthesis
-command Rainbow so ~/.vim/plugin/RainbowParenthsis.vim
-autocmd BufReadPost * Rainbow
+autocmd BufReadPost *
+\ call rainbow_parenthesis#LoadBraces() |
+\ call rainbow_parenthesis#LoadSquare() |
+\ call rainbow_parenthesis#LoadRound() |
+\ call rainbow_parenthesis#Activate()
 
 " Indent Highlighting
 let g:indenthlinfertabmode=1

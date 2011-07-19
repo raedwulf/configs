@@ -1,1 +1,0 @@
-../bundle/rainbow-parenthesis/syntax/RainbowParenthsis.vim
