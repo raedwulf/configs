@@ -46,6 +46,7 @@ if (g:indenthlinfertabmode)
     exec 'syn match cTab1 /^ \{'. &sw .'}/'
     for i in range(2,g:indenthlmaxdepth)
       exec 'syn match cTab'. i .' /\(^ \{'. &sw*(i-1) .'}\)\@<= \{'. &sw .'}/'
+      "exec 'syn match cTab'. i .' /\(^ \{'. &sw*i .'}\)\@<=[^ ]*.*/'
     endfor
     syn match cTabError /^\t\+/
   else
