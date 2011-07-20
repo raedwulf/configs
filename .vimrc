@@ -3,6 +3,10 @@
 " Nick: Raedwulf
 " Mail: tcmreastwood@gmail.com
 "
+
+" No compatible mode for vim
+set nocompatible
+
 " {{{ Pathogen first
 call pathogen#infect()
 " }}}
@@ -343,12 +347,12 @@ set backspace=indent,eol,start
 """ }}}
 """ {{{ Colors
 " Color Schemes
+set background=dark
 if has('gui_running')
-    set background=light
+    colorscheme desert
 else
-    set background=dark
+    colorscheme desert256
 endif
-colorscheme hotdesert256
 """ }}}
 "" }}}
 " }}}
