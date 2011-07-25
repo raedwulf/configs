@@ -45,28 +45,26 @@ if (g:indenthlinfertabmode)
   if (&et)
     exec 'syn match cTab1 /^ \{'. &sw .'}/'
     for i in range(2,g:indenthlmaxdepth)
-      exec 'syn match cTab'. i .' /\(^ \{'. &sw*(i-1) .'}\)\@<= \{'. &sw .'}/'
-      "exec 'syn match cTab'. i .' /\(^ \{'. &sw*i .'}\)\@<=[^ ]*.*/'
+        exec 'syn match cTab'. i .' /\(^ \{'. &sw*(i-1) .'}\)\@<= \{'. &sw .'}/'
     endfor
     syn match cTabError /^\t\+/
   else
     syn match cTab1 /^[\t]/
-    syn match cTab3 /\(^\t\)\@<=\t/
     for i in range(2,g:indenthlmaxdepth)
-      exec 'syn match cTab'. i .' /\(^\t\{'. (i-1) .'}\)\@<=\t/'
+      exec 'syn match cTab'. i .' /\(^\t\{'. (i-1) .'}\)\@<=\t */'
     endfor
     syn match cTabError /^ \+/
   endif
 else
   syn match cTab1 /^[\t]/
-  syn match cTab2 /\(^\t\)\@<=\t/
   for i in range(2,g:indenthlmaxdepth)
-    exec 'syn match cTab'. i .' /\(^ \{'. i .'}\)\@<=\t/'
+    exec 'syn match cTab'. i .' /\(^ \{'. (i-1) .'}\)\@<=\t */'
   endfor
 endif
 
 syn match cTabError /^ \+\t\+/
-syn match cTabError /^\t\+ \+/
+syn match cTabError /^\t\+ \+$/
+syn match cTabError /^\t\+ \+\t\+/
 
 " examples of all combinations of spaces and tabs (for debugging):
 		
@@ -78,40 +76,13 @@ syn match cTabError /^\t\+ \+/
 
 command! -nargs=+ HiLink hi def <args>
 
-" Pick one of three options (see
-" http://viming.blogspot.com/2007/02/indent-level-highlighting.html for
-" screenshots of the three options):
-
-if (g:indenthlstyle == 1)
-  " ONE: to make colors slightly darker at each level (in gui)
-  for i in range(1,g:indenthlmaxdepth)
-    exec 'HiLink cTab'. i .' term=NONE cterm=NONE ctermbg='. (232+i) .'gui=NONE guibg=gray'. (90-(i-1)*5)
-  endfor
-elseif (g:indenthlstyle == 2)
-  " TWO: all alternating colors:
-  HiLink cTab1 term=NONE cterm=NONE ctermbg=NONE gui=NONE guibg=NONE
-  HiLink cTab2 term=NONE cterm=NONE ctermbg=lightgray gui=NONE guibg=gray95
-  HiLink cTab3 term=NONE cterm=NONE ctermbg=NONE gui=NONE guibg=NONE
-  HiLink cTab4 term=NONE cterm=NONE ctermbg=lightgray gui=NONE guibg=gray95
-  HiLink cTab5 term=NONE cterm=NONE ctermbg=NONE gui=NONE guibg=NONE
-  HiLink cTab6 term=NONE cterm=NONE ctermbg=lightgray gui=NONE guibg=gray95
-  HiLink cTab7 term=NONE cterm=NONE ctermbg=NONE gui=NONE guibg=NONE
-elseif (g:indenthlstyle == 3)
-  " THREE: all alternating colors, but it gets darker with each alternate:
-  HiLink cTab1 term=NONE cterm=NONE ctermbg=NONE gui=NONE guibg=NONE
-  HiLink cTab2 term=NONE cterm=NONE ctermbg=lightgray gui=NONE guibg=gray95
-  HiLink cTab3 term=NONE cterm=NONE ctermbg=NONE gui=NONE guibg=NONE
-  HiLink cTab4 term=NONE cterm=NONE ctermbg=brown gui=NONE guibg=gray85
-  HiLink cTab5 term=NONE cterm=NONE ctermbg=NONE gui=NONE guibg=NONE
-  HiLink cTab6 term=NONE cterm=NONE ctermbg=blue gui=NONE guibg=gray75
-  HiLink cTab7 term=NONE cterm=NONE ctermbg=NONE gui=NONE guibg=NONE
-else
-  echoe "indenthl: No such syntax style '". g:indenthlstyle ."' - use 1,2, or 3"
-endif
+for i in range(1,g:indenthlmaxdepth)
+  exec 'HiLink cTab'. i .' ctermbg='. (232+i) .' guibg=gray'. (20+(i-1)*5)
+endfor
 
 " Error highlighting:
 if (g:indenthlshowerrors)
-  HiLink cTabError term=NONE cterm=NONE ctermbg=Red gui=NONE guibg=Red
+  HiLink cTabError ctermbg=Red guibg=Red
 endif
 
 delcommand HiLink
