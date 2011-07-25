@@ -28,7 +28,8 @@ urxvt.matcher.button: 1
 !urxvt.selection-autotransform.0: s/^([^:[:space:]]+):(\\d+):?$/vi +$2 \\Q$1\\E\\x0d/
 
 ! FONTS
-urxvt.font: -*-proggyoptis-*-*-*-*-*-*-*-96-*-*-*-*
+urxvt.font: -*-montecarlo-medium-*-*-*-*-*-72-72-*-*-*-*
+urxvt.boldFont: -*-montecarlo-bold-*-*-*-*-*-72-72-*-*-*-*
 !urxvt.Font: xft:Monospace:pixelsize=9:antialias=true:hinting=true
 !urxvt.boldFont: xft:Monospace:style=Bold:pixelsize=9:antialias=true:hinting=true
 !urxvt.depth: 32
