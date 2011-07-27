@@ -434,8 +434,6 @@ autocmd BufReadPost *
 " Indent Highlighting
 let g:indenthlinfertabmode=1
 let g:indenthlstyle=1
-command IndentHL so ~/.vim/plugin/indenthl.vim
-autocmd BufReadPost * IndentHL
 "" }}}
 " }}}
 " {{{ Functions
