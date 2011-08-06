@@ -18,4 +18,4 @@ setlocal textwidth=80
 setlocal wrap
 
 setlocal cindent
-setlocal cinoptions=l1,t0,(0,w1,W3
+setlocal cinoptions=l1,t0,(3,w1
