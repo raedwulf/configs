@@ -1,2 +1,2 @@
 #!/bin/sh
-ssh -YC -c arcfour router -t screen -UraAD
+ssh -YC router -t tmux attach
