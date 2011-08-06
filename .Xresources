@@ -6,7 +6,8 @@ XTerm*internalBorder: 1
 XTerm*scrollBar: false
 XTerm*saveLines: 1000
 XTerm*scrollKey: true
-xterm*faceName: ProggySmall:pixelsize=10
+!xterm*faceName: ProggySmall:pixelsize=10
+xterm*faceName: Monospace:pixelsize=8
 
 xft*dpi:96
 xft*antialias: true
@@ -28,6 +29,7 @@ urxvt.matcher.button: 1
 !urxvt.selection-autotransform.0: s/^([^:[:space:]]+):(\\d+):?$/vi +$2 \\Q$1\\E\\x0d/
 
 ! FONTS
+!urxvt.font: -*-progsole-*-*-*-*-*-*-75-75-*-*-*-*
 urxvt.font: -*-montecarlo-medium-*-*-*-*-*-72-72-*-*-*-*
 urxvt.boldFont: -*-montecarlo-bold-*-*-*-*-*-72-72-*-*-*-*
 !urxvt.Font: xft:Monospace:pixelsize=9:antialias=true:hinting=true
