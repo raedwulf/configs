@@ -64,3 +64,6 @@
 [submodule ".vim/bundle/omnicppcomplete"]
 	path = .vim/bundle/omnicppcomplete
 	url = git://github.com/vim-scripts/OmniCppComplete.git
+[submodule ".vim/bundle/vim-conque"]
+	path = .vim/bundle/vim-conque
+	url = git://github.com/rson/vim-conque.git
