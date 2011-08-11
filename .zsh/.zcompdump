@@ -113,8 +113,6 @@ _comps=(
 'ci' '_rcs'
 'ckeygen' '_twisted'
 'clear' '_nothing'
-'clyde' '_clyde'
-'clyde.static' '_clyde'
 'cmus' '_cmus'
 'cmus-remote' '_cmus'
 'co' '_rcs'
@@ -134,6 +132,7 @@ _comps=(
 'configure' '_configure'
 'convert' '_imagemagick'
 'coreadm' '_coreadm'
+'cower' '_cower'
 'cowsay' '_cowsay'
 'cowthink' '_cowsay'
 'cp' '_cp'
@@ -1140,7 +1139,6 @@ _comps=(
 
 _services=(
 'bzcat' 'bunzip2'
-'clyde.static' 'clyde'
 'dch' 'debchange'
 'gnupod_addsong.pl' 'gnupod_addsong'
 'gnupod_check.pl' 'gnupod_check'
@@ -1240,11 +1238,11 @@ autoload -Uz _a2ps _a2utils _aap _acpi _acpitool \
             _bzip2 _bzr _cache_invalid _cal _calendar \
             _call_function _canonical_paths _ccal _cd _cdbs-edit-patch \
             _cdcd _cdr _cdrdao _cdrecord _chflags \
-            _chkconfig _chmod _chown _chrt _clyde \
-            _cmus _combination _comm _command _command_names \
-            _compdef _complete _complete_debug _complete_help _complete_help_generic \
-            _complete_tag _compress _condition _configure _coreadm \
-            _correct _correct_filename _correct_word _cowsay _cp \
+            _chkconfig _chmod _chown _chrt _cmus \
+            _combination _comm _command _command_names _compdef \
+            _complete _complete_debug _complete_help _complete_help_generic _complete_tag \
+            _compress _condition _configure _coreadm _correct \
+            _correct_filename _correct_word _cower _cowsay _cp \
             _cpio _cplay _cssh _csup _ctags_tags \
             _cut _cvs _cvsup _cygcheck _cygpath \
             _cygrunsrv _cygserver _cygstart _dak _darcs \
