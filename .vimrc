@@ -453,6 +453,24 @@ let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 " automatically open and close the popup menu / preview window
 au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 set completeopt=menuone,menu,longest,preview
+
+" Conque
+let g:ConqueTerm_Color = 2
+"let g:ConqueTerm_SessionSupport = 0
+"let g:ConqueTerm_ReadUnfocused = 1
+"let g:ConqueTerm_InsertOnEnter = 0
+"let g:ConqueTerm_CloseOnEnd = 0
+"let g:ConqueTerm_StartMessages = 0
+"let g:ConqueTerm_Syntax = 'conque'
+"let g:ConqueTerm_EscKey = '<Esc>'
+"let g:ConqueTerm_ToggleKey = '<F8>'
+"let g:ConqueTerm_CWInsert = 0
+"let g:ConqueTerm_ExecFileKey = '<F11>'
+"let g:ConqueTerm_SendFileKey = '<F10>'
+"let g:ConqueTerm_SendVisKey = '<F9>'
+"let g:ConqueTerm_SendFunctionKeys = 0
+"let g:ConqueTerm_TERM = 'xterm'
+
 "" }}}
 " }}}
 " {{{ Functions
