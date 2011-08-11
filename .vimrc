@@ -178,9 +178,11 @@ let Tlist_Enable_Fold_Column = 0
 """ {{{ Python syntax
 let python_highlight_all = 1
 let python_highlight_space_errors = 0
-source ~/.ropevim/rope.vim
-let ropevim_vim_completion=1
-let ropevim_extended_complete=1
+if exists('~/.ropevim')
+  source ~/.ropevim/rope.vim
+  let ropevim_vim_completion=1
+  let ropevim_extended_complete=1
+endif
 """ }}}
 """ {{{ Command-T
 let g:CommandTMaxHeight = 10
