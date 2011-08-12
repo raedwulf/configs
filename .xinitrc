@@ -21,6 +21,11 @@ esac
 xinput set-int-prop "ImPS/2 Generic Wheel Mouse" "Evdev Middle Button Emulation" 8 1
 # Stop blasting my ears... it hurts
 amixer set "Master",0 50%
+# Start dvcs-autosync
+if [ -f ~/.autosync ]
+then
+	dvcs-autosync 2>&1 >/dev/null &
+fi
 # Start ze session
 case "$SESSION" in
 	"gnome")
