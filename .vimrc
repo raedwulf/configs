@@ -208,6 +208,7 @@ let g:user_zen_leader_key = '<C-t>'
 if !has('ruby')
     let g:command_t_loaded = 1
     let g:loaded_lustyexplorer = 1
+    let g:LustyJugglerSuppressRubyWarning = 1
 endif
 """ }}}
 """ {{{ ctab settings
@@ -388,7 +389,10 @@ autocmd BufNewFile,BufRead *.als set ft=alloy4
 "" }}}
 "" {{{ Filetype settings
 " Files to indent with two spaces
-autocmd FileType python,xhtml,html,xml,sass,tex,plaintex,yaml,lilypond,vim silent setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
+autocmd FileType xhtml,html,xml,sass,tex,plaintex,yaml,lilypond,vim silent setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
+
+" Files to indent with two spaces
+autocmd FileType python silent setlocal expandtab tabstop=4 softtabstop=4 shiftwidth=4
 
 " Set correct folding for C
 autocmd FileType c,h,cpp silent setlocal fdm=syntax fdn=1
