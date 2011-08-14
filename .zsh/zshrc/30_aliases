@@ -28,7 +28,11 @@ alias locate='noglob locate'
 local _USER_AGENT="Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.1.14) Gecko/20080404 Iceweasel/2.0.0.14 (Debian-2.0.0.14-2)"
 alias swget="noglob wget --user-agent='$USER_AGENT'"
 
-typeset -a _ls_opts; _ls_opts=(-bC --color=auto)
+typeset -a _ls_opts; _ls_opts=(-bC)
+command ls --color=auto > /dev/null 2>&1 \
+  && _ls_opts+=--color=auto
+command ls -G > /dev/null 2>&1 \
+  && _ls_opts+=-G
 command ls --group-directories-first >/dev/null 2>&1 \
   && _ls_opts+=--group-directories-first
 # I prefer POSIX collation for ls
