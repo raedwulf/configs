@@ -189,7 +189,7 @@ EXEC 01;32
 # 30=black 31=red 32=green 33=yellow 34=blue 35=magenta 36=cyan 37=white
 # Background color codes:
 # 40=black 41=red 42=green 43=yellow 44=blue 45=magenta 46=cyan 47=white
-DIR 01;30
+DIR 01;35
 LINK target
 EXEC 00;34
 
