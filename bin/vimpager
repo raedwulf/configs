@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Script for using ViM as a PAGER.
 # Based on Bram's less.sh.
@@ -236,9 +236,9 @@ filename=`echo "$filename" | tr '/' '_'`
 filename="/tmp/vimpager_${$}/$filename"
 
 case "$@" in
-	*.gz) gunzip -c "$@" | sed -e 's/\[[^m]*m//g' -e 's/.//g' > "$filename" ;;
-	*.Z) uncompress -c "$@" | sed -e 's/\[[^m]*m//g' -e 's/.//g' > "$filename" ;;
-	*) sed -e 's/\[[^m]*m//g' -e 's/.//g' "$@" > "$filename" ;;
+	*.gz) gunzip -c "$@" | sed -e 's/\[[^m]*m//g;s/.//g;s/[ \t\v\f]*$//g' > "$filename" ;;
+	*.Z) uncompress -c "$@" | sed -e 's/\[[^m]*m//g;s/.//g;s/[ \t\v\f]*$//g' > "$filename" ;;
+	*) sed -e 's/\[[^m]*m//g;s/.//g;s/[ \t\v\f]*$//g' "$@" > "$filename" ;;
 esac
 
 # if file is zero length, exit immediately

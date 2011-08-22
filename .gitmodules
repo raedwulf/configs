@@ -67,3 +67,6 @@
 [submodule ".vim/bundle/vim-conque"]
 	path = .vim/bundle/vim-conque
 	url = git://github.com/rson/vim-conque.git
+[submodule ".vim/bundle/vim-pyflakes"]
+	path = .vim/bundle/vim-pyflakes
+	url = git://github.com/kevinw/pyflakes-vim.git
