@@ -24,7 +24,7 @@ amixer set "Master",0 50%
 # Start dvcs-autosync
 if [ -f ~/.autosync ]
 then
-	dvcs-autosync 2>&1 >/dev/null &
+	tmux &
 fi
 # Start ze session
 case "$SESSION" in
