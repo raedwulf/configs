@@ -8,6 +8,15 @@
 # Source repository: git://git.madduck.net/etc/zsh.git
 #
 
+# On MacOSX, lets use gnu coreutils, because otherwise its a lot of getting used to =P
+# This required brew install coreutils.
+UNAME=`uname`
+if [ "x$UNAME" = "xDarwin" ]
+then
+	. /usr/local/Cellar/coreutils/8.12/aliases
+fi
+alias ls="LC_COLLATE=POSIX ls $_ls_opts"
+
 function trace() { eval "set -x; $@" }
 
 alias mv='nocorrect mv'
