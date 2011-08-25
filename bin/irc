@@ -1,2 +1,2 @@
 #!/bin/sh
-autossh -M 31421 -YC router -t tmux attach
+ssh -YC router -t tmux attach
