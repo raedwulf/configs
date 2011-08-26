@@ -524,7 +524,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "#24", awesome.quit), -- q
 
     -- Music
-    awful.key({ modkey,           }, "#57", function () awful.util.spawn("mpc toggle") end), -- n
+    awful.key({ modkey,           }, "#57", function () awful.util.spawn("cmus-remote -u") end), -- n
 
     -- Mixer
     awful.key({ "",               }, "#121", function () awful.util.spawn("toggle-mute") end),
