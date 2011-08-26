@@ -34,14 +34,6 @@ if f ~= nil then
     laptop = true
     io.close(f)
 end
-    
--- Set the mpd host based one whether we're on laptop (local)
-if laptop then
-    mpd_host = "localhost"
-else
-    mpd_host = "router"
-end
-        
 -- }}}
 
 ---- {{{ Settings
@@ -169,62 +161,10 @@ mytasklist.buttons = awful.util.table.join(
 
 -- {{{ Vicious widgets
 
--- Unescape strings passed by the mpd widget
-function unescape(text)
-    local xml_entities = {
-        ["&quot;"] = "\"",
-        ["&amp;"] = "&",
-        ["&apos;"] = "'",
-        ["&lt;"] = "<",
-        ["gt;"] = ">"
-    }
-    return text and text:gsub("[\"&'<>]", xml_entities)
-end
-
-mpdwidget = wibox.widget.textbox()
-mpdscroll = 0
-mpdwidth = 16
-vicious.register(mpdwidget, vicious.widgets.mpd,
-    function (widget, args)
-        local width = mpdwidth
-        local artist = unescape(args["{Artist}"])
-        local album = unescape(args["{Album}"])
-        local title = unescape(args["{Title}"])
-
-        local head = '<span color="white">MPD </span>'..
-                     '<span color="gray">['..
-                     string.format("%03d", args["{song}"]).."/"..
-                     string.format("%03d", args["{playlistlength}"])..']</span>'..
-                     '<span color="white">:</span> '
-        local str = string.rep(" ", width)..
-                    '{'..artist..'} '..album..' - '..
-                    '['..string.format("%.2s", args["{Track}"])..'] '..
-                    title..string.rep(" ", width)
-        local colour = "red"
-        if args["{state}"] == "Pause" then
-            colour = "yellow"
-        elseif args["{state}"] == "Play" then
-            colour = "green"
-        end
-            
-        result = head..
-               '<span color="'..colour..'" font="Monospace">'..
-               helpers.escape(string.sub(str, mpdscroll + 1, mpdscroll + width))..
-               '</span>'
-        mpdscroll = (mpdscroll + 4) % (string.len(str) - width)
-        tplayed, tleft = string.match(args["{time}"], "([0-9]+):([0-9]+)");
-        if tplayed == nil then
-            tplayed = 0
-            tleft = 1
-        end
-        tpc = string.format("%.2d%%", (tplayed / tleft) * 100);
-        return result..'<span color="white"> ['..tpc..']</span>'
-    end, 1, { "", mpd_host, "6600" })
-
 -- Gmail widget
 gmaildata=''
 gmailscroll = 0
-gmailwidth = 8
+gmailwidth = 16
 gmailwidget = wibox.widget.textbox()
 gmailcount = 0
 gmailsubject = "N/A"
@@ -497,8 +437,6 @@ for s = 1, screen.count() do
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
-    right_layout:add(mpdwidget)
-    right_layout:add(separator)
     right_layout:add(gmailwidget)
     right_layout:add(separator)
     right_layout:add(cpuwidget)
