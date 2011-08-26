@@ -7,7 +7,8 @@ XTerm*scrollBar: false
 XTerm*saveLines: 1000
 XTerm*scrollKey: true
 !xterm*faceName: ProggySmall:pixelsize=10
-xterm*faceName: Monospace:pixelsize=8
+xterm*faceName: DejavuSansMono:size=6
+xterm*utf8: true
 
 xft*dpi:96
 xft*antialias: true
@@ -29,12 +30,12 @@ urxvt.matcher.button: 1
 !urxvt.selection-autotransform.0: s/^([^:[:space:]]+):(\\d+):?$/vi +$2 \\Q$1\\E\\x0d/
 
 ! FONTS
-!urxvt.font: -*-progsole-*-*-*-*-*-*-75-75-*-*-*-*
-urxvt.font: -*-montecarlo-medium-*-*-*-*-*-72-72-*-*-*-*
-urxvt.boldFont: -*-montecarlo-bold-*-*-*-*-*-72-72-*-*-*-*
-!urxvt.Font: xft:Monospace:pixelsize=9:antialias=true:hinting=true
-!urxvt.boldFont: xft:Monospace:style=Bold:pixelsize=9:antialias=true:hinting=true
-!urxvt.depth: 32
+!urxvt.font: -*-montecarlo-medium-*-*-*-*-*-72-72-*-*-*-*
+!urxvt.boldFont: -*-montecarlo-bold-*-*-*-*-*-72-72-*-*-*-*
+urxvt.font: xft:DejavuSansMono:size=6:antialias=true:hinting=true
+urxvt.boldFont: xft:DejavuSansMono:style=Bold:size=6:antialias=true:hinting=true
+
+urxvt.depth: 32
 urxvt.background: rgba:0000/0000/0000/cccc
 urxvt.foreground: white
 urxvt.cursorColor: blue
@@ -43,17 +44,16 @@ urxvt.cursorBlink: true
 !urxvt.inheritPixmap: true
 !urxvt.backgroundPixmap: /home/archlucas/pictures/bg.png;:root
 urxvt.saveLines: 500
-urxvt.visualBell: false
 urxvt.dynamicColors:  on
 urxvt.highlightSelection:  true
 urxvt.borderWidth: 1
 urxvt.urlLauncher: chromium
 urxvt.pointerBlank: true
 urxvt.internalBorder: 0
-!urxvt.urgentOnBell: true
-!urxvt.visualBell: true
-urxvt.keysym.C-minus: command:\033]50;xft:Monospace:pixelsize=9:antialias=true:hinting=true\007
-urxvt.keysym.C-equal: command:\033]50;xft:Monospace:pixelsize=12:antialias=true:hinting=true\007
+urxvt.urgentOnBell: true
+urxvt.visualBell: true
+urxvt.keysym.C-minus: command:\033]50;xft:DejavuMonoSans:size=6:antialias=true:hinting=true\007
+urxvt.keysym.C-equal: command:\033]50;xft:DejavuMonoSans:size=10:antialias=true:hinting=true\007
 
 urxvt.inputMethod: fcitx
 urxvt*geometry: 90x25

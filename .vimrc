@@ -354,10 +354,11 @@ set backspace=indent,eol,start
 " Color Schemes
 set background=dark
 if has('gui_running')
-    colorscheme desert
+    colorscheme inkpot
 else
-    colorscheme desert256
+    colorscheme inkpot
 endif
+set guifont=Dejavu\ Sans\ Mono\ 6
 """ }}}
 "" }}}
 " }}}
@@ -439,6 +440,12 @@ autocmd BufReadPost *
 \ call rainbow_parenthesis#LoadSquare() |
 \ call rainbow_parenthesis#LoadRound() |
 \ call rainbow_parenthesis#Activate()
+
+" Indent Guides
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd guibg=#34343C ctermbg=233
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#48484F ctermbg=234
 
 " CTags
 map <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
