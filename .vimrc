@@ -440,11 +440,6 @@ autocmd BufReadPost *
 \ call rainbow_parenthesis#LoadRound() |
 \ call rainbow_parenthesis#Activate()
 
-" Indent Highlighting
-let g:indenthlinfertabmode=1
-let g:indenthlstyle=1
-let g:indenthlmaxdepth=12
-
 " CTags
 map <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 set tags+=$HOME/code/tags/stdcpp,$HOME/code/tags/boost
