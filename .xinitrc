@@ -44,12 +44,9 @@ case "$SESSION" in
 		# Startup programs
 		# xcompmgr -c -C -t-5 -l-5 -r4.2 -o.55 -f -F -S &
                 # start-pulseaudio-x11 &
+		pulseaudio --kill
 		urxvtd -q -f -o &
 		xscreensaver -no-splash &
-		if [ -f ~/.laptop ]; then
-			sleep 1
-			mpd ~/.mpdconf &
-		fi
 		exec awesome
 		;;
 esac
