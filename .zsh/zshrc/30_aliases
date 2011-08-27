@@ -196,7 +196,7 @@ if [ `hostname` = "tolkien" ]; then
 fi
 
 # IRC & screen
-alias irc='ssh router -t "screen -UD -RR -S irc"'
+alias irc='ssh router -C router -t tmux attach'
 alias scr='screen -Udr'
 
 # Wake on Lan
