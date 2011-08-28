@@ -133,6 +133,9 @@ nmap <silent> <Leader>n :LustyBufferExplorer<CR>
 nmap <silent> <Leader>G :LustyFilesystemExplorer<CR>
 nmap <silent> <Leader>r :LustyFilesystemExplorerFromHere<CR>
 """ }}}
+""" {{{ Lusty Juggler
+nmap <silent> <Leader>j :LustyJuggler<CR>
+"""
 """ {{{ Taglist
 nmap <silent> <Leader>l :TlistOpen<CR>
 nmap <silent> <Leader>L :TlistToggle<CR>
@@ -206,9 +209,11 @@ let g:user_zen_leader_key = '<C-t>'
 """ }}}
 """ {{{ Don't load ruby
 if !has('ruby')
-    let g:command_t_loaded = 1
-    let g:loaded_lustyexplorer = 1
-    let g:LustyJugglerSuppressRubyWarning = 1
+  let g:command_t_loaded = 1
+  let g:loaded_lustyexplorer = 1
+  let g:LustyJugglerSuppressRubyWarning = 1
+else
+  let g:LustyJugglerShowKeys = 'a'
 endif
 """ }}}
 """ {{{ ctab settings
