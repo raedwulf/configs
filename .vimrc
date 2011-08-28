@@ -363,7 +363,11 @@ if has('gui_running')
 else
     colorscheme inkpot
 endif
-set guifont=Dejavu\ Sans\ Mono\ 6
+if has('macunix')
+  set guifont=Menlo\ 6
+else
+  set guifont=Dejavu\ Sans\ Mono\ 6
+endif
 """ }}}
 "" }}}
 " }}}
