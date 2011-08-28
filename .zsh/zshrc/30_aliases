@@ -11,19 +11,38 @@
 # On MacOSX, lets use gnu coreutils, because otherwise its a lot of getting used to =P
 # This required brew install coreutils.
 UNAME=`uname`
+GNU=1
 if [ "x$UNAME" = "xDarwin" ]
 then
-	. /usr/local/Cellar/coreutils/8.12/aliases
+	COREUTILS=/usr/local/Cellar/coreutils/8.12/aliases
+	if [ -f "$COREUTILS" ]
+	then
+		. /usr/local/Cellar/coreutils/8.12/aliases
+		alias ls="LC_COLLATE=POSIX gls --color=auto --group-directories-first"
+		alias mv='nocorrect gmv'
+		alias cp='nocorrect gcp'
+		alias ln='nocorrect gln'
+		alias mkdir='nocorrect gmkdir'
+		alias rm='nocorrect grm'
+	else
+		alias ls="LC_COLLATE=POSIX ls -G"
+		alias mv='nocorrect mv'
+		alias cp='nocorrect cp'
+		alias ln='nocorrect ln'
+		alias mkdir='nocorrect mkdir'
+		alias rm='nocorrect rm'
+		GNU=0
+	fi
+else
+	alias ls="LC_COLLATE=POSIX ls --color=auto --group-directories-first"
+	alias mv='nocorrect mv'
+	alias cp='nocorrect cp'
+	alias ln='nocorrect ln'
+	alias mkdir='nocorrect mkdir'
+	alias rm='nocorrect rm'
 fi
-alias ls="LC_COLLATE=POSIX ls $_ls_opts"
 
 function trace() { eval "set -x; $@" }
-
-alias mv='nocorrect mv'
-alias cp='nocorrect cp'
-alias ln='nocorrect ln'
-alias mkdir='nocorrect mkdir'
-alias rm='nocorrect rm'
 
 alias find='noglob find'
 alias w3m='noglob w3m -no-mouse'
@@ -37,17 +56,12 @@ alias locate='noglob locate'
 local _USER_AGENT="Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.1.14) Gecko/20080404 Iceweasel/2.0.0.14 (Debian-2.0.0.14-2)"
 alias swget="noglob wget --user-agent='$USER_AGENT'"
 
-typeset -a _ls_opts; _ls_opts=(-bC)
-command ls --color=auto > /dev/null 2>&1 \
-  && _ls_opts+=--color=auto
-command ls -G > /dev/null 2>&1 \
-  && _ls_opts+=-G
-command ls --group-directories-first >/dev/null 2>&1 \
-  && _ls_opts+=--group-directories-first
-# I prefer POSIX collation for ls
-alias ls="LC_COLLATE=POSIX ls $_ls_opts"
-
-alias l='ls --time-style=+%Y%m%d.%H%M -gG'
+if [ GNU ]
+then
+	alias l='ls --time-style=+%Y%m%d.%H%M -gG'
+else
+	alias l='ls -gG'
+fi
 alias ll='ls -l'
 alias la='ls -al'
 alias lh='ls -lh'
