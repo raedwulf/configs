@@ -182,7 +182,7 @@ vicious.register(gmailwidget, vicious.widgets.gmail,
         local subscroll = helpers.escape(string.sub(gmailsubject, gmailscroll + 1, gmailscroll + gmailwidth))
         return '<span color="white">GMAIL </span><span color="gray">['..
                string.format("%03d", gmailcount)..'] </span>'..
-               '<span color="white">: </span><span color="yellow" font="Monospace">'..
+               '<span color="white">: </span><span color="yellow" font="Dejavu Sans Mono">'..
                string.format("%"..gmailwidth.."s", subscroll)..'</span>'
     end, 10)
 gmailscrolltimer = timer({ timeout = 1 })
@@ -192,7 +192,7 @@ gmailscrolltimer:connect_signal("timeout",
         gmailscroll = (gmailscroll + 1) % (string.len(gmailsubject) - gmailwidth)
         gmailwidget:set_markup('<span color="white">GMAIL </span><span color="gray">['..
                string.format("%03d", gmailcount)..'] </span>'..
-               '<span color="white">: </span><span color="yellow" font="Monospace">'..
+               '<span color="white">: </span><span color="yellow" font="Dejavu Sans Mono">'..
                string.format("%"..gmailwidth.."s", subscroll)..'</span>')
     end)
 gmailscrolltimer:start()
@@ -210,13 +210,13 @@ vicious.register(cpuwidget, vicious.widgets.cpu,
         for i = 2,#args do
             table.insert(names, "Core "..(i-2)..":")
         end
-        cpudata = '<span weight="bold" font="Monospace" underline="single">'..
+        cpudata = '<span weight="bold" font="Dejavu Sans Mono" underline="single">'..
                   'CPU Usage</span>\n'
         for i = 1,#args do
             cpudata = cpudata..
-                      '<span weight="bold" font="Monospace">'..
+                      '<span weight="bold" font="Dejavu Sans Mono">'..
                       string.format("%-8s", names[i])..'</span>'..
-                      '<span color="green" font="Monospace">'..
+                      '<span color="green" font="Dejavu Sans Mono">'..
                       string.format("%5d", args[i])..
                       ' %</span>\n'
         end
@@ -242,13 +242,13 @@ vicious.register(memwidget, vicious.widgets.mem,
     function(widget, args)
         local names = { "Used %:", "In Use:", "Total:", "Free:" }
         local units = { " % ", " MB", " MB", " MB" }
-        memdata = '<span weight="bold" font="Monospace" underline="single">'..
+        memdata = '<span weight="bold" font="Dejavu Sans Mono" underline="single">'..
                   'RAM Usage</span>\n'
         for i = 1,4 do
             memdata = memdata..
-                      '<span weight="bold" font="Monospace">'..
+                      '<span weight="bold" font="Dejavu Sans Mono">'..
                       string.format("%-7s", names[i])..'</span>'..
-                      '<span color="green" font="Monospace">'..
+                      '<span color="green" font="Dejavu Sans Mono">'..
                       string.format("%8s", args[i]..units[i])..'</span>\n'
         end
         memdata = memdata:sub(1,-2)
@@ -278,8 +278,8 @@ vicious.register(thrmwidget, vicious.widgets.thermal,
 
 thrmtooltip = awful.tooltip({ objects = { thrmwidget },
     timer_function = function()
-        return '<span weight="bold" font="Monospace">Temperature: </span>'..
-               '<span color="green" font="Monospace">'..thrmdata.." C</span>"
+        return '<span weight="bold" font="Dejavu Sans Mono">Temperature: </span>'..
+               '<span color="green" font="Dejavu Sans Mono">'..thrmdata.." C</span>"
     end })
     
 -- Battery widget
@@ -303,8 +303,8 @@ if laptop then
             if state ~= "⌁" and charge < 10 then
                 naughty.notify({ text = "Battery low, only ".. charge .. "% left!" })
             end
-            batdata = '<span weight="bold" font="Monospace">Charge: </span>'..
-                      '<span color="green" font="Monospace">'..charge.." %</span>"
+            batdata = '<span weight="bold" font="Dejavu Sans Mono">Charge: </span>'..
+                      '<span color="green" font="Dejavu Sans Mono">'..charge.." %</span>"
             local colour = "#"..string.format("%02X", (1 - charge/100) * 255)..
                 string.format("%02X", (charge / 100) * 255).."00"
             return '<span color="'..colour..'">'..args[1]..'</span>'
@@ -337,16 +337,16 @@ if laptop then
                 ["{linp}"] = "Quality:",
                 --["{sign}"] = "Signal:"
             }
-            wifidata = '<span weight="bold" font="Monospace" underline="single">'..
+            wifidata = '<span weight="bold" font="Dejavu Sans Mono" underline="single">'..
                        'Wifi Status</span>\n'
             args["{rate}"] = args["{rate}"].." Mbps"
             args["{linp}"] = args["{linp}"].." %"
             --args["{sign}"] = args["{sign}"].." dB"
             for i,v in pairs(names) do
                 wifidata = wifidata..
-                           '<span weight="bold" font="Monospace">'..
+                           '<span weight="bold" font="Dejavu Sans Mono">'..
                            string.format("%-9s", v)..' </span>'..
-                           '<span color="green" font="Monospace">'..
+                           '<span color="green" font="Dejavu Sans Mono">'..
                            string.format("%8s", args[i]).."</span>\n"
             end
             wifidata = wifidata:sub(1,-2)
@@ -355,7 +355,7 @@ if laptop then
             else
                 colour = 'green'
             end
-            return '<span color="'..colour..'" font="Monospace">◉</span>'
+            return '<span color="'..colour..'" font="Dejavu Sans Mono">◉</span>'
         end, 60, "wlan0")
 
     wifitooltip = awful.tooltip({ objects = { wifiwidget, wifisymwidget },
@@ -363,7 +363,7 @@ if laptop then
             return wifidata
         end })
 
-    wifisymwidget:set_markup('<span color="red" font="Monospace">◉</span>')
+    wifisymwidget:set_markup('<span color="red" font="Dejavu Sans Mono">◉</span>')
 
 end
 
@@ -390,8 +390,8 @@ vicious.register(volsymwidget, vicious.widgets.volume,
         if args[2] == "♫" then
             colour = "green"
         end
-        voldata = '<span weight="bold" font="Monospace">Volume: </span>'..
-                  '<span color="green" font="Monospace">'..volume.." %</span>"
+        voldata = '<span weight="bold" font="Dejavu Sans Mono">Volume: </span>'..
+                  '<span color="green" font="Dejavu Sans Mono">'..volume.." %</span>"
         return '<span color="'..colour..'"> ☊</span>'
     end, 0, "Master")
 
