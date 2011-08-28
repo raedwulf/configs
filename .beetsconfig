@@ -1,4 +1,4 @@
 [beets]
-directory: ~/music
-library: ~/music/beets.blb
+directory: ~/music/beets
+library: ~/music/beets/beets.blb
 plugin = cmus mpd
