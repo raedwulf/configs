@@ -76,3 +76,6 @@
 [submodule ".vim/bundle/inkpot"]
 	path = .vim/bundle/inkpot
 	url = git://github.com/ciaranm/inkpot.git
+[submodule ".vim/bundle/vim-easytags"]
+	path = .vim/bundle/vim-easytags
+	url = git://github.com/xolox/vim-easytags.git

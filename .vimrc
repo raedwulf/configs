@@ -457,8 +457,23 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd guibg=#34343C ctermbg=233
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#48484F ctermbg=234
 
 " CTags
-map <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-set tags+=$HOME/code/tags/stdcpp,$HOME/code/tags/boost
+"map <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+"set tags+=$HOME/code/tags/stdcpp,$HOME/code/tags/boost
+" vim-easytags
+let g:easytags_file = "~/.vimtags"
+let g:easytags_dynamic_files = 1
+"let g:easytags_by_filetype = "~/.vim/tags"
+let g:easytags_always_enabled = 0
+let g:easytags_auto_update = 1
+let g:easytags_auto_highlight = 1
+let g:easytags_autorecurse = 0
+let g:easytags_include_members = 1
+let g:easytags_resolve_links = 1
+let g:easytags_suppress_ctags_warning = 0
+"let g:easytags_python_enabled = 1
+"let g:easytags_python_script = ""
+set tags=./.tags;,~/.vimtags,~/code/tags/stdcpp
+
 " OmniCppComplete
 let OmniCpp_NamespaceSearch = 1
 let OmniCpp_GlobalScopeSearch = 1
