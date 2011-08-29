@@ -667,8 +667,6 @@ awful.rules.rules = {
       properties = { floating = false } },
     { rule = { class = "pinentry" },
       properties = { floating = true } },
-    { rule = { class = "Gimp" },
-      properties = { floating = true } },
     { rule = { class = "Skype" },
       properties = { floating = true } },
 }
