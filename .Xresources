@@ -1,19 +1,13 @@
 *customization: -color
-XTerm*termName: xterm-256color
-XTerm*foreground: white
-XTerm*background: black
-XTerm*internalBorder: 1
-XTerm*scrollBar: false
-XTerm*saveLines: 1000
-XTerm*scrollKey: true
-!xterm*faceName: ProggySmall:pixelsize=10
+xterm*termName: xterm-256color
+xterm*foreground: white
+xterm*background: black
+xterm*internalBorder: 1
+xterm*scrollBar: false
+xterm*saveLines: 1000
+xterm*scrollKey: true
 xterm*faceName: DejavuSansMono:size=6
 xterm*utf8: true
-
-xft*dpi:96
-xft*antialias: true
-xft*rgba: rgb
-xft*lcdfilter: lcddefault
 
 urxvt.termName: rxvt-256color
 urxvt.scrollBar: false
@@ -23,24 +17,21 @@ urxvt.scrollTtyKeypress: true
 urxvt.secondaryScroll: true
 urxvt.jumpScroll: true
 urxvt.skipScroll: true
-
 urxvt.perl-ext-common: default,matcher,readline,selection-autotransform
-
 urxvt.matcher.button: 1
 !urxvt.selection-autotransform.0: s/^([^:[:space:]]+):(\\d+):?$/vi +$2 \\Q$1\\E\\x0d/
 
 ! FONTS
 !urxvt.font: -*-montecarlo-medium-*-*-*-*-*-72-72-*-*-*-*
+!urxvt.font: -*-proggyoptis-*-*-*-*-10-*-*-*-*-*-*-*
 !urxvt.boldFont: -*-montecarlo-bold-*-*-*-*-*-72-72-*-*-*-*
-urxvt.font: xft:DejavuSansMono:size=6:antialias=true:hinting=true
-urxvt.boldFont: xft:DejavuSansMono:style=Bold:size=6:antialias=true:hinting=true
-
+urxvt.font: xft:DejavuSansMono:size=6
 urxvt.depth: 32
 urxvt.background: rgba:0000/0000/0000/cccc
 urxvt.foreground: white
 urxvt.cursorColor: blue
 urxvt.cursorBlink: true
-!urxvt.tintColor: black
+urxvt.tintColor: black
 !urxvt.inheritPixmap: true
 !urxvt.backgroundPixmap: /home/archlucas/pictures/bg.png;:root
 urxvt.saveLines: 500
@@ -52,9 +43,8 @@ urxvt.pointerBlank: true
 urxvt.internalBorder: 0
 urxvt.urgentOnBell: true
 urxvt.visualBell: true
-urxvt.keysym.C-minus: command:\033]50;xft:DejavuMonoSans:size=6:antialias=true:hinting=true\007
-urxvt.keysym.C-equal: command:\033]50;xft:DejavuMonoSans:size=10:antialias=true:hinting=true\007
-
+urxvt.keysym.C-minus: command:\033]50;xft:DejavuSansMono:size=6\007
+urxvt.keysym.C-equal: command:\033]50;xft:DejavuSansMono:size=8\007
 urxvt.inputMethod: fcitx
 urxvt*geometry: 90x25
 
@@ -67,3 +57,11 @@ xpdf*foreground:dodgerblue
 xpdf*background:black
 xpdf.fontList: ter-d24n
 xpdf.urlCommand: browser %s
+
+Xft.autohint:  0
+Xft.lcdfilter: lcddefault
+Xft.hintstyle: hintfull
+Xft.hinting:   1
+Xft.antialias: 1
+Xft.dpi:       96
+Xft.rgba:      rgb
