@@ -456,36 +456,19 @@ let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd guibg=#34343C ctermbg=233
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#48484F ctermbg=234
 
-" CTags
-"map <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-"set tags+=$HOME/code/tags/stdcpp,$HOME/code/tags/boost
-" vim-easytags
-let g:easytags_file = "~/.vimtags"
-let g:easytags_dynamic_files = 1
-"let g:easytags_by_filetype = "~/.vim/tags"
-let g:easytags_always_enabled = 0
-let g:easytags_auto_update = 1
-let g:easytags_auto_highlight = 0
-let g:easytags_autorecurse = 0
-let g:easytags_include_members = 1
-let g:easytags_resolve_links = 1
-let g:easytags_suppress_ctags_warning = 0
-let g:easytags_python_enabled = 1
-"let g:easytags_python_script = ""
-set tags=./.tags;,~/.vimtags,~/code/tags/stdcpp
+" Clang complete
+let g:clang_complete_auto = 1
+let g:clang_complete_copen = 0
+let g:clang_hl_errors = 1
+let g:clang_periodic_quickfix = 0
+let g:clang_snippets = 0
+let g:clang_conceal_snippets = 1
+let g:clang_exec = "clang"
+let g:clang_user_options = ""
+let g:clang_use_library = 1
+let g:clang_library_path = "/usr/lib/llvm"
 
-" OmniCppComplete
-let OmniCpp_NamespaceSearch = 1
-let OmniCpp_GlobalScopeSearch = 1
-let OmniCpp_ShowAccess = 1
-let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
-let OmniCpp_MayCompleteDot = 1 " autocomplete after .
-let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
-let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
-let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
-" automatically open and close the popup menu / preview window
-au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-set completeopt=menuone,menu,longest,preview
+autocmd BufReadPost *.cpp python import threading; debug=False; threading.Thread(target=getCurrentTranslationUnit).start()
 
 " Conque
 let g:ConqueTerm_Color = 2
