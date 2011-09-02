@@ -456,6 +456,9 @@ let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd guibg=#34343C ctermbg=233
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#48484F ctermbg=234
 
+" Set tags
+set tags=./.tags;
+
 " Clang complete
 let g:clang_complete_auto = 1
 let g:clang_complete_copen = 0
