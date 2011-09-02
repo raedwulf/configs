@@ -61,9 +61,6 @@
 [submodule ".vim/bundle/nerdcommenter"]
 	path = .vim/bundle/nerdcommenter
 	url = git://github.com/scrooloose/nerdcommenter.git
-[submodule ".vim/bundle/omnicppcomplete"]
-	path = .vim/bundle/omnicppcomplete
-	url = git://github.com/vim-scripts/OmniCppComplete.git
 [submodule ".vim/bundle/vim-conque"]
 	path = .vim/bundle/vim-conque
 	url = git://github.com/rson/vim-conque.git
@@ -79,3 +76,6 @@
 [submodule ".vim/bundle/vim-easytags"]
 	path = .vim/bundle/vim-easytags
 	url = git://github.com/xolox/vim-easytags.git
+[submodule ".vim/bundle/clang_complete"]
+	path = .vim/bundle/clang_complete
+	url = git://github.com/Rip-Rip/clang_complete.git
