@@ -544,7 +544,7 @@ globalkeys = awful.util.table.join(
     -- Prompt
     awful.key({ modkey,           }, "#25",     function () mypromptbox[mouse.screen]:run() end), -- w
 
-    awful.key({ modkey,           }, "#260", -- e
+    awful.key({ modkey,           }, "#26", -- e
         function ()
             awful.prompt.run({ prompt = "Run Lua code: " },
             mypromptbox[mouse.screen].widget,
@@ -552,11 +552,6 @@ globalkeys = awful.util.table.join(
             awful.util.getdir("cache") .. "/history_eval")
         end),
         
-    awful.key({ modkey,           }, "#26", -- e
-        function ()
-            scratch.drop(terminal)
-        end),
-
     -- Rodentbane 
     awful.key({ modkey,           }, "#27",     rodentbane.start),
     awful.key({ modkey, "Alt"     }, "#27",     rodentbane.start),

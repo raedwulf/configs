@@ -444,7 +444,7 @@ autocmd BufReadPost *
 \ endif
 
 " Rainbow Parenthesis
-autocmd BufReadPost *
+autocmd BufReadPost,BufWritePost *
 \ call rainbow_parenthesis#LoadBraces() |
 \ call rainbow_parenthesis#LoadSquare() |
 \ call rainbow_parenthesis#LoadRound() |
