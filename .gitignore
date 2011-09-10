@@ -3,3 +3,4 @@ irssi/away.log
 *.zwc
 xmonad/history
 vim/.netrwhist
+.zsh/.zcompdump
