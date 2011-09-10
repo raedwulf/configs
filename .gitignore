@@ -2,5 +2,6 @@
 irssi/away.log
 *.zwc
 xmonad/history
-vim/.netrwhist
+.vim/.netrwhist
 .zsh/.zcompdump
+.zsh/.profile
