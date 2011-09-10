@@ -1,0 +1,3 @@
+__prepend_dir_to_path /usr/local/bin
+__prepend_dir_to_path /usr/local/share/python
+__prepend_dir_to_path ~/.local/bin
