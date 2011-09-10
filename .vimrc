@@ -468,7 +468,11 @@ let g:clang_conceal_snippets = 1
 let g:clang_exec = "clang"
 let g:clang_user_options = ""
 let g:clang_use_library = 1
-let g:clang_library_path = "/usr/lib/llvm"
+if has('macunix')
+  let g:clang_library_path = "/Developer/usr/clang-ide/lib"
+else
+  let g:clang_library_path = "/usr/lib/llvm"
+endif
 
 autocmd BufReadPost *.cpp python import threading; debug=False; threading.Thread(target=getCurrentTranslationUnit).start()
 
