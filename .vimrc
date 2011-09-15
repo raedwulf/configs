@@ -459,10 +459,11 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#48484F ctermbg=234
 set tags=./.tags;
 
 " Clang complete
+let g:clang_auto_select = 0
 let g:clang_complete_auto = 1
-let g:clang_complete_copen = 0
+let g:clang_complete_copen = 1
 let g:clang_hl_errors = 1
-let g:clang_periodic_quickfix = 0
+let g:clang_periodic_quickfix = 1
 let g:clang_snippets = 0
 let g:clang_conceal_snippets = 1
 let g:clang_exec = "clang"
