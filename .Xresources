@@ -26,6 +26,7 @@ urxvt.matcher.button: 1
 !urxvt.font: -*-proggyoptis-*-*-*-*-10-*-*-*-*-*-*-*
 !urxvt.boldFont: -*-montecarlo-bold-*-*-*-*-*-72-72-*-*-*-*
 urxvt.font: xft:DejavuSansMono:size=6
+urxvt.buffered: true
 urxvt.depth: 32
 urxvt.background: rgba:0000/0000/0000/cccc
 urxvt.foreground: white
