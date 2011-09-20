@@ -7,8 +7,6 @@ require("awful.rules")
 require("beautiful")
 -- Notification library
 require("naughty")
--- Scratch
-require("scratch")
 -- Rodentbane: Rapid cursor control using the keyboard
 require("rodentbane")
 -- Vicious library
@@ -554,10 +552,7 @@ globalkeys = awful.util.table.join(
         
     -- Rodentbane 
     awful.key({ modkey,           }, "#27",     rodentbane.start),
-    awful.key({ modkey, "Alt"     }, "#27",     rodentbane.start),
-    
-    -- Scratchpad
-    awful.key({ modkey, "Shift"   }, "#40",     scratch.pad.toggle)
+    awful.key({ modkey, "Alt"     }, "#27",     rodentbane.start)
 )
 
 -- Client awful tagging: this is useful to tag some clients and then do stuff like move to tag on them
@@ -571,7 +566,6 @@ clientkeys = awful.util.table.join(
         end),
     awful.key({ modkey,           }, "#41",      function (c) c.fullscreen = not c.fullscreen  end), -- f
     awful.key({ modkey,           }, "#49",      function (c) c:kill()                         end), -- `
-    awful.key({ modkey,           }, "#40",      function (c) scratch.pad.set(c)               end), -- d
     awful.key({ modkey,           }, "#51",      function (c) c:swap(awful.client.getmaster()) end), -- \
     awful.key({ modkey,           }, "#32",      awful.client.movetoscreen                        ), -- o
     awful.key({ modkey, "Shift"   }, "#27",      function (c) c:redraw()                       end), -- r
