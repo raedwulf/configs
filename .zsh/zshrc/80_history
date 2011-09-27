@@ -11,9 +11,9 @@
 # typeset -g on this one to make warn_create_global happy
 typeset -g HISTFILE=$ZVARDIR/history-$HOST
 [[ -e $ZVARDIR/history ]] && mv $ZVARDIR/history $HISTFILE
-HISTSIZE=10000
+HISTSIZE=100000
 SAVEHIST=$HISTSIZE
-LISTMAX=1000
+LISTMAX=10000
 
 # treat ! specially like csh did
 setopt bang_hist
