@@ -8,5 +8,7 @@
 # Source repository: http://git.madduck.net/v/etc/zsh.git
 #
 
+skip_global_compinit=1
+
 ZDOTDIR=$HOME/.zsh
 [ -f $ZDOTDIR/.zshenv ] && . $ZDOTDIR/.zshenv
