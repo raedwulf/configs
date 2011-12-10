@@ -8,6 +8,8 @@
 set nocompatible
 
 " {{{ Pathogen first
+" Disable bisect for now
+let g:loaded_bisect=0
 call pathogen#infect()
 " }}}
 
