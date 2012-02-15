@@ -10,6 +10,9 @@
 
 zstyle :compinstall filename '$ZDOTDIR/zshrc/20_compsys'
 
+# automatically cd
+setopt autocd
+
 # automatically list choices on an ambiguous completion
 setopt auto_list
 

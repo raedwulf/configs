@@ -22,10 +22,10 @@ urxvt.matcher.button: 1
 !urxvt.selection-autotransform.0: s/^([^:[:space:]]+):(\\d+):?$/vi +$2 \\Q$1\\E\\x0d/
 
 ! FONTS
-!urxvt.font: -*-montecarlo-medium-*-*-*-*-*-72-72-*-*-*-*
+urxvt.font: -*-montecarlo-medium-*-*-*-*-*-72-72-*-*-*-*
 !urxvt.font: -*-proggyoptis-*-*-*-*-10-*-*-*-*-*-*-*
 !urxvt.boldFont: -*-montecarlo-bold-*-*-*-*-*-72-72-*-*-*-*
-urxvt.font: xft:DejavuSansMono:size=6
+!urxvt.font: xft:DejavuSansMono:size=6
 urxvt.buffered: true
 urxvt.depth: 32
 urxvt.background: rgba:0000/0000/0000/cccc

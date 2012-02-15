@@ -8,6 +8,8 @@
 set nocompatible
 
 " {{{ Pathogen first
+" Disable bisect for now
+let g:loaded_bisect=0
 call pathogen#infect()
 " }}}
 
@@ -443,7 +445,7 @@ autocmd BufReadPost *
 \ endif
 
 " Rainbow Parenthesis
-autocmd BufReadPost,BufWritePost *
+autocmd BufReadPost *
 \ call rainbow_parenthesis#LoadBraces() |
 \ call rainbow_parenthesis#LoadSquare() |
 \ call rainbow_parenthesis#LoadRound() |
