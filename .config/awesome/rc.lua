@@ -298,8 +298,12 @@ if laptop then
         function (widget, args)
             local state = args[1]
             local charge = args[2]
-            if state ~= "⌁" and charge < 10 then
-                naughty.notify({ text = "Battery low, only ".. charge .. "% left!" })
+            if state == "-" then
+                if charge < 10 then
+                    naughty.notify({ text = "Battery low, only ".. charge .. "% left!" })
+                elseif charge < 2 then
+                    os.execute("s2ram --force --vbe_save --vbe_post --vbe_mode --acpi_sleep 3 --pci_save")
+                end
             end
             batdata = '<span weight="bold" font="Dejavu Sans Mono">Charge: </span>'..
                       '<span color="green" font="Dejavu Sans Mono">'..charge.." %</span>"
