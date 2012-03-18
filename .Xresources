@@ -43,7 +43,7 @@ urxvt.urlLauncher: chromium
 urxvt.pointerBlank: true
 urxvt.internalBorder: 0
 urxvt.urgentOnBell: true
-urxvt.visualBell: true
+urxvt.visualBell: false
 urxvt.keysym.C-minus: command:\033]50;xft:DejavuSansMono:size=6\007
 urxvt.keysym.C-equal: command:\033]50;xft:DejavuSansMono:size=8\007
 urxvt.inputMethod: fcitx
