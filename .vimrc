@@ -361,9 +361,9 @@ set backspace=indent,eol,start
 " Color Schemes
 set background=dark
 if has('gui_running')
-    colorscheme herald
+    colorscheme ir_black
 else
-    colorscheme herald
+    colorscheme ir_black
 endif
 if has('macunix')
   set guifont=Menlo\ 6
