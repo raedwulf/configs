@@ -405,6 +405,7 @@ autocmd FileType xhtml,html,xml,sass,tex,plaintex,yaml,lilypond,vim silent setlo
 
 " Files to indent with four spaces
 autocmd FileType python silent setlocal expandtab tabstop=4 softtabstop=4 shiftwidth=4
+autocmd FileType java silent setlocal expandtab tabstop=4 softtabstop=4 shiftwidth=4 cindent
 
 " Set correct folding for C
 autocmd FileType c,h,cpp silent setlocal fdm=syntax fdn=1
@@ -477,7 +478,7 @@ else
   let g:clang_library_path = "/usr/lib/llvm"
 endif
 
-autocmd BufReadPost *.cpp python import threading; debug=False; threading.Thread(target=getCurrentTranslationUnit).start()
+"autocmd BufReadPost *.cpp python import threading; debug=False; threading.Thread(target=getCurrentTranslationUnit).start()
 
 " Conque
 let g:ConqueTerm_Color = 2
