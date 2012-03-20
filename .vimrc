@@ -361,9 +361,9 @@ set backspace=indent,eol,start
 " Color Schemes
 set background=dark
 if has('gui_running')
-    colorscheme inkpot
+    colorscheme herald
 else
-    colorscheme inkpot
+    colorscheme herald
 endif
 if has('macunix')
   set guifont=Menlo\ 6
@@ -461,6 +461,7 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#48484F ctermbg=234
 " Set tags
 set tags=./.tags;
 
+<<<<<<< HEAD
 " Clang complete
 let g:clang_auto_select = 0
 let g:clang_complete_auto = 1
@@ -480,6 +481,8 @@ endif
 
 "autocmd BufReadPost *.cpp python import threading; debug=False; threading.Thread(target=getCurrentTranslationUnit).start()
 
+=======
+>>>>>>> 7d126c845e08dff987a4f12fb82ed51d1bceecda
 " Conque
 let g:ConqueTerm_Color = 2
 "let g:ConqueTerm_SessionSupport = 0

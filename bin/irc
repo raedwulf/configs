@@ -1,2 +1,2 @@
 #!/bin/sh
-ssh -YC router -t tmux -u attach
+ssh -YC beorn -t tmux -u attach
