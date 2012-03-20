@@ -11,21 +11,21 @@ fi
 # Set the brightness of the screen
 xbacklight -set 50
 
-DEFAULTSESSION=awesome
+DEFAULTSESSION=dwm
 case "$1" in
 	"gnome" | "xfce4" | "lxde" | "awesome" | "dwm" ) SESSION=$1 ;;
-	*) SESSION="awesome" ;;
+	*) SESSION="$DEFAULTSESSION" ;;
 esac
 
 # Enable middle mouse button
 xinput set-int-prop "ImPS/2 Generic Wheel Mouse" "Evdev Middle Button Emulation" 8 1
+# Support for virtualbox
+if [ -f ~/.virtualbox ]; then
+	VBoxClient-all &
+fi
 # Stop blasting my ears... it hurts
 amixer set "Master",0 50%
-# Start dvcs-autosync
-if [ -f ~/.autosync ]
-then
-	tmux &
-fi
+tmux &
 # Start ze session
 case "$SESSION" in
 	"gnome")
@@ -40,13 +40,7 @@ case "$SESSION" in
 		xscreensaver -no-splash &
 		exec startlxde
 		;;
-	"dwm")
-                start-pulseaudio-x11 &
-		urxvtd -q -f -o &
-		xscreensaver -no-splash &
-		exec ~/bin/dwm
-		;;
-	*)
+	"awesome")
 		urxvtd -q -f -o &
 		# Startup programs
 		# xcompmgr -c -C -t-5 -l-5 -r4.2 -o.55 -f -F -S &
@@ -55,4 +49,9 @@ case "$SESSION" in
 		xscreensaver -no-splash &
 		exec awesome
 		;;
+	"dwm")
+		xscreensaver -no-splash &
+		exec ~/bin/dwm
+		;;
+
 esac
