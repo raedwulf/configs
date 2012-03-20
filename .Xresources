@@ -6,7 +6,7 @@ xterm*internalBorder: 1
 xterm*scrollBar: false
 xterm*saveLines: 100000
 xterm*scrollKey: true
-xterm*faceName: DejavuSansMono:size=6
+xterm*faceName: DejavuSansMono:size=8
 xterm*utf8: true
 
 urxvt.termName: rxvt-256color
