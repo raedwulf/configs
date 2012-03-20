@@ -195,8 +195,8 @@ let g:CommandTAlwaysShowDotFiles = 1
 let g:CommandTScanDotDirectories = 1
 """ }}}
 """ {{{ snipMate
-let g:snips_author = "Lucas de Vries"
-let g:snips_mail = "lucas@glacicle.org"
+let g:snips_author = "Tai Chi Minh Ralph Eastwood"
+let g:snips_mail = "tcmreastwood@gmail.com"
 """ }}}
 """ {{{ delimitMate
 let g:delimitMate_expand_space = 1
@@ -257,7 +257,7 @@ filetype on
 filetype plugin on
 filetype indent off
 
-" Completeion
+" Completion
 set complete=.,w,b,u,t
 
 """ }}}
@@ -461,28 +461,6 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#48484F ctermbg=234
 " Set tags
 set tags=./.tags;
 
-<<<<<<< HEAD
-" Clang complete
-let g:clang_auto_select = 0
-let g:clang_complete_auto = 1
-let g:clang_complete_copen = 1
-let g:clang_hl_errors = 1
-let g:clang_periodic_quickfix = 1
-let g:clang_snippets = 0
-let g:clang_conceal_snippets = 1
-let g:clang_exec = "clang"
-let g:clang_user_options = ""
-let g:clang_use_library = 1
-if has('macunix')
-  let g:clang_library_path = "/Developer/usr/clang-ide/lib"
-else
-  let g:clang_library_path = "/usr/lib/llvm"
-endif
-
-"autocmd BufReadPost *.cpp python import threading; debug=False; threading.Thread(target=getCurrentTranslationUnit).start()
-
-=======
->>>>>>> 7d126c845e08dff987a4f12fb82ed51d1bceecda
 " Conque
 let g:ConqueTerm_Color = 2
 "let g:ConqueTerm_SessionSupport = 0
