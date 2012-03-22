@@ -3,10 +3,15 @@
 # Load resources
 xrdb -merge ~/.Xresources
 
-# Reload laptop key settings
+# Reload laptop keyboard settings
 if [ -f ~/.laptop ]; then
+	setxkbmap gb
 	xmodmap ~/.Xmodmap
+	xinput set-int-prop "ImPS/2 Generic Wheel Mouse" "Evdev Middle Button Emulation" 8 1
 fi
+
+# Start pulse audio
+start-pulseaudio-x11 &
 
 # Set the brightness of the screen
 xbacklight -set 50
@@ -17,15 +22,11 @@ case "$1" in
 	*) SESSION="$DEFAULTSESSION" ;;
 esac
 
-# Enable middle mouse button
-xinput set-int-prop "ImPS/2 Generic Wheel Mouse" "Evdev Middle Button Emulation" 8 1
 # Support for virtualbox
 if [ -f ~/.virtualbox ]; then
 	VBoxClient-all &
 fi
-# Stop blasting my ears... it hurts
-amixer set "Master",0 50%
-tmux &
+
 # Start ze session
 case "$SESSION" in
 	"gnome")
@@ -44,7 +45,6 @@ case "$SESSION" in
 		urxvtd -q -f -o &
 		# Startup programs
 		# xcompmgr -c -C -t-5 -l-5 -r4.2 -o.55 -f -F -S &
-                start-pulseaudio-x11 &
 		urxvtd -q -f -o &
 		xscreensaver -no-splash &
 		exec awesome
