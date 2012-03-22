@@ -220,7 +220,14 @@ alias wakeq9300='wol 00:1F:C6:09:D0:91'
 alias get_iplayer='get_iplayer --nopurge '
 alias biew='TERM=vt100 biew'
 alias v='vim -c "syntax off"'
-alias u='urxvtc &'
+if [ "x$UNAME" = "xDarwin" ]
+then
+  alias u='tmux splitw -h'
+  alias uv='tmux splitw -h'
+else
+  alias u='urxvtc &'
+  alias uv='urxvtc &'
+fi
 alias luakit='luakit --dbus=luakit'
 # Note taking
 # http://jasonwryan.com/post/1203000683/awk-notes
