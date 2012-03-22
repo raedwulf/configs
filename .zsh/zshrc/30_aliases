@@ -225,8 +225,8 @@ then
   alias u='tmux splitw -h'
   alias uv='tmux splitw -h'
 else
-  alias u='urxvtc &'
-  alias uv='urxvtc &'
+  alias u='uxterm &'
+  alias uv='uxterm &'
 fi
 alias luakit='luakit --dbus=luakit'
 # Note taking

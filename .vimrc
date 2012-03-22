@@ -238,8 +238,8 @@ set backup
 set writebackup
 
 " Put swapfiles in central directory
-set backupdir=~/tmp,/var/tmp
-set directory=~/tmp,/var/tmp
+set backupdir=~/var/tmp,/var/tmp
+set directory=~/var/tmp,/var/tmp
 
 " Data to store in the viminfo file
 set viminfo='100,f1,<50,:50,/50,h,!
@@ -361,9 +361,9 @@ set backspace=indent,eol,start
 " Color Schemes
 set background=dark
 if has('gui_running')
-    colorscheme ir_black
+    colorscheme tir_black
 else
-    colorscheme ir_black
+    colorscheme tir_black
 endif
 if has('macunix')
   set guifont=Menlo\ 6

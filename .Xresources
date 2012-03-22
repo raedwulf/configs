@@ -8,6 +8,8 @@ xterm*saveLines: 100000
 xterm*scrollKey: true
 xterm*faceName: DejavuSansMono:size=6
 xterm*utf8: true
+xterm*metaSendsEscape: true
+uxterm*metaSendsEscape: true
 
 urxvt.termName: rxvt-256color
 urxvt.scrollBar: false
