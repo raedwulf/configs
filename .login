@@ -1,2 +1,2 @@
-. ./.env
-. ./.startup
+. ~/.env
+. ~/.startup
