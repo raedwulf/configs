@@ -16,6 +16,9 @@ start-pulseaudio-x11 &
 # Set the brightness of the screen
 xbacklight -set 50
 
+# Keyboard layout
+setxkbmap gb
+
 DEFAULTSESSION=dwm
 case "$1" in
 	"gnome" | "xfce4" | "lxde" | "awesome" | "dwm" ) SESSION=$1 ;;
