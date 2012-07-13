@@ -1,0 +1,2 @@
+__append_dir_to_path /opt/cuda-toolkit/bin
+CUDASDK=/opt/cuda-sdk

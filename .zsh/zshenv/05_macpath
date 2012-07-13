@@ -4,4 +4,4 @@ __prepend_dir_to_path /usr/local/share/python
 __prepend_dir_to_path ~/.local/bin
 __prepend_dir_to_path ~/luadist/bin
 export PYTHONPATH=/usr/local/lib/python2.7/site-packages
-export CLASSPATH=$HOME/Code/watch/ecj:$CLASSPATH
+export CLASSPATH=$HOME/code/watch/ecj:$CLASSPATH
