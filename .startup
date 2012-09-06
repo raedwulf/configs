@@ -1,4 +1,5 @@
 mkdir -p /tmp/$USER-tmp
+ln /tmp/$USER-tmp .
 HOST=`hostname`
 
 # start tmux if no session exists
