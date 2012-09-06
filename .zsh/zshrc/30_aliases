@@ -14,10 +14,9 @@ UNAME=`uname`
 GNU=1
 if [ "x$UNAME" = "xDarwin" ]
 then
-	COREUTILS=/usr/local/Cellar/coreutils/8.12/aliases
-	if [ -f "$COREUTILS" ]
+	COREUTILS=$(brew --prefix coreutils)
+	if [ -d "$COREUTILS" ]
 	then
-		. /usr/local/Cellar/coreutils/8.12/aliases
 		alias ls="LC_COLLATE=POSIX gls --color=auto --group-directories-first"
 		alias mv='nocorrect gmv'
 		alias cp='nocorrect gcp'
