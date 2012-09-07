@@ -2,12 +2,13 @@ mkdir -p /tmp/$USER-tmp
 HOST=`hostname`
 
 # start tmux if no session exists
-#tmux has-session -t $HOST 2>/dev/null
-#if [ $? -eq 1 ]; then
-	#tmux new -s $HOST \; detach-client
-	#tmux rename-window terminal
-	#tmux new-window -n monitors cmus
-	#tmux splitw -v alsamixer
-	#tmux splitw -h htop
-	#tmux swap-window -s 2 -t 1
+#if which tmux 2>&1 > /dev/null; then
+	#if ! tmux has-session -t $HOST 2>/dev/null; then
+		#tmux new-session -s $HOST \; detach-client
+		#tmux rename-window terminal
+		#tmux new-window -n monitors cmus
+		#tmux splitw -v alsamixer
+		#tmux splitw -h htop
+		#tmux swap-window -s 2 -t 1
+	#fi
 #fi
