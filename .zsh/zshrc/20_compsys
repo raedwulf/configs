@@ -103,7 +103,7 @@ zstyle ':completion:*:warnings' format 'no matches for: %d'
 zstyle ':completion:*' group-name ''
 
 # #527301
-zstyle :completion::complete:xmms2:\*:values list-grouped false
-zstyle :completion::complete:xmms2:\*:values sort false
+#zstyle :completion::complete:xmms2:\*:values list-grouped false
+#zstyle :completion::complete:xmms2:\*:values sort false
 
 # vim:ft=zsh

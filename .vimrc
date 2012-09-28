@@ -408,6 +408,9 @@ autocmd FileType python silent setlocal expandtab tabstop=4 softtabstop=4 shiftw
 autocmd FileType python filetype plugin indent on
 autocmd FileType java silent setlocal expandtab tabstop=4 softtabstop=4 shiftwidth=4 cindent
 
+" RestructuredText indentation
+autocmd FileType rst setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2 textwidth=79
+
 " Set correct folding for C
 autocmd FileType c,h,cpp silent setlocal fdm=syntax fdn=1
 autocmd FileType c,h,cpp set cindent

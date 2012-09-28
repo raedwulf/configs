@@ -14,7 +14,7 @@ mailboxes =INBOX
 # Accounts
 set envelope_from = yes
 set reverse_name = yes
-alternates "tcmreastwood@gmail.com|tcme500@cs.york.ac.uk"
+alternates "tcmreastwood@gmail.com|ralph@cs.york.ac.uk|tcme500@york.ac.uk"
 
 # Base hook to reset account variables to known state before activating new ones
 account-hook . 'unset preconnect imap_user imap_pass imap_authenticators; set ssl_starttls=ask-yes'
@@ -53,6 +53,9 @@ source ~/.mutt/aliases
 
 # Mailing lists
 source ~/.mutt/lists
+
+# Send hooks based on person
+source ~/.mutt/send-hooks
 
 # Vi binds
 bind index "y" imap-fetch-mail

@@ -212,3 +212,4 @@ else
 fi
 
 export color=
+echo $PATH
