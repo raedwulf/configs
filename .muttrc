@@ -54,6 +54,9 @@ source ~/.mutt/aliases
 # Mailing lists
 source ~/.mutt/lists
 
+# Send hooks based on person
+source ~/.mutt/send-hooks
+
 # Vi binds
 bind index "y" imap-fetch-mail
 bind index "l" display-message
