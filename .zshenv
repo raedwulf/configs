@@ -9,7 +9,5 @@
 #
 skip_global_compinit=1
 
-. ~/.login
-
 ZDOTDIR=$HOME/.zsh
 [ -f $ZDOTDIR/.zshenv ] && . $ZDOTDIR/.zshenv

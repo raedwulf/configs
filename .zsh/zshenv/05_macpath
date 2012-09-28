@@ -1,7 +1,9 @@
-__prepend_dir_to_path /usr/local/bin
-__prepend_dir_to_path /usr/local/sbin
-__prepend_dir_to_path /usr/local/share/python
-__prepend_dir_to_path ~/.local/bin
-__prepend_dir_to_path ~/luadist/bin
-export PYTHONPATH=/usr/local/lib/python2.7/site-packages
-export CLASSPATH=$HOME/Code/watch/ecj:$CLASSPATH
+if [ "x$UNAME" = "xDarwin" ]; then
+	__prepend_dir_to_path /usr/local/bin
+	__prepend_dir_to_path /usr/local/sbin
+	__prepend_dir_to_path /usr/local/share/python
+	__prepend_dir_to_path ~/.local/bin
+	__prepend_dir_to_path ~/luadist/bin
+	export PYTHONPATH=/usr/local/lib/python2.7/site-packages:/usr/lib/python2.7/site-packages:%PYTHONPATH
+	export CLASSPATH=$HOME/Code/watch/ecj:$CLASSPATH
+fi

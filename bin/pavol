@@ -1,13 +1,13 @@
 #!/bin/sh
 # PulseAudio Volume Control Script
 #   2010-05-20 - Gary Hetzel <garyhetzel@gmail.com>
-#      
+#
 #   BUG:    Currently doesn't get information for the specified sink,
 #           but rather just uses the first sink it finds in list-sinks
 #           Need to fix this for systems with multiple sinks
 #
-    
-SINK=0
+
+SINK=7
 STEP=5
 MAXVOL=65537 # let's just assume this is the same all over
 #MAXVOL=`pacmd list-sinks | grep "volume steps" | cut -d: -f2 | tr -d "[:space:]"`
