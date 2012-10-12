@@ -1,2 +1,2 @@
-send-hook '~t ^[^@]@york\.ac\.uk$' 'my_hdr From: Tai Chi Minh Ralph Eastwood <ralph@cs.york.ac.uk>'
-send-hook '~t ^[^@]@cs\.york\.ac\.uk$' 'my_hdr From: Tai Chi Minh Ralph Eastwood <ralph@cs.york.ac.uk>'
+send-hook [^@]@york\.ac\.uk 'set from=ralph@cs.york.ac.uk'
+send-hook [^@]@cs\.york\.ac\.uk 'set from=ralph@cs.york.ac.uk'
