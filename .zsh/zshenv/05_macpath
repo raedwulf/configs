@@ -6,6 +6,7 @@ if [ "$(uname)" = "Darwin" ]; then
 	__prepend_dir_to_path ~/luadist/bin
 	__prepend_dir_to_path $(brew --prefix coreutils)/libexec/gnubin
 	__prepend_dir_to_path $(brew --prefix ccache)/libexec
+	__prepend_dir_to_path /Library/TeX/Distributions/.DefaultTeX/Contents/Programs/texbin
 	export PYTHONPATH=/usr/local/lib/python2.7/site-packages
 	export CLASSPATH=$HOME/code/watch/ecj:$CLASSPATH
 fi
