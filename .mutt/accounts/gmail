@@ -16,7 +16,7 @@ folder-hook imaps://imap.gmail.com/ \
 	mbox="+[Google Mail]/All Mail" \
 	smtp_url=smtp://$imap_user:$imap_pass@smtp.gmail.com:587 \
 	ssl_force_tls=yes \
-	signature=~/.signature-csyork \
+	signature=~/.signature \
 	status_format="-%r-gmail: %f \
 	[Msgs:%?M?%M/?%m%?n? New:%n?%?o? Old:%o?%?d? Del:%d?%?F? \
 	Flag:%F?%?t? Tag:%t?%?p? Post:%p?%?b? \

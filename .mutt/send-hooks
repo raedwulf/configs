@@ -1,2 +1,3 @@
-send-hook [^@]@york\.ac\.uk 'set from=ralph@cs.york.ac.uk'
-send-hook [^@]@cs\.york\.ac\.uk 'set from=ralph@cs.york.ac.uk'
+send-hook [^@]@york\.ac\.uk 'set from=ralph@cs.york.ac.uk signature=~/.signature-csyork'
+send-hook [^@]@cs\.york\.ac\.uk 'set from=ralph@cs.york.ac.uk signature=~/.signature-csyork'
+send-hook [^@]@aosgrp\.com 'set from=ralph@cs.york.ac.uk signature=~/.signature-csyork'
