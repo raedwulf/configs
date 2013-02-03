@@ -8,21 +8,20 @@ function hc() {
 
 hc emit_hook reload
 
-xsetroot -solid '#5A8E3A'
-
+xsetroot -solid '#000000'
 
 # remove all existing keybindings
 hc keyunbind --all
 
 # keybindings
-Mod=Mod1
+Mod=Super
 hc keybind $Mod-Shift-q quit
 hc keybind $Mod-Shift-r reload
 hc keybind $Mod-Shift-c close
 hc keybind $Mod-Return spawn xterm
 
 # tags
-TAG_NAMES=( {1..9} )
+TAG_NAMES=( 1-cd1 2-cd2 3-cd3 4 5 6-cmus 7-skype 8-irc 9-brw )
 TAG_KEYS=( {1..9} 0 )
 
 hc rename default "${TAG_NAMES[0]}" || true
@@ -78,16 +77,19 @@ hc keybind $Mod-Shift-j shift down
 hc keybind $Mod-Shift-k shift up
 hc keybind $Mod-Shift-l shift right
 
+# programs
+hc keybind $Mod-w spawn dmenu_run -hist $HOME/.dmenu_history -fn "Sans 8" -nb rgb:33/33/33 -nf rgb:CC/CC/CC -sb rgb:CC/CC/CC -sf rgb:33/33/33
+
 # colors
-hc set frame_border_active_color '#222222'
-hc set frame_border_normal_color '#101010'
-hc set frame_bg_normal_color '#565656'
-hc set frame_bg_active_color '#345F0C'
+hc set frame_border_active_color '#1793d1'
+hc set frame_border_normal_color '#333333'
+hc set frame_bg_normal_color '#222222'
+hc set frame_bg_active_color '#535d6c'
 hc set frame_border_width 1
 hc set window_border_width 3
 hc set window_border_inner_width 1
-hc set window_border_normal_color '#454545'
-hc set window_border_active_color '#9fbc00'
+hc set window_border_normal_color '#5f5fcf'
+hc set window_border_active_color '#17b3d1'
 hc set always_show_frame 1
 hc set frame_gap 4
 # add overlapping window borders
@@ -96,7 +98,6 @@ hc set frame_padding 2
 hc set smart_window_surroundings 0
 hc set smart_frame_surroundings 1
 hc set mouse_recenter_gap 0
-
 
 # rules
 hc unrule -F
@@ -125,3 +126,17 @@ for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
     # start it on each monitor
     $panel $monitor &
 done
+
+# other programs
+sleep 0.3
+killall trayer
+trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 3 --transparent true --alpha 0 --tint 0x333333 --height 16 &
+killall background.sh
+~/.config/herbstluftwm/background.sh &
+hc chain , use 6-cmus , spawn xterm -e cmus
+sleep 0.3
+hc chain , use 7-skype , spawn skype , set_layout horizontal
+sleep 0.3
+hc chain , use 8-irc , spawn xterm -e weechat-curses
+sleep 0.5
+hc chain , use 9-brw , spawn firefox

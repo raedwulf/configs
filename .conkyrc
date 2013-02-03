@@ -1,0 +1,15 @@
+background no
+no_buffers yes
+out_to_console yes
+update_interval 1
+uppercase no
+use_spacer none
+total_run_times 0
+override_utf8_locale yes
+cpu_avg_samples 2
+
+TEXT
+date ${time ^fg(#efefef)%X %x}
+mem ^fg(\#efefef)RAM: ^fg(\#00cf00)${memeasyfree}
+disk ^fg(\#efefef)/home: ^fg(\#00cf00)${fs_free /home}
+cpu ^fg(\#efefef)CPU: ^fg(\#00cf00)${cpu cpu1}% ${cpu cpu2}% ^fg(\#cfcf00)${acpitemp}C

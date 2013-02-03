@@ -48,10 +48,11 @@ herbstclient pad $monitor $panel_height
 {
     # events:
     #mpc idleloop player &
-    while true ; do
-        date +'date ^fg(#efefef)%H:%M^fg(#909090), %Y-%m-^fg(#efefef)%d'
-        sleep 1 || break
-    done > >(uniq_linebuffered)  &
+    #while true ; do
+	#date +'date ^fg(#efefef)%H:%M^fg(#909090), %Y-%m-^fg(#efefef)%d'
+	#sleep 1 || break
+    #done > >(uniq_linebuffered)  &
+    conky &
     childpid=$!
     herbstclient --idle
     kill $childpid
@@ -91,7 +92,7 @@ herbstclient pad $monitor $panel_height
         echo -n "$separator"
         echo -n "^bg()^fg() ${windowtitle//^/^^}"
         # small adjustments
-        right="$separator^bg() $date $separator"
+        right="$separator^bg() $cpu $separator^bg() $mem $separator^bg() $disk $separator^bg() $date $separator"
         right_text_only=$(echo -n "$right"|sed 's.\^[^(]*([^)]*)..g')
         # get width of right aligned text.. and add some space..
         width=$($textwidth "$font" "$right_text_only    ")
@@ -110,6 +111,16 @@ herbstclient pad $monitor $panel_height
                 #echo "reseting date" >&2
                 date="${cmd[@]:1}"
                 ;;
+            mem)
+	        mem="${cmd[@]:1}"
+		;;
+            cpu)
+	        cpu="${cmd[@]:1}"
+		;;
+            disk)
+	        disk="${cmd[@]:1}"
+
+		;;
             quit_panel)
                 exit
                 ;;
