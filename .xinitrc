@@ -19,9 +19,9 @@ xbacklight -set 50
 # Keyboard layout
 setxkbmap gb
 
-DEFAULTSESSION=dwm
+DEFAULTSESSION=herbstluftwm
 case "$1" in
-	"gnome" | "xfce4" | "lxde" | "awesome" | "dwm" ) SESSION=$1 ;;
+	"gnome" | "xfce4" | "lxde" | "awesome" | "herbstluftwm" ) SESSION=$1 ;;
 	*) SESSION="$DEFAULTSESSION" ;;
 esac
 
@@ -56,5 +56,8 @@ case "$SESSION" in
 		xscreensaver -no-splash &
 		exec ~/bin/dwm
 		;;
-
+	"herbstluftwm")
+		xscreensaver -no-splash &
+		exec herbstluftwm
+		;;
 esac

@@ -398,6 +398,7 @@ autocmd BufNewFile,BufRead *.tex set ft=tex
 autocmd BufNewFile,BufRead *.go set ft=go
 autocmd BufNewFile,BufRead COMMIT_EDITMSG set ft=gitcommit
 autocmd BufNewFile,BufRead *.als set ft=alloy4
+autocmd BufNewFile,BufRead *.cl set ft=opencl
 "" }}}
 "" {{{ Filetype settings
 " Files to indent with two spaces
